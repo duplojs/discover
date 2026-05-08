@@ -1,4 +1,5 @@
 import { type User, type UserId } from "../domain/other";
+// ---cut---
 
 export interface UserRepository {
 	find(id: UserId): Promise<User | null>;

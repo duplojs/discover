@@ -10,9 +10,9 @@ withDefaults(
 </script>
 
 <template>
-	<div class="versus">
+	<section class="versus">
 		<div class="versus__side">
-			<slot name="left" />
+			<slot name="other" />
 		</div>
 
 		<div
@@ -23,9 +23,9 @@ withDefaults(
 		</div>
 
 		<div class="versus__side">
-			<slot name="right" />
+			<slot name="duplojs" />
 		</div>
-	</div>
+	</section>
 </template>
 
 <style lang="scss" scoped>
@@ -41,6 +41,8 @@ withDefaults(
 
 .versus__side {
 	min-width: 0;
+	display: flex;
+	align-items: center;
 }
 
 .versus__badge {

@@ -1,5 +1,7 @@
 import { C } from "@duplojs/utils";
+// ---cut-start---
 import type { User } from "../domain/duplojs";
+// ---cut-end---
 
 interface UserRepository {
 	find(id: User.Id): Promise<C.Maybe<User.Entity>>;
