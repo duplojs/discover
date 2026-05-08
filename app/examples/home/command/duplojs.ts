@@ -1,7 +1,7 @@
 import { SC } from "@duplojs/server-utils";
 import { DP } from "@duplojs/utils";
 
-SC.exec(
+await SC.exec(
 	{
 		options: [
 			SC.createBooleanOption("recursive", {
@@ -13,18 +13,15 @@ SC.exec(
 				description: "overwrite without prompt",
 			}),
 		],
-		subject: DP.tuple([DP.string(), DP.string()]),
+		subjects: [
+			SC.createArgument("src", DP.string(), { description: "source file or directory" }),
+			SC.createArgument("dest", DP.string(), { description: "destination path" }),
+		],
 	},
-	({ subject, options }) => {
-		void subject;
+	({ args, options }) => {
+		void args;
 		//     ^?
 		void options;
 		//     ^?
 	},
 );
-
-const bb = "";
-
-process.exit(1);
-
-const tt = "";
