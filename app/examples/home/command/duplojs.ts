@@ -20,8 +20,8 @@ await SC.exec(
 	},
 	({ args, options }) => {
 		void args;
-		//     ^?
+		//   ^?
 		void options;
-		//     ^?
+		//   ^?
 	},
 );
