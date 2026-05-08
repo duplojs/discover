@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useData } from "vitepress";
 import DefaultTheme, { VPHomeContent } from "vitepress/theme";
-import HomeLayout from "./HomeLayout.vue";
+import HomeLayout from "./home/HomeLayout.vue";
 
 const { frontmatter } = useData();
 
