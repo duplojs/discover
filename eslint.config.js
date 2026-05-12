@@ -45,6 +45,11 @@ export default [
 						prev: "*",
 						next: "*",
 					},
+					{
+						blankLine: "never",
+						prev: "span",
+						next: "span",
+					},
 				],
 			],
 			"vue/block-order": [
@@ -77,12 +82,19 @@ export default [
 				"error",
 				{
 					min: 2,
-					exceptions: ["t"],
+					properties: "never",
+					exceptions: ["t", "e", "i", "v", "x", "y", "z", "c", "r", "h", "p"],
 				},
 			],
 		},
 		files: ["app/**/*.vue", "app/**/*.ts"],
 		ignores: ["**/*.d.ts"],
+	},
+	{
+		rules: {
+			"vue/multi-word-component-names": "off",
+		},
+		files: ["app/.vitepress/theme/Layout.vue"],
 	},
 	{
 		rules: {
