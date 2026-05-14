@@ -107,6 +107,6 @@ export default [
 		files: ["app/examples/**/*.ts"],
 	},
 	{
-		ignores: ["app/public/*", "app/.vitepress/cache/*", "app/.vitepress/dist/*"]
+		ignores: ["app/public/*", "app/.vitepress/cache/*", "app/.vitepress/dist/*", "**/**.d.ts"]
 	}
 ];
