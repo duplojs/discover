@@ -1,0 +1,237 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Swagger API",
+    "version": "0.0.0"
+  },
+  "paths": {
+    "/clients/{clientId}/borrow-book": {
+      "post": {
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/NotIdentified0"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotIdentified1"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "headers": {
+              "information": {
+                "schema": {
+                  "const": "client.borrowBook",
+                  "type": "string"
+                },
+                "description": "client.borrowBook"
+              }
+            }
+          },
+          "404": {
+            "headers": {
+              "information": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "const": "client.notExist",
+                      "type": "string"
+                    },
+                    {
+                      "const": "book.notExist",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "description": "client.notExist | book.notExist"
+              }
+            }
+          },
+          "409": {
+            "headers": {
+              "information": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "const": "book.alreadyBorrowed",
+                      "type": "string"
+                    },
+                    {
+                      "const": "client.haveNotFreeLocation",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "description": "book.alreadyBorrowed | client.haveNotFreeLocation"
+              }
+            }
+          },
+          "422": {
+            "headers": {
+              "information": {
+                "schema": {
+                  "const": "extract-error",
+                  "type": "string"
+                },
+                "description": "extract-error"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{clientId}/give-back-book": {
+      "post": {
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/NotIdentified8"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotIdentified9"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "headers": {
+              "information": {
+                "schema": {
+                  "const": "client.giveBackBook",
+                  "type": "string"
+                },
+                "description": "client.giveBackBook"
+              }
+            }
+          },
+          "403": {
+            "headers": {
+              "information": {
+                "schema": {
+                  "const": "client.isNotBorrower",
+                  "type": "string"
+                },
+                "description": "client.isNotBorrower"
+              }
+            }
+          },
+          "404": {
+            "headers": {
+              "information": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "const": "client.notExist",
+                      "type": "string"
+                    },
+                    {
+                      "const": "book.notExist",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "description": "client.notExist | book.notExist"
+              }
+            }
+          },
+          "409": {
+            "headers": {
+              "information": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "const": "book.isNotBorrowed",
+                      "type": "string"
+                    },
+                    {
+                      "const": "client.haveNotBook",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "description": "book.isNotBorrowed | client.haveNotBook"
+              }
+            }
+          },
+          "422": {
+            "headers": {
+              "information": {
+                "schema": {
+                  "const": "extract-error",
+                  "type": "string"
+                },
+                "description": "extract-error"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "NotIdentified0": {
+        "type": "string"
+      },
+      "NotIdentified1": {
+        "type": "object",
+        "properties": {
+          "bookId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "bookId"
+        ]
+      },
+      "NotIdentified2": {},
+      "NotIdentified3": {},
+      "NotIdentified4": {},
+      "NotIdentified5": {},
+      "NotIdentified6": {},
+      "NotIdentified7": {},
+      "NotIdentified8": {
+        "type": "string"
+      },
+      "NotIdentified9": {
+        "type": "object",
+        "properties": {
+          "bookId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "bookId"
+        ]
+      },
+      "NotIdentified10": {},
+      "NotIdentified11": {},
+      "NotIdentified12": {},
+      "NotIdentified13": {},
+      "NotIdentified14": {},
+      "NotIdentified15": {},
+      "NotIdentified16": {}
+    }
+  }
+}

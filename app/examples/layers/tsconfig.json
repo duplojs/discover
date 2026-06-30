@@ -1,0 +1,15 @@
+{
+  "extends": ["../../../tsconfig.json"],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@domains/entities": ["./domains/entities/index.ts"],
+      "@domains/aggregates": ["./domains/aggregates/index.ts"],
+      "@domains/repositories": ["./domains/repositories/index.ts"],
+      "@applications/ports": ["applications/ports/index.ts"],
+      "@applications/useCase": ["./applications/useCases/index.ts"],
+    }
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["index.ts"],
+}
