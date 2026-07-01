@@ -57,10 +57,6 @@ export default pipe(
 		],
 		themeConfig: {
 			logo: "/images/logo.png",
-			wip: {
-				title: "WIP",
-				button: "Request this page",
-			},
 			socialLinks: [
 				{
 					icon: "github",
