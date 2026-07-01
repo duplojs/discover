@@ -109,4 +109,5 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "include": ["app/.vitepress/**/*.vue", "app/.vitepress/**/*.ts", "app/examples/**/*.ts", "app/examples/**/*.vue"],
+  "exclude": ["app/examples/layers"],
 }

@@ -2,7 +2,7 @@
 import { computed, ref, type Component } from "vue";
 import TheVersus from "../../../components/TheVersus.vue";
 
-type CarouselItem = {
+interface CarouselItem {
 	id: string;
 	title: string;
 	description?: string;
@@ -10,10 +10,10 @@ type CarouselItem = {
 	duplojs: Component;
 	otherEmoji?: string;
 	duplojsEmoji?: string;
-};
+}
 
 const props = defineProps<{
-	items: ReadonlyArray<CarouselItem>;
+	items: readonly CarouselItem[];
 }>();
 
 const activeIndex = ref(0);
@@ -24,7 +24,7 @@ const tabListStyle = computed(() => ({
 	gridTemplateColumns: `repeat(${props.items.length}, minmax(0, 1fr))`,
 }));
 
-function setActiveIndex(index: number){
+function setActiveIndex(index: number) {
 	activeIndex.value = index;
 }
 </script>

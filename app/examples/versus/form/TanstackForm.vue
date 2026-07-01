@@ -34,6 +34,7 @@ const form = useForm({
 			if (value.people.length > MAX_ITEMS) {
 				return `At most ${MAX_ITEMS} items are allowed.`;
 			}
+			return;
 		},
 	},
 });

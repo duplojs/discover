@@ -2,7 +2,7 @@
 import HomePackageLink from "./components/HomePackageLink.vue";
 import HomeSection from "./components/HomeSection.vue";
 import HomeVersusCarousel from "./components/HomeVersusCarousel.vue";
-import * as HomeExample from "@/examples/home";
+import { EitherFileD as HomeExample } from "@/examples/versus";
 
 const ecosystemColumns = [
 	[

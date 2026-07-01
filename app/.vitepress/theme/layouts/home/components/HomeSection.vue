@@ -15,6 +15,7 @@ withDefaults(
 <template>
 	<section class="relative w-full overflow-hidden rounded-[28px] border border-black/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(244,244,245,0.88))] px-5 py-6 shadow-[0_18px_60px_rgba(15,23,42,0.06)] sm:px-6 lg:px-8 lg:py-8">
 		<div class="pointer-events-none absolute right-[-2rem] top-[-2rem] h-28 w-28 rounded-full bg-zinc-200/50 blur-3xl" />
+
 		<div class="pointer-events-none absolute bottom-[-3rem] left-[-1rem] h-32 w-32 rounded-full bg-[#ffd73f]/18 blur-3xl" />
 
 		<div

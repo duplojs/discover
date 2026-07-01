@@ -2,4 +2,3 @@
 npm run build
 npm run test:types
 npm run test:lint
-npm run test:tu

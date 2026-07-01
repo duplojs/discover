@@ -2,4 +2,5 @@
 
 set -e
 
-tsc -p tsconfig.json
+vue-tsc -p tsconfig.json
+tsc -p app/examples/layers/tsconfig.json
