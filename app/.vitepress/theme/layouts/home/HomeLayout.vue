@@ -80,7 +80,7 @@ import SiteFooter from "./components/SiteFooter.vue";
 
 .home-layout__hero-transition {
 	position: relative;
-	z-index: 3;
+	z-index: 1;
 	height: 112px;
 	margin-top: -112px;
 	pointer-events: none;

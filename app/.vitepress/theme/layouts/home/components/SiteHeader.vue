@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
-
-const isMenuOpen = ref(false);
-
 const navItems = [
 	{
 		label: "Packages",
@@ -21,10 +17,6 @@ const navItems = [
 		href: "#community",
 	},
 ];
-
-function closeMenu() {
-	isMenuOpen.value = false;
-}
 </script>
 
 <template>
@@ -34,7 +26,6 @@ function closeMenu() {
 				class="site-header__brand"
 				href="/"
 				aria-label="DuploJS home"
-				@click="closeMenu"
 			>
 				<img
 					class="site-header__logo"
@@ -77,52 +68,6 @@ function closeMenu() {
 
 				<span>GitHub</span>
 			</a>
-
-			<button
-				class="site-header__menu-button"
-				type="button"
-				:aria-expanded="isMenuOpen"
-				aria-controls="mobile-navigation"
-				aria-label="Toggle navigation"
-				@click="isMenuOpen = !isMenuOpen"
-			>
-				<span />
-
-				<span />
-
-				<span />
-			</button>
-		</div>
-
-		<div
-			id="mobile-navigation"
-			class="site-header__mobile"
-			:class="{ 'site-header__mobile--open': isMenuOpen }"
-		>
-			<nav
-				class="site-header__mobile-nav"
-				aria-label="Mobile navigation"
-			>
-				<a
-					v-for="item in navItems"
-					:key="item.href"
-					class="site-header__mobile-link"
-					:href="item.href"
-					@click="closeMenu"
-				>
-					{{ item.label }}
-				</a>
-
-				<a
-					class="site-header__mobile-github"
-					href="https://github.com/duplojs/discover"
-					target="_blank"
-					rel="noreferrer"
-					@click="closeMenu"
-				>
-					GitHub
-				</a>
-			</nav>
 		</div>
 	</header>
 </template>
@@ -254,110 +199,20 @@ function closeMenu() {
 	fill: currentColor;
 }
 
-.site-header__menu-button {
-	display: none;
-	align-items: center;
-	justify-content: center;
-	width: 44px;
-	height: 44px;
-	margin-left: auto;
-	border: 1px solid var(--color-border-default);
-	border-radius: 8px;
-	background: rgba(18, 22, 28, 0.72);
-	color: var(--color-text-primary);
-}
-
-.site-header__menu-button span {
-	display: block;
-	width: 18px;
-	height: 1px;
-	background: currentColor;
-	transition:
-		background-color 160ms ease,
-		transform 160ms ease;
-}
-
-.site-header__menu-button span + span {
-	margin-top: 5px;
-}
-
-.site-header__menu-button:hover,
-.site-header__menu-button:focus-visible {
-	border-color: var(--color-brand-border);
-	background: var(--color-bg-surface-hover);
-	color: var(--color-brand-primary);
-}
-
-.site-header__mobile {
-	display: none;
-	overflow: hidden;
-	border-top: 1px solid transparent;
-	max-height: 0;
-	opacity: 0;
-	transition:
-		max-height 220ms ease,
-		opacity 180ms ease,
-		border-color 180ms ease;
-}
-
-.site-header__mobile-nav {
-	display: grid;
-	gap: 8px;
-	padding: 14px 20px 20px;
-}
-
-.site-header__mobile-link,
-.site-header__mobile-github {
-	display: flex;
-	align-items: center;
-	min-height: 48px;
-	padding: 0 14px;
-	border-radius: 8px;
-	color: var(--color-text-secondary);
-	font-weight: 620;
-	text-decoration: none;
-}
-
-.site-header__mobile-link:hover,
-.site-header__mobile-link:focus-visible {
-	background: var(--color-bg-surface-soft);
-	color: var(--color-text-primary);
-}
-
-.site-header__mobile-github {
-	justify-content: center;
-	margin-top: 4px;
-	border: 1px solid var(--button-secondary-border);
-	background: var(--button-secondary-bg);
-	color: var(--button-secondary-text);
-}
-
-.site-header__mobile-github:hover,
-.site-header__mobile-github:focus-visible {
-	background: var(--button-secondary-bg-hover);
-	color: var(--button-secondary-text);
-}
-
 @media (max-width: 880px) {
 	.site-header__inner {
 		min-height: 72px;
 		padding: 0 20px;
 	}
 
-	.site-header__nav,
-	.site-header__github {
+	.site-header__nav {
 		display: none;
 	}
 
-	.site-header__menu-button,
-	.site-header__mobile {
-		display: grid;
-	}
-
-	.site-header__mobile--open {
-		max-height: 360px;
-		border-top-color: var(--color-border-subtle);
-		opacity: 1;
+	.site-header__github {
+		min-height: 44px;
+		margin-left: auto;
+		padding: 0 16px;
 	}
 }
 

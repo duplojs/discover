@@ -721,65 +721,7 @@ const ecosystemPackages = [
 
 @media (max-width: 640px) {
 	.hero-ecosystem {
-		width: 100%;
-		height: auto;
-		min-height: auto;
-		padding: 0;
-	}
-
-	.hero-ecosystem::before,
-	.hero-ecosystem::after,
-	.hero-ecosystem__stage::before,
-	.hero-ecosystem__constellation {
 		display: none;
-	}
-
-	.hero-ecosystem__stage {
-		display: grid;
-		width: 100%;
-		height: auto;
-		aspect-ratio: auto;
-		gap: 10px;
-	}
-
-	.hero-ecosystem__orbit {
-		position: static;
-		display: grid;
-		gap: 10px;
-		animation: none;
-	}
-
-	.hero-ecosystem__frame,
-	.hero-ecosystem__connections {
-		display: none;
-	}
-
-	.hero-ecosystem__core,
-	.hero-ecosystem__module {
-		position: static;
-		width: 100%;
-		min-width: 0;
-		transform: none;
-	}
-
-	.hero-ecosystem__module--jwt {
-		width: 100%;
-	}
-
-	.hero-ecosystem__core {
-		order: -1;
-		min-height: 76px;
-		padding: 16px;
-	}
-
-	.hero-ecosystem__module {
-		min-height: 76px;
-		animation: none;
-	}
-
-	.hero-ecosystem__module:hover,
-	.hero-ecosystem__module:focus-visible {
-		translate: 0 -2px;
 	}
 }
 

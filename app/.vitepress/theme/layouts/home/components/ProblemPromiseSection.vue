@@ -105,6 +105,7 @@ const promiseCards = [
 	position: relative;
 	z-index: 2;
 	overflow: hidden;
+	isolation: isolate;
 	margin-top: -88px;
 	padding: 132px clamp(20px, 4vw, 64px) 92px;
 	border-radius: 72px 72px 0 0;

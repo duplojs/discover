@@ -1,4 +1,4 @@
-import { D, DPE } from "@duplojs/utils";
+import { D, DPE, E, when } from "@duplojs/utils";
 import { Signer, createTokenHandler } from "@duplojs/json-web-token";
 
 
@@ -12,8 +12,16 @@ const tokenHandler = createTokenHandler({
 		userId: DPE.string(),
 	},
 	// ---cut-end---
+	// config
 });
 
 
-const verifiedToken = await tokenHandler.verify("receive-token");
-//    ^?
+const verifiedToken = when(
+	await tokenHandler.verify("receive-token"),
+	E.isLeft,
+	(left) => {
+		// Do something with the error
+		return E.left("token-verify-error");
+	},
+);
+

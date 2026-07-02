@@ -357,8 +357,9 @@ onBeforeUnmount(() => {
 <style scoped>
 .ecosystem-section {
 	position: relative;
-	z-index: 1;
+	z-index: 0;
 	overflow: hidden;
+	isolation: isolate;
 	padding: 132px clamp(20px, 4vw, 64px) 104px;
 	background:
 		radial-gradient(circle at 50% 0%, rgba(247, 203, 61, 0.16), transparent 32%),

@@ -5,12 +5,13 @@ declare function createPost(userId: any, post: any): Promise<void>;
 // ---cut-end---
 const app = express();
 
-app.get(
+app.post(
 	"/users/:userId/posts",
 	express.json(),
 	async(req, res) => {
+		// You can access the body only after yoloooooooo
 		await createPost(req.params.userId, req.body);
 
-		res.status(204).send("Hello World");
+		res.status(204).send();
 	},
 );

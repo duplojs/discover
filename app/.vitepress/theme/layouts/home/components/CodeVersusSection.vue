@@ -160,6 +160,7 @@ function selectExample(example: VersusExample) {
 	position: relative;
 	z-index: 2;
 	overflow: hidden;
+	isolation: isolate;
 	scroll-margin-top: 108px;
 	padding: 126px clamp(20px, 4vw, 64px) 118px;
 	border-radius: 64px 64px 0 0;
@@ -172,7 +173,7 @@ function selectExample(example: VersusExample) {
 
 .code-versus::before {
 	position: absolute;
-	inset: 0;
+	inset: 80px 0 0;
 	pointer-events: none;
 	content: "";
 	background-image:
@@ -180,12 +181,12 @@ function selectExample(example: VersusExample) {
 		linear-gradient(90deg, rgba(17, 17, 17, 0.028) 1px, transparent 1px);
 	background-position: center top;
 	background-size: 72px 72px;
-	mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.3), transparent 70%);
+	mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.22), transparent 70%);
 }
 
 .code-versus::after {
 	position: absolute;
-	top: 0;
+	top: 72px;
 	left: 50%;
 	width: min(860px, 76vw);
 	height: 1px;

@@ -1,7 +1,7 @@
 import { createHttpClient } from "@duplojs/http/client";
-import { E } from "@duplojs/utils";
 
 type Routes = (
+	// Route generation type
 	// ---cut-start---
 	| {
 		method: "GET";
@@ -35,13 +35,15 @@ const response = await httpClient
 	.whenInformation("users.find", ({ body }) => {
 		void body;
 		//   ^?
+
+
+
+
+
+		// ---cut-start---
+		//
+		// ---cut-end---
 	})
 	.iWantInformation("users.find");
 
-if (E.isRight(response)) {
-	void response;
-}
 
-if (E.isLeft(response)) {
-	void response;
-}

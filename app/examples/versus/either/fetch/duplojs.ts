@@ -3,20 +3,15 @@ import { E } from "@duplojs/utils";
 
 const client = createHttpClient({ baseUrl: "http://example.com" });
 
-const response = await client.get("/api/users");
-
-
-if (E.isRight(response)) {
-	void response;
-	//    ^?
-}
-
-if (E.isLeft(response)) {
-	void response;
-	//    ^?
-}
-
-if (E.hasInformation(response, "request-error")) {
-	void response;
-	//    ^?
-}
+// Covers all cases exhaustively
+const result = E.matchInformation(
+	await client.get("/api/users"),
+	{
+		response: ({ body }) => {
+			// Do something with the body
+		},
+		"request-error": ({ error }) => {
+			// Do something with the error
+		},
+	},
+);
