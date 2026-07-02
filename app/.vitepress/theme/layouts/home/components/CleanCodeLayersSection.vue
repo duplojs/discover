@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { Box, ChevronRight, GitBranch, Server } from "@lucide/vue";
+import { computed, ref, type Component } from "vue";
 
 type LayerId = "domain" | "application" | "infrastructure";
 
@@ -13,19 +14,17 @@ type LayerFiles = [LayerFile, ...LayerFile[]];
 interface LayerContent {
 	label: string;
 	description: string;
+	diagramDescription: string;
+	icon: Component;
 	files: LayerFiles;
 }
-
-const layerOrder: LayerId[] = [
-	"infrastructure",
-	"application",
-	"domain",
-];
 
 const layers: Record<LayerId, LayerContent> = {
 	domain: {
 		label: "Domain",
 		description: "Define business concepts and rules without depending on external tools.",
+		diagramDescription: "Define business concepts and rules.",
+		icon: Box,
 		files: [
 			{
 				name: "user.entity.ts",
@@ -44,6 +43,8 @@ const layers: Record<LayerId, LayerContent> = {
 	application: {
 		label: "Application",
 		description: "Orchestrate use cases with explicit inputs, outputs and errors.",
+		diagramDescription: "Orchestrate use cases and application flows.",
+		icon: GitBranch,
 		files: [
 			{
 				name: "create-user.usecase.ts",
@@ -62,6 +63,8 @@ const layers: Record<LayerId, LayerContent> = {
 	infrastructure: {
 		label: "Infrastructure",
 		description: "Connect your application to databases, HTTP clients and external services.",
+		diagramDescription: "Connect to external systems and services.",
+		icon: Server,
 		files: [
 			{
 				name: "user.repository.ts",
@@ -121,36 +124,162 @@ function selectFile(fileIndex: number) {
 					aria-label="Application layers"
 				>
 					<div
-						v-for="layerId in layerOrder"
-						:key="`${layerId}-box`"
-						class="clean-code-layers__diagram-box"
+						class="clean-code-layers__layer"
 						:class="[
-							`clean-code-layers__diagram-box--${layerId}`,
-							{ 'clean-code-layers__diagram-box--active': activeLayerId === layerId },
+							'clean-code-layers__layer--infrastructure',
+							{ 'clean-code-layers__layer--active': activeLayerId === 'infrastructure' },
 						]"
-						aria-hidden="true"
-					/>
-
-					<button
-						v-for="layerId in layerOrder"
-						:key="layerId"
-						class="clean-code-layers__diagram-button"
-						:class="[
-							`clean-code-layers__diagram-button--${layerId}`,
-							{ 'clean-code-layers__diagram-button--active': activeLayerId === layerId },
-						]"
-						type="button"
-						:aria-pressed="activeLayerId === layerId"
-						@click="selectLayer(layerId)"
 					>
-						<span>{{ layers[layerId].label }}</span>
-					</button>
+						<div class="clean-code-layers__layer-content">
+							<button
+								class="clean-code-layers__layer-button"
+								:class="{ 'clean-code-layers__layer-button--active': activeLayerId === 'infrastructure' }"
+								type="button"
+								:aria-pressed="activeLayerId === 'infrastructure'"
+								@click="selectLayer('infrastructure')"
+							>
+								<span
+									class="clean-code-layers__layer-icon clean-code-layers__layer-icon--infrastructure"
+									aria-hidden="true"
+								>
+									<component
+										:is="layers.infrastructure.icon"
+										:size="20"
+										:stroke-width="1.9"
+									/>
+								</span>
+
+								<span>{{ layers.infrastructure.label }}</span>
+
+								<ChevronRight
+									class="clean-code-layers__layer-chevron"
+									:size="19"
+									:stroke-width="2.1"
+									aria-hidden="true"
+								/>
+							</button>
+
+							<span>{{ layers.infrastructure.diagramDescription }}</span>
+						</div>
+
+						<div
+							class="clean-code-layers__layer-transition clean-code-layers__layer-transition--to-application"
+							aria-hidden="true"
+						>
+							<span class="clean-code-layers__layer-arrow" />
+						</div>
+
+						<div
+							class="clean-code-layers__layer"
+							:class="[
+								'clean-code-layers__layer--application',
+								{ 'clean-code-layers__layer--active': activeLayerId === 'application' },
+							]"
+						>
+							<div class="clean-code-layers__layer-content">
+								<button
+									class="clean-code-layers__layer-button"
+									:class="{ 'clean-code-layers__layer-button--active': activeLayerId === 'application' }"
+									type="button"
+									:aria-pressed="activeLayerId === 'application'"
+									@click="selectLayer('application')"
+								>
+									<span
+										class="clean-code-layers__layer-icon clean-code-layers__layer-icon--application"
+										aria-hidden="true"
+									>
+										<component
+											:is="layers.application.icon"
+											:size="20"
+											:stroke-width="1.9"
+										/>
+									</span>
+
+									<span>{{ layers.application.label }}</span>
+
+									<ChevronRight
+										class="clean-code-layers__layer-chevron"
+										:size="19"
+										:stroke-width="2.1"
+										aria-hidden="true"
+									/>
+								</button>
+
+								<span>{{ layers.application.diagramDescription }}</span>
+							</div>
+
+							<div
+								class="clean-code-layers__layer-transition clean-code-layers__layer-transition--to-domain"
+								aria-hidden="true"
+							>
+								<span class="clean-code-layers__layer-arrow" />
+							</div>
+
+							<div
+								class="clean-code-layers__layer"
+								:class="[
+									'clean-code-layers__layer--domain',
+									{ 'clean-code-layers__layer--active': activeLayerId === 'domain' },
+								]"
+							>
+								<div class="clean-code-layers__layer-content">
+									<button
+										class="clean-code-layers__layer-button"
+										:class="{ 'clean-code-layers__layer-button--active': activeLayerId === 'domain' }"
+										type="button"
+										:aria-pressed="activeLayerId === 'domain'"
+										@click="selectLayer('domain')"
+									>
+										<span
+											class="clean-code-layers__layer-icon clean-code-layers__layer-icon--domain"
+											aria-hidden="true"
+										>
+											<component
+												:is="layers.domain.icon"
+												:size="20"
+												:stroke-width="1.9"
+											/>
+										</span>
+
+										<span>{{ layers.domain.label }}</span>
+
+										<ChevronRight
+											class="clean-code-layers__layer-chevron"
+											:size="19"
+											:stroke-width="2.1"
+											aria-hidden="true"
+										/>
+									</button>
+
+									<span>{{ layers.domain.diagramDescription }}</span>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<div class="clean-code-layers__selected">
-					<span>{{ activeLayer.label }}</span>
+					<span
+						class="clean-code-layers__selected-icon"
+						:class="`clean-code-layers__selected-icon--${activeLayerId}`"
+						aria-hidden="true"
+					>
+						<component
+							:is="activeLayer.icon"
+							:size="22"
+							:stroke-width="1.9"
+						/>
+					</span>
 
-					<p>{{ activeLayer.description }}</p>
+					<div class="clean-code-layers__selected-copy">
+						<span class="clean-code-layers__selected-label">
+							Active layer
+						</span>
+
+						<strong>{{ activeLayer.label }}</strong>
+
+						<p>{{ activeLayer.description }}</p>
+					</div>
 				</div>
 			</div>
 
@@ -265,16 +394,14 @@ function selectFile(fileIndex: number) {
 .clean-code-layers__inner {
 	position: relative;
 	z-index: 1;
-	display: grid;
-	grid-template-columns: minmax(360px, 0.72fr) minmax(0, 1fr);
-	align-items: center;
-	gap: clamp(44px, 6vw, 92px);
+	display: flex;
+	gap: 40px;
 	width: min(100%, 1480px);
 	margin: 0 auto;
 }
 
 .clean-code-layers__copy {
-	min-width: 0;
+	max-width: 540px;
 }
 
 .clean-code-layers__eyebrow {
@@ -299,7 +426,6 @@ function selectFile(fileIndex: number) {
 }
 
 .clean-code-layers__title {
-	max-width: 640px;
 	margin: 0;
 	color: var(--layers-text-primary);
 	font-weight: 840;
@@ -310,7 +436,6 @@ function selectFile(fileIndex: number) {
 }
 
 .clean-code-layers__intro {
-	max-width: 640px;
 	margin: 26px 0 0;
 	color: var(--layers-text-secondary);
 	font-size: clamp(1.04rem, 0.98rem + 0.26vw, 1.18rem);
@@ -319,123 +444,310 @@ function selectFile(fileIndex: number) {
 
 .clean-code-layers__diagram {
 	position: relative;
-	width: min(100%, 560px);
-	aspect-ratio: 1.45;
-	margin-top: 42px;
+	margin-top: 26px;
 }
 
-.clean-code-layers__diagram-box,
-.clean-code-layers__diagram-button {
-	position: absolute;
+.clean-code-layers__layer {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	border: 1px solid var(--layers-border);
 	border-radius: 18px;
+	overflow: visible;
 	transition:
 		background-color 180ms ease,
 		border-color 180ms ease,
 		box-shadow 180ms ease,
+		transform 180ms ease;
+}
+
+.clean-code-layers__layer--infrastructure {
+	z-index: 1;
+	padding: 18px;
+	background:
+		radial-gradient(circle, rgba(17, 24, 39, 0.08) 1px, transparent 1.4px) 0 0 / 18px 18px,
+		rgba(239, 246, 255, 0.55);
+	border-color: rgba(59, 130, 246, 0.2);
+}
+
+.clean-code-layers__layer--application {
+	z-index: 2;
+	margin: 0;
+	padding: 18px;
+	background:
+		repeating-linear-gradient(45deg, rgba(249, 115, 22, 0.045) 0 1px, transparent 1px 12px),
+		rgba(255, 247, 237, 0.72);
+	border-color: rgba(249, 115, 22, 0.2);
+}
+
+.clean-code-layers__layer--domain {
+	z-index: 3;
+	margin: 0;
+	padding: 18px;
+	background:
+		radial-gradient(circle at 50% 92%, rgba(247, 203, 61, 0.18), transparent 54%),
+		rgba(247, 203, 61, 0.12);
+	border-color: rgba(247, 203, 61, 0.7);
+	box-shadow:
+		0 18px 48px rgba(247, 203, 61, 0.12),
+		inset 0 1px 0 rgba(255, 255, 255, 0.64);
+}
+
+.clean-code-layers__layer--active {
+	box-shadow:
+		0 18px 54px rgba(17, 17, 17, 0.08),
+		0 0 34px rgba(247, 203, 61, 0.16),
+		inset 0 0 0 1px rgba(255, 255, 255, 0.56);
+}
+
+.clean-code-layers__layer-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+	text-align: center;
+}
+
+.clean-code-layers__layer-content strong {
+	color: #1E293B;
+	font-weight: 830;
+	font-size: 1.08rem;
+	line-height: 1;
+}
+
+.clean-code-layers__layer-content > span {
+	color: #475569;
+	font-size: 0.86rem;
+	line-height: 1.3;
+}
+
+.clean-code-layers__layer-button {
+	position: relative;
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr) auto;
+	align-items: center;
+	gap: 14px;
+	width: min(276px, calc(100% - 48px));
+	min-height: 52px;
+	margin-top: 6px;
+	padding: 0 16px 0 14px;
+	border: 1px solid rgba(17, 17, 17, 0.14);
+	border-radius: 10px;
+	background: rgba(255, 255, 255, 0.94);
+	box-shadow:
+		0 12px 32px rgba(17, 17, 17, 0.06),
+		inset 0 1px 0 rgba(255, 255, 255, 0.82);
+	color: #111111;
+	font-weight: 800;
+	font-size: 0.92rem;
+	line-height: 1;
+	cursor: pointer;
+	transition:
+		background-color 180ms ease,
+		border-color 180ms ease,
+		box-shadow 180ms ease,
+		transform 180ms ease;
+}
+
+.clean-code-layers__layer-button:hover,
+.clean-code-layers__layer-button:focus-visible {
+	border-color: rgba(228, 175, 41, 0.58);
+	background: #FFFFFF;
+	box-shadow:
+		0 14px 34px rgba(17, 17, 17, 0.09),
+		0 0 18px rgba(247, 203, 61, 0.09);
+	transform: translateY(-2px);
+}
+
+.clean-code-layers__layer-button:focus-visible {
+	outline: 2px solid rgba(247, 203, 61, 0.72);
+	outline-offset: 4px;
+}
+
+.clean-code-layers__layer-button--active {
+	border-color: var(--layers-brand);
+	background:
+		linear-gradient(180deg, rgba(247, 203, 61, 0.1), rgba(255, 255, 255, 0.96)),
+		#FFFFFF;
+	box-shadow:
+		0 16px 42px rgba(247, 203, 61, 0.18),
+		0 8px 28px rgba(17, 17, 17, 0.08),
+		inset 0 0 0 1px rgba(247, 203, 61, 0.22);
+	transform: scale(1.02);
+}
+
+.clean-code-layers__layer-button--active::after {
+	position: absolute;
+	top: 50%;
+	right: 42px;
+	width: 8px;
+	height: 8px;
+	content: "";
+	border-radius: 999px;
+	background: var(--layers-brand);
+	box-shadow: 0 0 12px rgba(247, 203, 61, 0.48);
+	transform: translateY(-50%);
+}
+
+.clean-code-layers__layer-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	height: 34px;
+	border-radius: 999px;
+	background: rgba(17, 17, 17, 0.04);
+	color: #334155;
+}
+
+.clean-code-layers__layer-icon--infrastructure {
+	color: #2563EB;
+	background: rgba(59, 130, 246, 0.11);
+}
+
+.clean-code-layers__layer-icon--application {
+	color: #EA580C;
+	background: rgba(249, 115, 22, 0.11);
+}
+
+.clean-code-layers__layer-icon--domain {
+	color: var(--layers-brand-strong);
+	background: rgba(247, 203, 61, 0.22);
+}
+
+.clean-code-layers__layer-chevron {
+	color: #111111;
+	transition:
 		color 180ms ease,
 		transform 180ms ease;
 }
 
-.clean-code-layers__diagram-box {
+.clean-code-layers__layer-button:hover .clean-code-layers__layer-chevron,
+.clean-code-layers__layer-button:focus-visible .clean-code-layers__layer-chevron {
+	transform: translateX(2px);
+}
+
+.clean-code-layers__layer-button--active .clean-code-layers__layer-icon {
+	color: var(--layers-brand-strong);
+	background: rgba(247, 203, 61, 0.18);
+}
+
+.clean-code-layers__layer-button--active .clean-code-layers__layer-chevron {
+	color: var(--layers-brand-strong);
+	transform: translateX(2px);
+}
+
+.clean-code-layers__layer-transition {
+	position: relative;
+	height: 32px;
 	pointer-events: none;
-	border: 1px solid var(--layers-border);
-	background:
-		linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(251, 248, 239, 0.78)),
-		var(--layers-surface);
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78);
 }
 
-.clean-code-layers__diagram-box--active {
-	border-color: rgba(247, 203, 61, 0.9);
-	background:
-		linear-gradient(180deg, rgba(247, 203, 61, 0.18), rgba(255, 255, 255, 0.86)),
-		var(--layers-surface);
-	box-shadow:
-		0 18px 44px rgba(17, 17, 17, 0.07),
-		0 0 34px var(--layers-brand-glow),
-		inset 0 1px 0 rgba(255, 255, 255, 0.88);
-}
-
-.clean-code-layers__diagram-button {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 0;
-	border: 1px solid transparent;
-	background: rgba(255, 255, 255, 0.74);
-	color: var(--layers-text-secondary);
-	font-weight: 800;
-	font-size: 1.03rem;
-	line-height: 1;
-	cursor: pointer;
-	box-shadow: 0 10px 28px rgba(17, 17, 17, 0.05);
-}
-
-.clean-code-layers__diagram-button:hover,
-.clean-code-layers__diagram-button:focus-visible {
-	border-color: rgba(189, 142, 32, 0.42);
-	background: rgba(255, 255, 255, 0.94);
-	color: var(--layers-text-primary);
-	transform: translateY(-2px);
-}
-
-.clean-code-layers__diagram-button--active {
-	border-color: rgba(247, 203, 61, 0.9);
-	background: rgba(247, 203, 61, 0.2);
-	color: var(--layers-text-primary);
-	box-shadow:
-		0 12px 34px rgba(17, 17, 17, 0.07),
-		0 0 28px var(--layers-brand-glow);
-}
-
-.clean-code-layers__diagram-box--infrastructure {
-	inset: 0;
-	z-index: 1;
-}
-
-.clean-code-layers__diagram-box--application {
-	inset: 86px 52px 50px;
-	z-index: 2;
-}
-
-.clean-code-layers__diagram-box--domain {
-	inset: 170px 112px 92px;
-	z-index: 3;
-	border-radius: 14px;
-}
-
-.clean-code-layers__diagram-button--infrastructure {
-	inset: 20px 24px auto;
+.clean-code-layers__layer-arrow {
+	position: absolute;
+	top: 100%;
+	left: min(calc(50% + 156px), calc(100% - 44px));
 	z-index: 4;
-	height: 50px;
+	width: 20px;
+	height: 52px;
+	color: var(--layers-brand);
+	opacity: 0.64;
+	animation: clean-code-layers-flow 2.4s ease-in-out infinite;
+	transform: translateY(-50%);
 }
 
-.clean-code-layers__diagram-button--application {
-	inset: 106px 76px auto;
-	z-index: 5;
-	height: 50px;
+.clean-code-layers__layer-arrow::before,
+.clean-code-layers__layer-arrow::after {
+	position: absolute;
+	content: "";
 }
 
-.clean-code-layers__diagram-button--domain {
-	inset: 170px 112px 92px;
-	z-index: 6;
-	border-radius: 14px;
+.clean-code-layers__layer-arrow::before {
+	top: 0;
+	bottom: 10px;
+	left: 50%;
+	width: 2px;
+	border-radius: 999px;
+	background: repeating-linear-gradient(
+		to bottom,
+		currentColor 0 5px,
+		transparent 5px 9px
+	);
+	box-shadow: 0 0 10px currentColor;
+	transform: translateX(-50%);
+}
+
+.clean-code-layers__layer-arrow::after {
+	left: 50%;
+	bottom: 1px;
+	width: 8px;
+	height: 8px;
+	border-right: 2px solid currentColor;
+	border-bottom: 2px solid currentColor;
+	transform: translateX(-50%) rotate(45deg);
+}
+
+.clean-code-layers__layer-transition--to-application .clean-code-layers__layer-arrow {
+	color: rgba(59, 130, 246, 0.6);
+}
+
+.clean-code-layers__layer-transition--to-domain .clean-code-layers__layer-arrow {
+	color: rgba(249, 115, 22, 0.62);
+	animation-delay: -0.55s;
 }
 
 .clean-code-layers__selected {
 	display: grid;
-	gap: 10px;
-	max-width: 560px;
-	min-height: 112px;
+	grid-template-columns: auto minmax(0, 1fr);
+	align-items: start;
+	gap: 16px;
+	height: 128px;
 	margin-top: 24px;
-	padding: 20px 22px;
-	border: 1px solid var(--layers-border);
+	padding: 20px 22px 20px 20px;
+	border: 1px solid rgba(17, 17, 17, 0.12);
+	border-left: 4px solid var(--layers-brand);
 	border-radius: 8px;
-	background: rgba(255, 255, 255, 0.68);
-	box-shadow: 0 18px 48px rgba(17, 17, 17, 0.045);
+	background: #FFFFFF;
+	box-shadow: 0 18px 50px rgba(17, 17, 17, 0.06);
 }
 
-.clean-code-layers__selected span {
+.clean-code-layers__selected-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 46px;
+	height: 46px;
+	border-radius: 999px;
+	background: rgba(247, 203, 61, 0.16);
+	color: var(--layers-brand-strong);
+}
+
+.clean-code-layers__selected-icon--infrastructure {
+	background: rgba(59, 130, 246, 0.11);
+	color: #2563EB;
+}
+
+.clean-code-layers__selected-icon--application {
+	background: rgba(249, 115, 22, 0.11);
+	color: #EA580C;
+}
+
+.clean-code-layers__selected-copy {
+	display: grid;
+	gap: 8px;
+	min-width: 0;
+}
+
+.clean-code-layers__selected-label {
+	color: var(--layers-brand-strong);
+	font-weight: 820;
+	font-size: 0.76rem;
+	line-height: 1;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.clean-code-layers__selected strong {
 	color: var(--layers-brand-strong);
 	font-weight: 820;
 	font-size: 0.9rem;
@@ -451,16 +763,23 @@ function selectFile(fileIndex: number) {
 }
 
 .clean-code-layers__viewer {
+	display: grid;
+	grid-template-rows: auto auto minmax(0, 1fr);
+	align-self: stretch;
+	justify-self: stretch;
+	width: 100%;
+	margin-top: 54px;
 	min-width: 0;
 	overflow: hidden;
-	border: 1px solid var(--color-border-subtle);
-	border-radius: 18px;
+	border: 1px solid rgba(255, 255, 255, 0.10);
+	border-radius: 22px;
 	background:
-		linear-gradient(180deg, rgba(18, 22, 28, 0.96), rgba(8, 10, 13, 0.96)),
-		var(--color-bg-surface);
+		linear-gradient(180deg, rgba(18, 22, 28, 0.82), rgba(8, 10, 13, 0.96)),
+		#080A0D;
 	box-shadow:
-		0 28px 86px rgba(8, 10, 13, 0.34),
+		0 34px 90px rgba(17, 17, 17, 0.22),
 		0 0 50px rgba(247, 203, 61, 0.08);
+	flex-grow: 1;
 }
 
 .clean-code-layers__viewer-top {
@@ -468,8 +787,8 @@ function selectFile(fileIndex: number) {
 	grid-template-columns: auto minmax(0, 1fr) auto;
 	align-items: center;
 	gap: 18px;
-	min-height: 58px;
-	padding: 0 20px;
+	min-height: 64px;
+	padding: 0 22px;
 	border-bottom: 1px solid var(--color-border-subtle);
 	background: rgba(5, 6, 8, 0.48);
 }
@@ -512,6 +831,7 @@ function selectFile(fileIndex: number) {
 .clean-code-layers__viewer-badge {
 	display: inline-flex;
 	align-items: center;
+	gap: 8px;
 	min-height: 30px;
 	padding: 0 12px;
 	border: 1px solid var(--color-brand-border);
@@ -521,6 +841,15 @@ function selectFile(fileIndex: number) {
 	font-weight: 760;
 	font-size: 0.8rem;
 	line-height: 1;
+}
+
+.clean-code-layers__viewer-badge::before {
+	width: 7px;
+	height: 7px;
+	content: "";
+	border-radius: 999px;
+	background: currentColor;
+	box-shadow: 0 0 12px rgba(247, 203, 61, 0.5);
 }
 
 .clean-code-layers__tabs {
@@ -558,17 +887,18 @@ function selectFile(fileIndex: number) {
 }
 
 .clean-code-layers__tab--active {
-	border-color: var(--color-border-subtle);
+	border-color: var(--color-brand-primary);
 	background: rgba(247, 203, 61, 0.09);
 	color: var(--color-brand-primary);
 	box-shadow: inset 0 2px 0 var(--color-brand-primary);
 }
 
 .clean-code-layers__code {
-	min-height: 420px;
+	min-height: 0;
 	margin: 0;
 	padding: 28px 0 34px;
 	overflow-x: auto;
+	overflow-y: auto;
 	background:
 		linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
 		var(--color-bg-surface);
@@ -615,22 +945,39 @@ function selectFile(fileIndex: number) {
 	}
 }
 
-@media (max-width: 1160px) {
-	.clean-code-layers__inner {
-		grid-template-columns: 1fr;
-		align-items: start;
+@keyframes clean-code-layers-flow {
+	0%,
+	100% {
+		opacity: 0.42;
+		transform: translateY(-58%);
 	}
 
-	.clean-code-layers__copy,
-	.clean-code-layers__title,
-	.clean-code-layers__intro,
-	.clean-code-layers__diagram,
-	.clean-code-layers__selected {
-		max-width: 760px;
+	50% {
+		opacity: 0.86;
+		transform: translateY(-42%);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.clean-code-layers__layer-arrow,
+	.clean-code-layers__code code {
+		animation: none;
+	}
+}
+
+@media (max-width: 1280px) {
+	.clean-code-layers__inner {
+		flex-direction: column;
+		justify-items: stretch;
 	}
 
 	.clean-code-layers__viewer {
-		width: 100%;
+		height: 600px;
+		margin-top: 0;
+	}
+
+	.clean-code-layers__copy {
+		max-width: 100%;
 	}
 }
 
@@ -657,45 +1004,75 @@ function selectFile(fileIndex: number) {
 	}
 
 	.clean-code-layers__diagram {
-		aspect-ratio: 1.08;
+		display: grid;
+		gap: 12px;
+		aspect-ratio: auto;
 		margin-top: 34px;
 	}
 
-	.clean-code-layers__diagram-box,
-	.clean-code-layers__diagram-button {
+	.clean-code-layers__layer {
+		position: relative;
+		min-height: auto;
+		padding: 16px;
 		border-radius: 14px;
-		font-size: 0.94rem;
+		overflow: visible;
 	}
 
-	.clean-code-layers__diagram-box--application {
-		inset: 72px 28px 42px;
+	.clean-code-layers__layer--application {
+		margin: 0;
+		padding: 16px 14px;
 	}
 
-	.clean-code-layers__diagram-box--domain {
-		inset: 146px 62px 74px;
+	.clean-code-layers__layer--domain {
+		margin: 0;
+		padding: 16px 12px;
 	}
 
-	.clean-code-layers__diagram-button--infrastructure {
-		inset: 16px 18px auto;
-		height: 44px;
+	.clean-code-layers__layer-content {
+		align-items: flex-start;
+		width: 100%;
+		text-align: left;
 	}
 
-	.clean-code-layers__diagram-button--application {
-		inset: 88px 46px auto;
-		height: 44px;
+	.clean-code-layers__layer-content strong {
+		font-size: 1rem;
 	}
 
-	.clean-code-layers__diagram-button--domain {
-		inset: 146px 62px 74px;
+	.clean-code-layers__layer-content > span {
+		font-size: 0.82rem;
+	}
+
+	.clean-code-layers__layer-button {
+		width: 100%;
+		min-height: 50px;
+		margin-top: 14px;
+		font-size: 0.9rem;
+	}
+
+	.clean-code-layers__layer-icon {
+		width: 32px;
+		height: 32px;
+	}
+
+	.clean-code-layers__layer-transition {
+		height: 34px;
+	}
+
+	.clean-code-layers__layer-arrow {
+		display: none;
 	}
 
 	.clean-code-layers__selected {
-		min-height: 0;
+		grid-template-columns: 1fr;
+		height: auto;
+		min-height: 128px;
 		padding: 18px;
 	}
 
 	.clean-code-layers__viewer {
 		border-radius: 14px;
+		max-width: none;
+		height: 520px;
 	}
 
 	.clean-code-layers__viewer-top {
@@ -717,7 +1094,6 @@ function selectFile(fileIndex: number) {
 	}
 
 	.clean-code-layers__code {
-		min-height: 300px;
 		font-size: 0.9rem;
 	}
 
@@ -736,20 +1112,11 @@ function selectFile(fileIndex: number) {
 		font-size: 2.34rem;
 	}
 
-	.clean-code-layers__diagram-box--application {
-		inset: 70px 22px 40px;
-	}
-
-	.clean-code-layers__diagram-box--domain {
-		inset: 142px 42px 70px;
-	}
-
-	.clean-code-layers__diagram-button--application {
-		inset: 86px 38px auto;
-	}
-
-	.clean-code-layers__diagram-button--domain {
-		inset: 142px 42px 70px;
+	.clean-code-layers__layer-button {
+		grid-template-columns: auto minmax(0, 1fr) auto;
+		gap: 10px;
+		padding-right: 14px;
+		padding-left: 12px;
 	}
 }
 </style>

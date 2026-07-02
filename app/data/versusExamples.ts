@@ -13,6 +13,7 @@ import {
 	EitherJwtD,
 	EitherJwtO,
 	FormD,
+	FormCFD,
 	FormO,
 	HttpClientD,
 	HttpClientO,
@@ -460,7 +461,7 @@ export const versusGroups: AnyTuple<VersusGroup> = [
 					files: [
 						{
 							id: "form-other",
-							label: "index.ts",
+							label: "TheForm.vue",
 							component: FormO,
 						},
 					],
@@ -471,8 +472,13 @@ export const versusGroups: AnyTuple<VersusGroup> = [
 					files: [
 						{
 							id: "form-duplojs",
-							label: "index.ts",
+							label: "TheForm.vue",
 							component: FormD,
+						},
+						{
+							id: "form-duplojs",
+							label: "configForm.ts",
+							component: FormCFD,
 						},
 					],
 				},
@@ -499,7 +505,7 @@ export const versusGroups: AnyTuple<VersusGroup> = [
 					files: [
 						{
 							id: "clean-domain-other",
-							label: "index.ts",
+							label: "user.ts",
 							component: CleanDomainO,
 						},
 					],
@@ -510,7 +516,7 @@ export const versusGroups: AnyTuple<VersusGroup> = [
 					files: [
 						{
 							id: "clean-domain-duplojs",
-							label: "index.ts",
+							label: "user.ts",
 							component: CleanDomainD,
 						},
 					],
@@ -531,7 +537,7 @@ export const versusGroups: AnyTuple<VersusGroup> = [
 					files: [
 						{
 							id: "clean-application-other",
-							label: "index.ts",
+							label: "application.ts",
 							component: CleanApplicationO,
 						},
 					],
@@ -542,7 +548,7 @@ export const versusGroups: AnyTuple<VersusGroup> = [
 					files: [
 						{
 							id: "clean-application-duplojs",
-							label: "index.ts",
+							label: "application.ts",
 							component: CleanApplicationD,
 						},
 					],

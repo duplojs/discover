@@ -164,6 +164,7 @@ function selectFile(fileIndex: number) {
 	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
+	max-height: 1000px;
 }
 
 .comparison-code-window__topbar {
@@ -261,7 +262,6 @@ function selectFile(fileIndex: number) {
 
 .comparison-code-window__code {
 	min-height: 310px;
-	max-height: 1000px;
 	overflow-x: auto;
 	background:
 		linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),

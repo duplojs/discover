@@ -3,17 +3,18 @@ import { C } from "@duplojs/utils";
 import type { User } from "../domain/duplojs";
 // ---cut-end---
 
-interface UserRepository {
+interface UserPort {
 	find(id: User.Id): Promise<C.Maybe<User.Entity>>;
 }
-const UserRepository = C.createRepository<UserRepository>();
+
+export const UserPort = C.createPort<UserPort>();
 
 export const FindUserUseCase = C.createUseCase(
-	{ UserRepository },
+	{ UserPort },
 	({
-		userRepository,
+		userPort,
 	}) => async(input: { userId: User.Id }) => {
-		const user = await userRepository.find(input.userId);
+		const user = await userPort.find(input.userId);
 
 		return user;
 	},

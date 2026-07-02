@@ -244,7 +244,7 @@ const layers = [
 	position: relative;
 	z-index: 1;
 	display: grid;
-	grid-template-columns: minmax(300px, 0.95fr) minmax(380px, 1.02fr) minmax(390px, 1.18fr);
+	grid-template-columns: minmax(280px, 0.95fr) minmax(340px, 1.02fr) minmax(340px, 1.18fr);
 	align-items: center;
 	gap: clamp(34px, 4.5vw, 78px);
 	width: min(100%, 1480px);
@@ -446,16 +446,17 @@ const layers = [
 .architecture-bridge__layers {
 	display: grid;
 	gap: 10px;
+	min-width: 0;
 	perspective: 900px;
 }
 
 .architecture-bridge__layer {
 	display: grid;
-	grid-template-columns: 42px minmax(92px, 0.72fr) minmax(120px, 1fr);
+	grid-template-columns: 42px minmax(92px, 0.72fr) minmax(0, 1fr);
 	gap: 14px;
 	align-items: center;
 	min-height: 58px;
-	padding: 11px 32px 11px 26px;
+	padding: 11px 34px 11px clamp(46px, 8.5%, 64px);
 	border: 1px solid rgba(17, 17, 17, 0.1);
 	border-radius: 9px;
 	background:
@@ -483,6 +484,7 @@ const layers = [
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
+	justify-self: center;
 	width: 34px;
 	height: 34px;
 	border: 1px solid rgba(189, 142, 32, 0.18);
@@ -505,6 +507,7 @@ const layers = [
 
 .architecture-bridge__layer-description {
 	display: block;
+	min-width: 0;
 }
 
 .architecture-bridge__layer small {
@@ -521,35 +524,24 @@ const layers = [
 	}
 
 	.architecture-bridge__inner {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
+		display: block;
 		min-height: 0;
-		gap: 34px;
 	}
 
 	.architecture-bridge__copy {
-		grid-column: 1 / -1;
-		order: -1;
-	}
-
-	.architecture-bridge__layer {
-		grid-template-columns: 40px minmax(84px, 0.72fr) minmax(110px, 1fr);
-		padding-right: 24px;
-	}
-}
-
-@media (max-width: 720px) {
-	.architecture-bridge {
-		margin: 10px 0;
-		padding: 62px 20px;
-	}
-
-	.architecture-bridge__inner {
-		display: block;
+		max-width: 640px;
+		margin: 0 auto;
 	}
 
 	.architecture-bridge__transform,
 	.architecture-bridge__layers {
 		display: none;
+	}
+}
+
+@media (max-width: 720px) {
+	.architecture-bridge {
+		padding: 62px 20px;
 	}
 
 	.architecture-bridge__copy h2 {
