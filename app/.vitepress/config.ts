@@ -91,6 +91,10 @@ export default pipe(
 			},
 		},
 		markdown: {
+			theme: {
+				light: "github-dark",
+				dark: "github-dark",
+			},
 			config: (md) => {
 				md.use(groupIconMdPlugin);
 			},

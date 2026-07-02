@@ -213,16 +213,6 @@ const ecosystemPackages = [
 
 						<span>{{ packageItem.description }}</span>
 					</span>
-
-					<span
-						class="hero-ecosystem__module-chevron"
-						aria-hidden="true"
-					>
-						<ArrowRight
-							:size="18"
-							:stroke-width="2"
-						/>
-					</span>
 				</a>
 			</div>
 
@@ -596,7 +586,6 @@ const ecosystemPackages = [
 	top: 50%;
 	left: 50%;
 	gap: 12px;
-	width: 280px;
 	min-height: 82px;
 	padding: 16px 18px;
 	animation: hero-ecosystem-module-counter-orbit 64s linear infinite;

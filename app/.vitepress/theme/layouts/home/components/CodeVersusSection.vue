@@ -1,284 +1,31 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import ComparisonCodeWindow, { type ComparisonCodeFile } from "./ComparisonCodeWindow.vue";
+import { versusGroups, type VersusExample, type VersusGroup } from "@/data/versusExamples";
+import ComparisonCodeWindow from "./ComparisonCodeWindow.vue";
 
-type ComparisonId =
-	| "data-transformation"
-	| "error-handling"
-	| "data-parsing"
-	| "pattern-matching"
-	| "http-flow"
-	| "playwright-tests";
-
-type ComparisonFiles = [ComparisonCodeFile, ...ComparisonCodeFile[]];
-
-interface ComparisonSide {
-	label: string;
-	badge: string;
-	files: ComparisonFiles;
-}
-
-interface Comparison {
-	id: ComparisonId;
-	label: string;
-	description: string;
-	benefits: [string, string, string];
-	without: ComparisonSide;
-	with: ComparisonSide;
-}
-
-const withoutPlaceholder = "// Without DuploJS example will be added here";
-const withPlaceholder = "// With DuploJS example will be added here";
-
-const comparisons: [Comparison, ...Comparison[]] = [
-	{
-		id: "data-transformation",
-		label: "Data transformation",
-		description: "Compare everyday object and array transformations with an explicit transformation pipeline.",
-		benefits: [
-			"Pure transformations",
-			"No hidden mutation",
-			"Easier to reason about",
-		],
-		without: {
-			label: "Without DuploJS",
-			badge: "Classic approach",
-			files: [
-				{
-					name: "mapper.ts",
-					placeholder: withoutPlaceholder,
-				},
-				{
-					name: "service.ts",
-					placeholder: withoutPlaceholder,
-				},
-			],
-		},
-		with: {
-			label: "With DuploJS",
-			badge: "DuploJS approach",
-			files: [
-				{
-					name: "transform.ts",
-					placeholder: withPlaceholder,
-				},
-				{
-					name: "pipeline.ts",
-					placeholder: withPlaceholder,
-				},
-				{
-					name: "service.ts",
-					placeholder: withPlaceholder,
-				},
-			],
-		},
-	},
-	{
-		id: "error-handling",
-		label: "Error handling",
-		description: "Compare implicit exception paths with represented failures that stay visible in the flow.",
-		benefits: [
-			"Explicit failure path",
-			"No hidden throw",
-			"Typed result",
-		],
-		without: {
-			label: "Without DuploJS",
-			badge: "Classic approach",
-			files: [
-				{
-					name: "service.ts",
-					placeholder: withoutPlaceholder,
-				},
-				{
-					name: "controller.ts",
-					placeholder: withoutPlaceholder,
-				},
-			],
-		},
-		with: {
-			label: "With DuploJS",
-			badge: "DuploJS approach",
-			files: [
-				{
-					name: "result.ts",
-					placeholder: withPlaceholder,
-				},
-				{
-					name: "service.ts",
-					placeholder: withPlaceholder,
-				},
-				{
-					name: "controller.ts",
-					placeholder: withPlaceholder,
-				},
-			],
-		},
-	},
-	{
-		id: "data-parsing",
-		label: "Data parsing",
-		description: "Compare trusted external inputs with runtime boundaries that make incoming data explicit.",
-		benefits: [
-			"Runtime validation",
-			"Typed input",
-			"Safer external data",
-		],
-		without: {
-			label: "Without DuploJS",
-			badge: "Classic approach",
-			files: [
-				{
-					name: "request.ts",
-					placeholder: withoutPlaceholder,
-				},
-			],
-		},
-		with: {
-			label: "With DuploJS",
-			badge: "DuploJS approach",
-			files: [
-				{
-					name: "schema.ts",
-					placeholder: withPlaceholder,
-				},
-				{
-					name: "parser.ts",
-					placeholder: withPlaceholder,
-				},
-			],
-		},
-	},
-	{
-		id: "pattern-matching",
-		label: "Pattern matching",
-		description: "Compare scattered branching with readable branches that expose intent at each decision point.",
-		benefits: [
-			"Explicit branches",
-			"Exhaustive intent",
-			"Readable control flow",
-		],
-		without: {
-			label: "Without DuploJS",
-			badge: "Classic approach",
-			files: [
-				{
-					name: "flow.ts",
-					placeholder: withoutPlaceholder,
-				},
-				{
-					name: "handlers.ts",
-					placeholder: withoutPlaceholder,
-				},
-			],
-		},
-		with: {
-			label: "With DuploJS",
-			badge: "DuploJS approach",
-			files: [
-				{
-					name: "match.ts",
-					placeholder: withPlaceholder,
-				},
-				{
-					name: "flow.ts",
-					placeholder: withPlaceholder,
-				},
-			],
-		},
-	},
-	{
-		id: "http-flow",
-		label: "HTTP flow",
-		description: "Compare handlers assembled from implicit steps with a structured request and response flow.",
-		benefits: [
-			"Typed contracts",
-			"Predictable handlers",
-			"Structured flow",
-		],
-		without: {
-			label: "Without DuploJS",
-			badge: "Classic approach",
-			files: [
-				{
-					name: "route.ts",
-					placeholder: withoutPlaceholder,
-				},
-				{
-					name: "middleware.ts",
-					placeholder: withoutPlaceholder,
-				},
-				{
-					name: "controller.ts",
-					placeholder: withoutPlaceholder,
-				},
-			],
-		},
-		with: {
-			label: "With DuploJS",
-			badge: "DuploJS approach",
-			files: [
-				{
-					name: "contract.ts",
-					placeholder: withPlaceholder,
-				},
-				{
-					name: "route.ts",
-					placeholder: withPlaceholder,
-				},
-			],
-		},
-	},
-	{
-		id: "playwright-tests",
-		label: "Playwright tests",
-		description: "Compare repeated end-to-end setup with reusable helpers that make test intent clear.",
-		benefits: [
-			"Reusable helpers",
-			"Clear test intent",
-			"Stable flows",
-		],
-		without: {
-			label: "Without DuploJS",
-			badge: "Classic approach",
-			files: [
-				{
-					name: "user.spec.ts",
-					placeholder: withoutPlaceholder,
-				},
-			],
-		},
-		with: {
-			label: "With DuploJS",
-			badge: "DuploJS approach",
-			files: [
-				{
-					name: "fixtures.ts",
-					placeholder: withPlaceholder,
-				},
-				{
-					name: "helpers.ts",
-					placeholder: withPlaceholder,
-				},
-				{
-					name: "user.spec.ts",
-					placeholder: withPlaceholder,
-				},
-			],
-		},
-	},
-];
-
-const activeComparisonId = ref<ComparisonId>("data-transformation");
+const [firstGroup] = versusGroups;
+const activeGroupId = ref(firstGroup.id);
+const activeExampleId = ref(firstGroup.examples[0].id);
 const activeWithoutFileIndex = ref(0);
 const activeWithFileIndex = ref(0);
 
-const activeComparison = computed(() => (
-	comparisons.find(({ id }) => id === activeComparisonId.value) ?? comparisons[0]
+const activeGroup = computed<VersusGroup>(() => (
+	versusGroups.find(({ id }) => id === activeGroupId.value) ?? firstGroup
 ));
 
-function selectComparison(comparisonId: ComparisonId) {
-	activeComparisonId.value = comparisonId;
+const activeExample = computed<VersusExample>(() => (
+	activeGroup.value.examples.find(({ id }) => id === activeExampleId.value) ?? (activeGroup.value.examples[0])
+));
+
+function selectGroup(group: VersusGroup) {
+	activeGroupId.value = group.id;
+	activeExampleId.value = group.examples[0]?.id ?? "";
+	activeWithoutFileIndex.value = 0;
+	activeWithFileIndex.value = 0;
+}
+
+function selectExample(example: VersusExample) {
+	activeExampleId.value = example.id;
 	activeWithoutFileIndex.value = 0;
 	activeWithFileIndex.value = 0;
 }
@@ -313,34 +60,58 @@ function selectComparison(comparisonId: ComparisonId) {
 					aria-label="Comparison categories"
 				>
 					<button
-						v-for="comparison in comparisons"
-						:key="comparison.id"
+						v-for="group in versusGroups"
+						:key="group.id"
 						class="code-versus__category"
-						:class="{ 'code-versus__category--active': activeComparisonId === comparison.id }"
+						:class="{ 'code-versus__category--active': activeGroup.id === group.id }"
 						type="button"
 						role="tab"
-						:aria-selected="activeComparisonId === comparison.id"
-						@click="selectComparison(comparison.id)"
+						:aria-selected="activeGroup.id === group.id"
+						@click="selectGroup(group)"
 					>
-						<span>{{ comparison.label }}</span>
+						<span>{{ group.label }}</span>
 
-						<small>{{ comparison.description }}</small>
+						<small>{{ group.description }}</small>
 					</button>
 				</div>
 
 				<div
-					:key="activeComparison.id"
+					:key="activeGroup.id"
 					class="code-versus__active"
 				>
+					<div
+						v-if="activeGroup.examples.length > 1"
+						class="code-versus__examples"
+						role="tablist"
+						:aria-label="`${activeGroup.label} examples`"
+					>
+						<button
+							v-for="example in activeGroup.examples"
+							:key="example.id"
+							class="code-versus__example"
+							:class="{ 'code-versus__example--active': activeExample.id === example.id }"
+							type="button"
+							role="tab"
+							:aria-selected="activeExample.id === example.id"
+							@click="selectExample(example)"
+						>
+							{{ example.label }}
+						</button>
+					</div>
+
 					<div class="code-versus__active-copy">
-						<p>{{ activeComparison.description }}</p>
+						<div class="code-versus__example-copy">
+							<h3>{{ activeExample.label }}</h3>
+
+							<p>{{ activeExample.description }}</p>
+						</div>
 
 						<ul
 							class="code-versus__benefits"
 							aria-label="Active comparison benefits"
 						>
 							<li
-								v-for="benefit in activeComparison.benefits"
+								v-for="benefit in activeExample.benefits"
 								:key="benefit"
 							>
 								{{ benefit }}
@@ -350,17 +121,17 @@ function selectComparison(comparisonId: ComparisonId) {
 
 					<div class="code-versus__windows">
 						<ComparisonCodeWindow
-							:title="activeComparison.without.label"
-							:badge="activeComparison.without.badge"
-							:files="activeComparison.without.files"
+							:title="activeExample.without.label"
+							:badge="activeExample.without.badge"
+							:files="activeExample.without.files"
 							:active-file-index="activeWithoutFileIndex"
 							@select-file="activeWithoutFileIndex = $event"
 						/>
 
 						<ComparisonCodeWindow
-							:title="activeComparison.with.label"
-							:badge="activeComparison.with.badge"
-							:files="activeComparison.with.files"
+							:title="activeExample.with.label"
+							:badge="activeExample.with.badge"
+							:files="activeExample.with.files"
 							:active-file-index="activeWithFileIndex"
 							highlight
 							@select-file="activeWithFileIndex = $event"
@@ -569,6 +340,53 @@ function selectComparison(comparisonId: ComparisonId) {
 	animation: code-versus-fade 180ms ease;
 }
 
+.code-versus__examples {
+	display: flex;
+	gap: 8px;
+	overflow-x: auto;
+	margin: 0 0 24px;
+	padding-bottom: 4px;
+	scrollbar-width: thin;
+}
+
+.code-versus__example {
+	flex: 0 0 auto;
+	min-height: 40px;
+	padding: 0 14px;
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.035);
+	color: var(--color-text-muted);
+	font: inherit;
+	font-weight: 700;
+	font-size: 0.84rem;
+	line-height: 1;
+	cursor: pointer;
+	transition:
+		background-color 160ms ease,
+		border-color 160ms ease,
+		color 160ms ease,
+		box-shadow 160ms ease;
+}
+
+.code-versus__example:hover,
+.code-versus__example:focus-visible {
+	border-color: rgba(247, 203, 61, 0.24);
+	background: rgba(247, 203, 61, 0.065);
+	color: var(--color-text-secondary);
+	outline: 2px solid transparent;
+}
+
+.code-versus__example:focus-visible {
+	box-shadow: 0 0 0 2px rgba(247, 203, 61, 0.34);
+}
+
+.code-versus__example--active {
+	border-color: var(--color-brand-border);
+	background: var(--color-brand-soft);
+	color: var(--color-brand-primary);
+}
+
 .code-versus__active-copy {
 	display: flex;
 	flex-wrap: wrap;
@@ -577,7 +395,20 @@ function selectComparison(comparisonId: ComparisonId) {
 	gap: 18px 28px;
 }
 
-.code-versus__active-copy p {
+.code-versus__example-copy {
+	max-width: 720px;
+}
+
+.code-versus__example-copy h3 {
+	margin: 0 0 8px;
+	color: var(--color-text-primary);
+	font-weight: 780;
+	font-size: clamp(1.15rem, 1.08rem + 0.24vw, 1.3rem);
+	line-height: 1.2;
+	letter-spacing: 0;
+}
+
+.code-versus__example-copy p {
 	max-width: 720px;
 	margin: 0;
 	color: var(--color-text-secondary);
@@ -629,6 +460,7 @@ function selectComparison(comparisonId: ComparisonId) {
 
 @media (prefers-reduced-motion: reduce) {
 	.code-versus__category,
+	.code-versus__example,
 	.code-versus__active {
 		transition: none;
 		animation: none;
@@ -639,7 +471,9 @@ function selectComparison(comparisonId: ComparisonId) {
 	.code-versus__categories {
 		grid-template-columns: repeat(6, minmax(180px, 1fr));
 	}
+}
 
+@media (max-width: 900px) {
 	.code-versus__windows {
 		grid-template-columns: 1fr;
 	}
@@ -687,6 +521,17 @@ function selectComparison(comparisonId: ComparisonId) {
 
 	.code-versus__active {
 		padding: 18px 12px 16px;
+	}
+
+	.code-versus__examples {
+		margin-bottom: 20px;
+		padding: 0 0 4px;
+	}
+
+	.code-versus__example {
+		min-height: 38px;
+		padding: 0 13px;
+		font-size: 0.8rem;
 	}
 
 	.code-versus__active-copy {

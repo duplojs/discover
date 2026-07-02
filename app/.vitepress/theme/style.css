@@ -298,6 +298,14 @@
  * Globals Rules
  * -------------------------------------------------------------------------- */
 
+div[class*="language-"] > span.lang {
+	display: none !important;
+}
+
+div[class*="language-"] > button.copy {
+	display: none !important;
+}
+
 .toc-hidden {
   display: none;
 }

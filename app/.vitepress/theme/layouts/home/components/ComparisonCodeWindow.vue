@@ -1,18 +1,12 @@
 <script setup lang="ts">
 import { computed } from "vue";
-
-export interface ComparisonCodeFile {
-	name: string;
-	placeholder: string;
-}
-
-type ComparisonCodeFiles = [ComparisonCodeFile, ...ComparisonCodeFile[]];
+import type { VersusFileTab } from "@/data/versusExamples";
 
 const props = withDefaults(
 	defineProps<{
 		title: string;
 		badge: string;
-		files: ComparisonCodeFiles;
+		files: readonly VersusFileTab[];
 		activeFileIndex: number;
 		highlight?: boolean;
 	}>(),
@@ -26,7 +20,6 @@ const emit = defineEmits<{
 }>();
 
 const activeFile = computed(() => props.files[props.activeFileIndex] ?? props.files[0]);
-const placeholderLines = computed(() => activeFile.value.placeholder.split("\n"));
 
 function selectFile(fileIndex: number) {
 	emit("selectFile", fileIndex);
@@ -59,17 +52,18 @@ function selectFile(fileIndex: number) {
 					<span />
 				</span>
 
-				<strong>{{ activeFile.name }}</strong>
+				<strong v-if="activeFile">{{ activeFile.label }}</strong>
 			</div>
 
 			<div
+				v-if="activeFile && props.files.length > 1"
 				class="comparison-code-window__tabs"
 				role="tablist"
 				:aria-label="`${title} files`"
 			>
 				<button
 					v-for="(file, fileIndex) in files"
-					:key="file.name"
+					:key="file.id"
 					class="comparison-code-window__tab"
 					:class="{ 'comparison-code-window__tab--active': activeFileIndex === fileIndex }"
 					type="button"
@@ -77,29 +71,19 @@ function selectFile(fileIndex: number) {
 					:aria-selected="activeFileIndex === fileIndex"
 					@click="selectFile(fileIndex)"
 				>
-					{{ file.name }}
+					{{ file.label }}
 				</button>
 			</div>
 
 			<div
-				:key="activeFile.name"
+				v-if="activeFile"
+				:key="activeFile.id"
 				class="comparison-code-window__code"
 			>
-				<code>
-					<span
-						v-for="(line, lineIndex) in placeholderLines"
-						:key="`${activeFile.name}-${lineIndex}`"
-						class="comparison-code-window__line"
-					>
-						<span class="comparison-code-window__line-number">
-							{{ lineIndex + 1 }}
-						</span>
-
-						<span class="comparison-code-window__line-content">
-							{{ line }}
-						</span>
-					</span>
-				</code>
+				<component
+					:is="activeFile.component"
+					class="comparison-code-window__markdown"
+				/>
 			</div>
 		</div>
 	</article>
@@ -119,6 +103,9 @@ function selectFile(fileIndex: number) {
 		border-color 180ms ease,
 		box-shadow 180ms ease,
 		transform 180ms ease;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
 }
 
 .comparison-code-window--highlight {
@@ -174,6 +161,9 @@ function selectFile(fileIndex: number) {
 	border: 1px solid var(--color-border-subtle);
 	border-radius: 13px;
 	background: #050608;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
 }
 
 .comparison-code-window__topbar {
@@ -271,7 +261,7 @@ function selectFile(fileIndex: number) {
 
 .comparison-code-window__code {
 	min-height: 310px;
-	padding: 24px 0 28px;
+	max-height: 1000px;
 	overflow-x: auto;
 	background:
 		linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
@@ -280,39 +270,35 @@ function selectFile(fileIndex: number) {
 	color: var(--color-text-secondary);
 	font-size: 0.91rem;
 	line-height: 1.7;
+	flex-grow: 1;
 }
 
-.comparison-code-window__code code {
+.comparison-code-window__markdown {
 	display: block;
 	min-width: max-content;
-	font-family:
-		ui-monospace,
-		SFMono-Regular,
-		"SF Mono",
-		Menlo,
-		Monaco,
-		Consolas,
-		"Liberation Mono",
-		monospace;
 	animation: comparison-code-window-fade 180ms ease;
 }
 
-.comparison-code-window__line {
-	display: grid;
-	grid-template-columns: 52px minmax(0, 1fr);
-	min-height: 25px;
-	padding-right: 24px;
+.comparison-code-window__markdown[class*="language-"],
+.comparison-code-window__markdown :deep(div[class*="language-"]) {
+	margin: 0;
+	border-radius: 0;
+	background: transparent;
 }
 
-.comparison-code-window__line-number {
-	color: rgba(126, 122, 112, 0.68);
-	text-align: right;
-	user-select: none;
+.comparison-code-window__markdown :deep(pre) {
+	margin: 0;
+	padding: 24px;
+	background: transparent;
 }
 
-.comparison-code-window__line-content {
-	padding-left: 20px;
-	color: var(--color-text-secondary);
+.comparison-code-window__markdown :deep(code) {
+	font-size: inherit;
+	line-height: 1.7;
+}
+
+.comparison-code-window__markdown :deep(.line) {
+	min-height: 1.7em;
 }
 
 @keyframes comparison-code-window-fade {
@@ -330,7 +316,7 @@ function selectFile(fileIndex: number) {
 @media (prefers-reduced-motion: reduce) {
 	.comparison-code-window,
 	.comparison-code-window__tab,
-	.comparison-code-window__code code {
+	.comparison-code-window__markdown {
 		transition: none;
 		animation: none;
 	}
@@ -340,6 +326,7 @@ function selectFile(fileIndex: number) {
 	.comparison-code-window {
 		padding: 14px;
 		border-radius: 14px;
+		display: auto;
 	}
 
 	.comparison-code-window__header div {
@@ -347,6 +334,7 @@ function selectFile(fileIndex: number) {
 	}
 
 	.comparison-code-window__editor {
+		display: auto;
 		border-radius: 11px;
 	}
 
@@ -366,13 +354,8 @@ function selectFile(fileIndex: number) {
 		font-size: 0.84rem;
 	}
 
-	.comparison-code-window__line {
-		grid-template-columns: 44px minmax(0, 1fr);
-		padding-right: 18px;
-	}
-
-	.comparison-code-window__line-content {
-		padding-left: 16px;
+	.comparison-code-window__markdown :deep(pre) {
+		padding: 20px 18px;
 	}
 }
 </style>
