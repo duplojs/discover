@@ -1,4 +1,15 @@
 <script setup lang="ts">
+import {
+	ArrowRight,
+	Clipboard,
+	ExternalLink,
+	FileText,
+	Globe2,
+	KeyRound,
+	Package,
+	Play,
+	Server,
+} from "@lucide/vue";
 import { onBeforeUnmount, ref } from "vue";
 import TypingInstallCommand from "./TypingInstallCommand.vue";
 
@@ -6,81 +17,80 @@ const packageItems = [
 	{
 		name: "@duplojs/utils",
 		badge: "FOUNDATION",
-		description: "Functional primitives and predictable utilities for TypeScript.",
+		description: "Core functional primitives for transformations, object handling and readable TypeScript flows.",
 		docsHref: "https://utils.duplojs.dev",
 		npmHref: "https://www.npmjs.com/package/@duplojs/utils",
 		command: "npm i @duplojs/utils",
-		icon: "package",
+		icon: Package,
 		featured: true,
 	},
 	{
 		name: "@duplojs/server-utils",
-		badge: "SERVER",
-		description: "Utilities for Node.js runtimes, servers and backend applications.",
+		badge: "BACKEND CORE",
+		description: "Server-side helpers for Node runtimes, adapters and backend boundaries.",
 		docsHref: "https://server-utils.duplojs.dev",
 		npmHref: "https://www.npmjs.com/package/@duplojs/server-utils",
 		command: "npm i @duplojs/server-utils",
-		icon: "server",
-		featured: false,
+		icon: Server,
+		featured: true,
 	},
 	{
 		name: "@duplojs/http",
-		badge: "HTTP",
-		description: "Type-safe HTTP client and server utilities.",
+		badge: "HTTP CORE",
+		description: "HTTP contracts and helpers for request, response and integration flows.",
 		docsHref: "https://http.duplojs.dev",
 		npmHref: "https://www.npmjs.com/package/@duplojs/http",
 		command: "npm i @duplojs/http",
-		icon: "globe",
-		featured: false,
+		icon: Globe2,
+		featured: true,
 	},
 	{
 		name: "@duplojs/form",
 		badge: "FORM",
-		description: "Form validation and schema helpers for client and server.",
+		description: "Form validation and schema helpers for client and server inputs.",
 		docsHref: "https://form.duplojs.dev",
 		npmHref: "https://www.npmjs.com/package/@duplojs/form",
 		command: "npm i @duplojs/form",
-		icon: "form",
+		icon: FileText,
 		featured: false,
 	},
 	{
 		name: "@duplojs/json-web-token",
 		badge: "AUTH",
-		description: "JWT signing, verification and helpers made simple.",
+		description: "JWT signing, verification and authentication helpers.",
 		docsHref: "https://json-web-token.duplojs.dev",
 		npmHref: "https://www.npmjs.com/package/@duplojs/json-web-token",
 		command: "npm i @duplojs/json-web-token",
-		icon: "key",
+		icon: KeyRound,
 		featured: false,
 	},
 	{
 		name: "@duplojs/playwright",
 		badge: "TESTING",
-		description: "Playwright utilities and testing helpers for end-to-end tests.",
+		description: "Testing helpers for reusable Playwright end-to-end flows.",
 		docsHref: "https://playwright.duplojs.dev",
 		npmHref: "https://www.npmjs.com/package/@duplojs/playwright",
 		command: "npm i @duplojs/playwright",
-		icon: "play",
+		icon: Play,
 		featured: false,
 	},
 ];
 
 const argumentsList = [
 	{
-		title: "Use one package",
-		description: "Every package can be used independently.",
+		title: "Install only the brick you need",
+		description: "Each package is independently documented and versioned.",
 	},
 	{
-		title: "Compose the ecosystem",
-		description: "Add only what you need, when you need it.",
+		title: "Add the next boundary later",
+		description: "Utilities, server helpers and HTTP flows share the same design language.",
 	},
 ];
 
 const benefits = [
-	"6+ Packages",
-	"100% TypeScript",
-	"Type-driven design",
-	"Composable by design",
+	"Core packages first",
+	"Focused add-ons",
+	"Install separately",
 ];
 
 const copiedPackage = ref<string | undefined>();
@@ -134,7 +144,7 @@ onBeforeUnmount(() => {
 				</h2>
 
 				<p class="ecosystem-section__description">
-					DuploJS is a modular ecosystem of TypeScript packages. Start with @duplojs/utils, then add focused packages when your application grows.
+					Start with the foundation, then add server, HTTP, form, auth or testing packages only when that part of the application needs a stronger boundary.
 				</p>
 
 				<TypingInstallCommand class="ecosystem-section__terminal" />
@@ -149,14 +159,10 @@ onBeforeUnmount(() => {
 							class="ecosystem-section__argument-icon"
 							aria-hidden="true"
 						>
-							<svg
-								viewBox="0 0 24 24"
-								focusable="false"
-							>
-								<path d="M5 12h14" />
-
-								<path d="m13 6 6 6-6 6" />
-							</svg>
+							<ArrowRight
+								:size="15"
+								:stroke-width="2"
+							/>
 						</span>
 
 						<span>
@@ -183,95 +189,11 @@ onBeforeUnmount(() => {
 							class="ecosystem-section__package-icon"
 							aria-hidden="true"
 						>
-							<svg
-								v-if="packageItem.icon === 'package'"
-								viewBox="0 0 24 24"
-								focusable="false"
-							>
-								<path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Z" />
-
-								<path d="M4 7.5 12 12l8-4.5" />
-
-								<path d="M12 12v9" />
-							</svg>
-
-							<svg
-								v-else-if="packageItem.icon === 'server'"
-								viewBox="0 0 24 24"
-								focusable="false"
-							>
-								<path d="M4 5h16v5H4z" />
-
-								<path d="M4 14h16v5H4z" />
-
-								<path d="M8 7.5h.01" />
-
-								<path d="M8 16.5h.01" />
-							</svg>
-
-							<svg
-								v-else-if="packageItem.icon === 'globe'"
-								viewBox="0 0 24 24"
-								focusable="false"
-							>
-								<circle
-									cx="12"
-									cy="12"
-									r="8"
-								/>
-
-								<path d="M4 12h16" />
-
-								<path d="M12 4c2.2 2.2 3.2 4.8 3.2 8S14.2 17.8 12 20" />
-
-								<path d="M12 4c-2.2 2.2-3.2 4.8-3.2 8s1 5.8 3.2 8" />
-							</svg>
-
-							<svg
-								v-else-if="packageItem.icon === 'form'"
-								viewBox="0 0 24 24"
-								focusable="false"
-							>
-								<path d="M7 4h10v16H7z" />
-
-								<path d="M9 8h6" />
-
-								<path d="M9 12h6" />
-
-								<path d="M9 16h3" />
-							</svg>
-
-							<svg
-								v-else-if="packageItem.icon === 'key'"
-								viewBox="0 0 24 24"
-								focusable="false"
-							>
-								<circle
-									cx="8"
-									cy="15"
-									r="3"
-								/>
-
-								<path d="M10.5 12.5 18 5" />
-
-								<path d="M15.5 7.5 18 10" />
-
-								<path d="M13.5 9.5 16 12" />
-							</svg>
-
-							<svg
-								v-else
-								viewBox="0 0 24 24"
-								focusable="false"
-							>
-								<path d="M8 5v14l11-7z" />
-
-								<path d="M4 5h1" />
-
-								<path d="M4 12h1" />
-
-								<path d="M4 19h1" />
-							</svg>
+							<component
+								:is="packageItem.icon"
+								:size="18"
+								:stroke-width="1.8"
+							/>
 						</span>
 
 						<span class="ecosystem-section__package-title">
@@ -284,7 +206,10 @@ onBeforeUnmount(() => {
 							class="ecosystem-section__package-chevron"
 							aria-hidden="true"
 						>
-							&gt;
+							<ArrowRight
+								:size="18"
+								:stroke-width="2"
+							/>
 						</span>
 					</div>
 
@@ -299,19 +224,11 @@ onBeforeUnmount(() => {
 							target="_blank"
 							rel="noreferrer"
 						>
-							<svg
-								viewBox="0 0 24 24"
+							<ExternalLink
+								:size="16"
+								:stroke-width="2"
 								aria-hidden="true"
-								focusable="false"
-							>
-								<path d="M7 17 17 7" />
-
-								<path d="M9 7h8v8" />
-
-								<path d="M5 5h7" />
-
-								<path d="M5 5v14h14v-7" />
-							</svg>
+							/>
 
 							Docs
 						</a>
@@ -331,15 +248,11 @@ onBeforeUnmount(() => {
 							:aria-label="`Copy ${packageItem.command}`"
 							@click="copyCommand(packageItem.name, packageItem.command)"
 						>
-							<svg
-								viewBox="0 0 24 24"
+							<Clipboard
+								:size="16"
+								:stroke-width="2"
 								aria-hidden="true"
-								focusable="false"
-							>
-								<path d="M8 8h11v11H8z" />
-
-								<path d="M5 16H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v1" />
-							</svg>
+							/>
 
 							{{ copiedPackage === packageItem.name ? "Copied" : "npm i" }}
 						</button>
@@ -500,10 +413,9 @@ onBeforeUnmount(() => {
 	grid-template-columns: auto 1fr;
 	gap: 14px;
 	align-items: start;
-	padding: 16px 18px;
-	border: 1px solid rgba(255, 255, 255, 0.07);
-	border-radius: 10px;
-	background: rgba(13, 16, 20, 0.44);
+	padding: 0;
+	border: 0;
+	background: transparent;
 }
 
 .ecosystem-section__argument-icon {
@@ -604,14 +516,19 @@ onBeforeUnmount(() => {
 }
 
 .ecosystem-section__package-card--featured {
-	min-height: 268px;
-	border-color: rgba(247, 203, 61, 0.5);
+	min-height: 244px;
+	border-color: rgba(247, 203, 61, 0.38);
 	background:
-		linear-gradient(180deg, rgba(247, 203, 61, 0.12), rgba(13, 16, 20, 0.78)),
+		linear-gradient(180deg, rgba(247, 203, 61, 0.1), rgba(13, 16, 20, 0.78)),
 		var(--color-bg-surface);
 	box-shadow:
-		0 24px 76px rgba(0, 0, 0, 0.28),
-		0 0 40px rgba(247, 203, 61, 0.13);
+		0 22px 68px rgba(0, 0, 0, 0.26),
+		0 0 34px rgba(247, 203, 61, 0.1);
+}
+
+.ecosystem-section__package-card--featured:first-child {
+	grid-column: 1 / -1;
+	min-height: 214px;
 }
 
 .ecosystem-section__package-head {
@@ -686,8 +603,10 @@ onBeforeUnmount(() => {
 }
 
 .ecosystem-section__package-chevron {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	color: var(--color-brand-primary);
-	font-size: 1.25rem;
 	line-height: 1;
 	opacity: 0.56;
 	transition:
@@ -760,7 +679,7 @@ onBeforeUnmount(() => {
 .ecosystem-section__benefits {
 	grid-column: 1 / -1;
 	display: grid;
-	grid-template-columns: repeat(4, minmax(0, 1fr));
+	grid-template-columns: repeat(3, minmax(0, 1fr));
 	margin: 16px 0 0;
 	padding: 18px 0 0;
 	border-top: 1px solid rgba(255, 255, 255, 0.08);

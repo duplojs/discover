@@ -1,19 +1,21 @@
 <script setup lang="ts">
+import { Braces, ShieldCheck, Workflow } from "@lucide/vue";
+
 const promiseCards = [
 	{
 		title: "Pure transformations",
-		description: "Avoid hidden mutations and make data transformations easier to reason about.",
-		icon: "transform",
+		description: "DuploJS favors pure, non-mutating functions so a transformation can be read as input, intent, output.",
+		icon: Workflow,
 	},
 	{
 		title: "Runtime guarantees",
-		description: "Parse, validate and secure external data where TypeScript alone cannot protect you.",
-		icon: "shield",
+		description: "Validation lives at runtime boundaries and stays aligned with the types your code consumes.",
+		icon: ShieldCheck,
 	},
 	{
 		title: "Type-driven intent",
-		description: "Use types to express intent, guide implementation and validate that code does what it promises.",
-		icon: "code",
+		description: "Business meaning is carried by typed contracts, not left as comments beside generic values.",
+		icon: Braces,
 	},
 ];
 </script>
@@ -37,7 +39,7 @@ const promiseCards = [
 					</h2>
 
 					<p class="problem-promise__description">
-						TypeScript gives structure to JavaScript, but predictable software also requires pure transformations, explicit contracts, runtime validation and composable patterns. DuploJS brings these missing bricks into one coherent ecosystem.
+						TypeScript gives structure to JavaScript, but production systems also need pure transformations, explicit contracts, runtime validation and composable patterns. DuploJS brings these missing bricks into one coherent ecosystem.
 					</p>
 				</div>
 
@@ -59,49 +61,11 @@ const promiseCards = [
 						class="problem-promise__card-icon"
 						aria-hidden="true"
 					>
-						<svg
-							v-if="card.icon === 'transform'"
-							viewBox="0 0 24 24"
-							focusable="false"
-						>
-							<path d="M3 7h11" />
-
-							<path d="m11 4 3 3-3 3" />
-
-							<path d="M4 17h6" />
-
-							<path d="M14 17h7" />
-
-							<path d="m18 14 3 3-3 3" />
-
-							<path d="M7 11c1.2 3.4 3.5 5.3 7 5.8" />
-
-							<path d="M17 7c-1.3 1.8-2.8 3-4.6 3.7" />
-						</svg>
-
-						<svg
-							v-else-if="card.icon === 'shield'"
-							viewBox="0 0 24 24"
-							focusable="false"
-						>
-							<path d="M12 3 5 6v5.2c0 4.5 2.9 8.5 7 9.8 4.1-1.3 7-5.3 7-9.8V6l-7-3Z" />
-
-							<path d="m8.8 12 2.1 2.1 4.6-4.8" />
-						</svg>
-
-						<svg
-							v-else
-							viewBox="0 0 24 24"
-							focusable="false"
-						>
-							<path d="M4 5h16v14H4z" />
-
-							<path d="m9 10-2 2 2 2" />
-
-							<path d="m15 10 2 2-2 2" />
-
-							<path d="M11.5 16 13 8" />
-						</svg>
+						<component
+							:is="card.icon"
+							:size="21"
+							:stroke-width="1.9"
+						/>
 					</span>
 
 					<div class="problem-promise__card-copy">
@@ -114,7 +78,7 @@ const promiseCards = [
 						class="problem-promise__card-arrow"
 						aria-hidden="true"
 					>
-						&rarr;
+						->
 					</span>
 				</article>
 			</div>

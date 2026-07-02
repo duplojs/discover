@@ -16,13 +16,18 @@ import SiteFooter from "./components/SiteFooter.vue";
 		<main class="home-layout__main">
 			<HeroSection />
 
+			<div
+				class="home-layout__hero-transition"
+				aria-hidden="true"
+			/>
+
 			<ProblemPromiseSection />
 
 			<EcosystemSection />
 
-			<CleanCodeLayersSection />
-
 			<CodeVersusSection />
+
+			<CleanCodeLayersSection />
 
 			<ResourcesCommunitySection />
 		</main>
@@ -70,9 +75,35 @@ import SiteFooter from "./components/SiteFooter.vue";
 	min-height: calc(100vh - var(--header-height));
 }
 
+.home-layout__hero-transition {
+	position: relative;
+	z-index: 3;
+	height: 112px;
+	margin-top: -112px;
+	pointer-events: none;
+	background:
+		linear-gradient(180deg, rgba(5, 6, 8, 0), rgba(247, 244, 234, 0.2) 52%, rgba(255, 253, 245, 0.72) 100%);
+}
+
+.home-layout__hero-transition::before {
+	position: absolute;
+	right: clamp(20px, 12vw, 220px);
+	bottom: 24px;
+	left: clamp(20px, 12vw, 220px);
+	height: 1px;
+	content: "";
+	background: linear-gradient(90deg, transparent, rgba(247, 203, 61, 0.36), transparent);
+	box-shadow: 0 0 28px rgba(247, 203, 61, 0.14);
+}
+
 @media (max-width: 880px) {
 	.home-layout {
 		--header-height: 72px;
+	}
+
+	.home-layout__hero-transition {
+		height: 86px;
+		margin-top: -86px;
 	}
 }
 </style>

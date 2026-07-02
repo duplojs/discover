@@ -236,13 +236,13 @@ function selectFile(fileIndex: number) {
 	position: relative;
 	z-index: 2;
 	overflow: hidden;
-	padding: 126px clamp(20px, 4vw, 64px) 118px;
-	border-radius: 64px 64px 0 0;
+	padding: 118px clamp(20px, 4vw, 64px) 126px;
+	border-radius: 0;
 	background:
-		radial-gradient(circle at 22% 18%, rgba(247, 203, 61, 0.13), transparent 28%),
-		linear-gradient(180deg, var(--layers-bg) 0%, var(--layers-bg-warm) 100%);
+		radial-gradient(circle at 82% 8%, rgba(247, 203, 61, 0.11), transparent 28%),
+		linear-gradient(180deg, var(--layers-bg-warm) 0%, var(--layers-bg) 100%);
 	color: var(--layers-text-primary);
-	box-shadow: 0 -30px 92px rgba(0, 0, 0, 0.22);
+	box-shadow: none;
 }
 
 .clean-code-layers::before {
@@ -259,16 +259,7 @@ function selectFile(fileIndex: number) {
 }
 
 .clean-code-layers::after {
-	position: absolute;
-	top: 0;
-	left: 50%;
-	width: min(860px, 76vw);
-	height: 1px;
-	transform: translateX(-50%);
-	pointer-events: none;
-	content: "";
-	background: linear-gradient(90deg, transparent, rgba(247, 203, 61, 0.62), transparent);
-	box-shadow: 0 0 34px rgba(247, 203, 61, 0.18);
+	display: none;
 }
 
 .clean-code-layers__inner {
@@ -645,8 +636,8 @@ function selectFile(fileIndex: number) {
 
 @media (max-width: 720px) {
 	.clean-code-layers {
-		padding: 78px 20px 82px;
-		border-radius: 40px 40px 0 0;
+		padding: 78px 20px 86px;
+		border-radius: 0;
 	}
 
 	.clean-code-layers__eyebrow {

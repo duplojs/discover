@@ -47,48 +47,27 @@ const socialLinks: SocialLink[] = [
 
 const footerColumns: FooterColumn[] = [
 	{
-		title: "Ecosystem",
-		links: [
-			{
-				label: "Utils",
-				href: "https://utils.duplojs.dev/",
-				external: true,
-			},
-			{
-				label: "Server Utils",
-				href: "https://server-utils.duplojs.dev/",
-				external: true,
-			},
-			{
-				label: "HTTP",
-				href: "https://http.duplojs.dev/",
-				external: true,
-			},
-			{
-				label: "Form",
-				href: "https://form.duplojs.dev/",
-				external: true,
-			},
-			{
-				label: "JSON Web Token",
-				href: "https://json-web-token.duplojs.dev/",
-				external: true,
-			},
-			{
-				label: "Playwright",
-				href: "https://playwright.duplojs.dev/",
-				external: true,
-			},
-		],
-	},
-	{
-		title: "Resources",
+		title: "Start",
 		links: [
 			{
 				label: "Documentation",
 				href: "https://duplojs.dev",
 				external: true,
 			},
+			{
+				label: "Packages",
+				href: "#packages",
+			},
+			{
+				label: "npm organization",
+				href: npmHref,
+				external: true,
+			},
+		],
+	},
+	{
+		title: "Learn",
+		links: [
 			{
 				label: "Examples",
 				href: "/examples/layers/client/main",
@@ -113,28 +92,13 @@ const footerColumns: FooterColumn[] = [
 		title: "Community",
 		links: [
 			{
-				label: "GitHub",
-				href: githubHref,
-				external: true,
-			},
-			{
 				label: "Discord",
 				href: discordHref,
 				external: true,
 			},
 			{
-				label: "npm",
-				href: npmHref,
-				external: true,
-			},
-		],
-	},
-	{
-		title: "Project",
-		links: [
-			{
-				label: "License",
-				href: `${githubHref}/blob/main/package.json`,
+				label: "GitHub",
+				href: githubHref,
 				external: true,
 			},
 			{
@@ -173,11 +137,11 @@ const footerColumns: FooterColumn[] = [
 				</a>
 
 				<p class="site-footer__description">
-					A modular TypeScript ecosystem for robust and predictable software.
+					Composable TypeScript packages for explicit application design.
 				</p>
 
 				<p class="site-footer__subtext">
-					Built around robustness, predictability and type-driven design.
+					Documentation, examples and community links are gathered here.
 				</p>
 
 				<div
@@ -280,7 +244,7 @@ const footerColumns: FooterColumn[] = [
 		<div class="site-footer__bottom">
 			<p>© {{ currentYear }} DuploJS. All rights reserved.</p>
 
-			<p>Built for robust and predictable TypeScript.</p>
+			<p>Open-source TypeScript tools.</p>
 		</div>
 	</footer>
 </template>
@@ -311,7 +275,7 @@ const footerColumns: FooterColumn[] = [
 
 .site-footer__inner {
 	display: grid;
-	grid-template-columns: minmax(300px, 1.4fr) repeat(4, minmax(0, 1fr));
+	grid-template-columns: minmax(300px, 1.35fr) repeat(3, minmax(0, 1fr));
 	gap: clamp(32px, 4.8vw, 72px);
 	width: min(100%, 1480px);
 	margin: 0 auto;
@@ -512,7 +476,7 @@ const footerColumns: FooterColumn[] = [
 
 @media (max-width: 1180px) {
 	.site-footer__inner {
-		grid-template-columns: repeat(4, minmax(0, 1fr));
+		grid-template-columns: repeat(3, minmax(0, 1fr));
 	}
 
 	.site-footer__brand-column {

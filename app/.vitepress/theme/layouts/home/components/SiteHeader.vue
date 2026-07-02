@@ -9,11 +9,11 @@ const navItems = [
 		href: "#packages",
 	},
 	{
-		label: "Clean Code",
-		href: "#clean-code",
+		label: "Architecture",
+		href: "#clean-code-layers",
 	},
 	{
-		label: "Code Versus",
+		label: "Compare",
 		href: "#code-versus",
 	},
 	{
@@ -227,11 +227,10 @@ function closeMenu() {
 	min-height: 48px;
 	margin-left: clamp(26px, 3.4vw, 56px);
 	padding: 0 22px;
-	border: 1px solid rgba(255, 255, 255, 0.1);
+	border: 1px solid var(--button-secondary-border);
 	border-radius: 8px;
-	background: var(--button-primary-bg);
-	box-shadow: var(--button-primary-shadow);
-	color: var(--button-primary-text);
+	background: var(--button-secondary-bg);
+	color: var(--button-secondary-text);
 	font-weight: 760;
 	font-size: 1rem;
 	line-height: 1;
@@ -244,9 +243,9 @@ function closeMenu() {
 
 .site-header__github:hover,
 .site-header__github:focus-visible {
-	background: var(--button-primary-bg-hover);
-	color: var(--button-primary-text);
-	box-shadow: 0 0 38px rgba(247, 203, 61, 0.34);
+	border-color: var(--color-border-strong);
+	background: var(--button-secondary-bg-hover);
+	color: var(--button-secondary-text);
 	transform: translateY(-1px);
 }
 

@@ -390,11 +390,13 @@ function selectComparison(comparisonId: ComparisonId) {
 	z-index: 2;
 	overflow: hidden;
 	scroll-margin-top: 108px;
-	padding: 118px clamp(20px, 4vw, 64px) 126px;
+	padding: 126px clamp(20px, 4vw, 64px) 118px;
+	border-radius: 64px 64px 0 0;
 	background:
-		radial-gradient(circle at 82% 8%, rgba(247, 203, 61, 0.11), transparent 28%),
-		linear-gradient(180deg, var(--versus-bg) 0%, var(--versus-bg-soft) 100%);
+		radial-gradient(circle at 22% 18%, rgba(247, 203, 61, 0.13), transparent 28%),
+		linear-gradient(180deg, var(--versus-bg-soft) 0%, var(--versus-bg) 100%);
 	color: var(--versus-text-primary);
+	box-shadow: 0 -30px 92px rgba(0, 0, 0, 0.22);
 }
 
 .code-versus::before {
@@ -408,6 +410,19 @@ function selectComparison(comparisonId: ComparisonId) {
 	background-position: center top;
 	background-size: 72px 72px;
 	mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.3), transparent 70%);
+}
+
+.code-versus::after {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: min(860px, 76vw);
+	height: 1px;
+	transform: translateX(-50%);
+	pointer-events: none;
+	content: "";
+	background: linear-gradient(90deg, transparent, rgba(247, 203, 61, 0.62), transparent);
+	box-shadow: 0 0 34px rgba(247, 203, 61, 0.18);
 }
 
 .code-versus__inner {
@@ -632,7 +647,8 @@ function selectComparison(comparisonId: ComparisonId) {
 
 @media (max-width: 720px) {
 	.code-versus {
-		padding: 78px 20px 86px;
+		padding: 78px 20px 82px;
+		border-radius: 40px 40px 0 0;
 	}
 
 	.code-versus__eyebrow {

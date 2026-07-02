@@ -1,38 +1,40 @@
 <script setup lang="ts">
+import { ArrowRight, FileText, Globe2, KeyRound, Package, Play, Server } from "@lucide/vue";
+
 const ecosystemPackages = [
 	{
 		label: "@duplojs/server-utils",
 		description: "Server utilities",
 		href: "https://server-utils.duplojs.dev",
-		icon: "server",
+		icon: Server,
 		className: "hero-ecosystem__module--server",
 	},
 	{
 		label: "@duplojs/http",
 		description: "HTTP helpers",
 		href: "https://http.duplojs.dev",
-		icon: "globe",
+		icon: Globe2,
 		className: "hero-ecosystem__module--http",
 	},
 	{
 		label: "@duplojs/form",
 		description: "Form validation",
 		href: "https://form.duplojs.dev",
-		icon: "form",
+		icon: FileText,
 		className: "hero-ecosystem__module--form",
 	},
 	{
 		label: "@duplojs/json-web-token",
 		description: "JWT signing & verification",
 		href: "https://json-web-token.duplojs.dev",
-		icon: "key",
+		icon: KeyRound,
 		className: "hero-ecosystem__module--jwt",
 	},
 	{
 		label: "@duplojs/playwright",
 		description: "Testing utilities",
 		href: "https://playwright.duplojs.dev",
-		icon: "play",
+		icon: Play,
 		className: "hero-ecosystem__module--playwright",
 	},
 ];
@@ -199,83 +201,11 @@ const ecosystemPackages = [
 						class="hero-ecosystem__module-icon"
 						aria-hidden="true"
 					>
-						<svg
-							v-if="packageItem.icon === 'server'"
-							viewBox="0 0 24 24"
-							focusable="false"
-						>
-							<path d="M4 5h16v5H4z" />
-
-							<path d="M4 14h16v5H4z" />
-
-							<path d="M8 7.5h.01" />
-
-							<path d="M8 16.5h.01" />
-						</svg>
-
-						<svg
-							v-else-if="packageItem.icon === 'globe'"
-							viewBox="0 0 24 24"
-							focusable="false"
-						>
-							<circle
-								cx="12"
-								cy="12"
-								r="8"
-							/>
-
-							<path d="M4 12h16" />
-
-							<path d="M12 4c2.2 2.2 3.2 4.8 3.2 8S14.2 17.8 12 20" />
-
-							<path d="M12 4c-2.2 2.2-3.2 4.8-3.2 8s1 5.8 3.2 8" />
-						</svg>
-
-						<svg
-							v-else-if="packageItem.icon === 'form'"
-							viewBox="0 0 24 24"
-							focusable="false"
-						>
-							<path d="M7 4h10v16H7z" />
-
-							<path d="M9 8h6" />
-
-							<path d="M9 12h6" />
-
-							<path d="M9 16h3" />
-						</svg>
-
-						<svg
-							v-else-if="packageItem.icon === 'key'"
-							viewBox="0 0 24 24"
-							focusable="false"
-						>
-							<circle
-								cx="8"
-								cy="15"
-								r="3"
-							/>
-
-							<path d="M10.5 12.5 18 5" />
-
-							<path d="M15.5 7.5 18 10" />
-
-							<path d="M13.5 9.5 16 12" />
-						</svg>
-
-						<svg
-							v-else
-							viewBox="0 0 24 24"
-							focusable="false"
-						>
-							<path d="M8 5v14l11-7z" />
-
-							<path d="M4 5h1" />
-
-							<path d="M4 12h1" />
-
-							<path d="M4 19h1" />
-						</svg>
+						<component
+							:is="packageItem.icon"
+							:size="18"
+							:stroke-width="1.8"
+						/>
 					</span>
 
 					<span class="hero-ecosystem__module-text">
@@ -288,7 +218,10 @@ const ecosystemPackages = [
 						class="hero-ecosystem__module-chevron"
 						aria-hidden="true"
 					>
-						&gt;
+						<ArrowRight
+							:size="18"
+							:stroke-width="2"
+						/>
 					</span>
 				</a>
 			</div>
@@ -304,16 +237,10 @@ const ecosystemPackages = [
 					class="hero-ecosystem__core-icon"
 					aria-hidden="true"
 				>
-					<svg
-						viewBox="0 0 24 24"
-						focusable="false"
-					>
-						<path d="M12 3 4 7.4v9.2L12 21l8-4.4V7.4L12 3Z" />
-
-						<path d="M4 7.4 12 12l8-4.6" />
-
-						<path d="M12 12v9" />
-					</svg>
+					<Package
+						:size="18"
+						:stroke-width="1.8"
+					/>
 				</span>
 
 				<span class="hero-ecosystem__core-text">

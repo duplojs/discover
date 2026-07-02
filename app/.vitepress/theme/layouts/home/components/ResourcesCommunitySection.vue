@@ -38,21 +38,13 @@ const communityLinks: CommunityLink[] = [
 		ariaLabel: "Join the DuploJS Discord community",
 		external: true,
 	},
-	{
-		label: "View on GitHub",
-		href: "https://github.com/duplojs/discover",
-		variant: "secondary",
-		icon: "github",
-		ariaLabel: "View DuploJS on GitHub",
-		external: true,
-	},
 ];
 
 const resources: ResourceLink[] = [
 	{
 		id: "type-driven-design-course",
 		title: "Type-Driven Design Course",
-		description: "Learn how types can express intent and guide implementation.",
+		description: "Learn how types can carry design decisions.",
 		href: "https://github.com/mathcovax/type-driven-design-course/tree/main/course",
 		icon: "graduation",
 		ariaLabel: "Open the Type-Driven Design Course on GitHub",
@@ -61,7 +53,7 @@ const resources: ResourceLink[] = [
 	{
 		id: "duplojs-literature",
 		title: "DuploJS Literature",
-		description: "Articles and thoughts behind the DuploJS ecosystem.",
+		description: "Read the architectural ideas behind the project.",
 		href: "https://github.com/ZeRiix/duplojs-literature/tree/main",
 		icon: "file",
 		ariaLabel: "Open DuploJS Literature on GitHub",
@@ -70,7 +62,7 @@ const resources: ResourceLink[] = [
 	{
 		id: "documentation",
 		title: "Documentation",
-		description: "Explore packages, APIs and usage guides.",
+		description: "Find package APIs and usage guides.",
 		href: "https://duplojs.dev",
 		icon: "book",
 		ariaLabel: "Open the DuploJS documentation",
@@ -79,7 +71,7 @@ const resources: ResourceLink[] = [
 	{
 		id: "examples",
 		title: "Examples",
-		description: "Discover practical examples and project structures.",
+		description: "Inspect practical project structures.",
 		href: "/examples/layers/client/main",
 		icon: "blocks",
 		ariaLabel: "Open DuploJS examples",
@@ -88,7 +80,7 @@ const resources: ResourceLink[] = [
 	{
 		id: "github",
 		title: "GitHub",
-		description: "Explore the source code, contribute or report issues.",
+		description: "Explore the source, issues and roadmap.",
 		href: "https://github.com/duplojs/discover",
 		icon: "github",
 		ariaLabel: "Open the DuploJS GitHub repository",
@@ -97,7 +89,7 @@ const resources: ResourceLink[] = [
 	{
 		id: "discord",
 		title: "Discord",
-		description: "Ask questions, discuss ideas and follow the ecosystem.",
+		description: "Ask questions and discuss implementation choices.",
 		href: "https://discord.gg/5d6Ze5Wuqm",
 		icon: "discord",
 		ariaLabel: "Join the DuploJS Discord community",
@@ -127,18 +119,22 @@ const resources: ResourceLink[] = [
 					Learn the ideas behind DuploJS
 				</h2>
 
+				<p class="resources-community__bridge">
+					DuploJS is not only a toolkit. It is a way to design TypeScript systems.
+				</p>
+
 				<p class="resources-community__intro">
-					Explore the documentation, learn the philosophy behind the ecosystem, and join the community building robust and predictable TypeScript software.
+					After the packages and architecture, go deeper into the principles: contracts at boundaries, explicit flows and composable application design.
 				</p>
 
 				<div class="resources-community__principles">
-					<span>Robustness</span>
+					<span>System design</span>
 
-					<span>Predictability</span>
+					<span>Runtime boundaries</span>
 
-					<span>Type-driven design</span>
+					<span>Typed contracts</span>
 
-					<span>Functional programming</span>
+					<span>Composable flows</span>
 				</div>
 
 				<div
@@ -190,7 +186,7 @@ const resources: ResourceLink[] = [
 				</div>
 
 				<p class="resources-community__note">
-					Discuss the ecosystem, follow updates and contribute to the project.
+					Discuss patterns, implementation details and package evolution.
 				</p>
 			</div>
 
@@ -229,7 +225,7 @@ const resources: ResourceLink[] = [
 						<div>
 							<h3>Advanced TypeScript content</h3>
 
-							<p>Videos about type-driven design, robust code and functional TypeScript.</p>
+							<p>Videos about contracts, architecture and practical TypeScript design.</p>
 						</div>
 
 						<span class="resources-community__video-action">
@@ -481,10 +477,19 @@ const resources: ResourceLink[] = [
 
 .resources-community__intro {
 	max-width: 610px;
-	margin: 28px 0 0;
+	margin: 18px 0 0;
 	color: var(--color-text-secondary);
 	font-size: clamp(1.04rem, 0.98rem + 0.26vw, 1.18rem);
 	line-height: 1.62;
+}
+
+.resources-community__bridge {
+	max-width: 620px;
+	margin: 28px 0 0;
+	color: var(--color-text-primary);
+	font-weight: 720;
+	font-size: clamp(1.12rem, 1rem + 0.32vw, 1.32rem);
+	line-height: 1.5;
 }
 
 .resources-community__principles {

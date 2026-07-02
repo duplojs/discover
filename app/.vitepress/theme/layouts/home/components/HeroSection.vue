@@ -2,9 +2,9 @@
 import HeroEcosystem from "./HeroEcosystem.vue";
 
 const chips = [
-	"Robustness by design",
-	"Type-driven design",
-	"Composable packages",
+	"Contracts at boundaries",
+	"Pure data flow",
+	"Composable modules",
 ];
 </script>
 
@@ -15,7 +15,7 @@ const chips = [
 				<p class="hero-section__eyebrow">
 					<span class="hero-section__eyebrow-line" />
 
-					<span>ROBUSTNESS BY DESIGN</span>
+					<span>MODULAR TYPESCRIPT</span>
 				</p>
 
 				<h1 class="hero-section__title">
@@ -25,7 +25,7 @@ const chips = [
 				</h1>
 
 				<p class="hero-section__description">
-					DuploJS is a modular TypeScript ecosystem designed to make code more robust, readable and predictable through functional patterns and type-driven design.
+					DuploJS gives TypeScript projects a set of composable bricks for shaping data, validating boundaries and keeping application flows explicit.
 				</p>
 
 				<div class="hero-section__actions">
