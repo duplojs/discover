@@ -9,6 +9,13 @@ import tailwindcss from "@tailwindcss/vite";
 const hostname = "https://duplojs.dev";
 const ogImage = new URL("/images/ogImage.png", hostname).toString();
 
+interface ThemeConfig extends DefaultTheme.Config {
+	wip?: {
+		title: string;
+		button: string;
+	};
+}
+
 export default pipe(
 	{
 		title: "DuploJS",
@@ -172,7 +179,7 @@ export default pipe(
 				},
 			},
 		},
-	} satisfies UserConfig<DefaultTheme.Config>,
+	} satisfies UserConfig<ThemeConfig>,
 	defineConfig,
 	withMermaid,
 );

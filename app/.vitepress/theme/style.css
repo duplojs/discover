@@ -46,18 +46,77 @@
 @import "tailwindcss";
 
 :root {
+  --color-bg-page: #050608;
+  --color-bg-header: rgba(8, 10, 13, 0.78);
+  --color-bg-surface: #0D1014;
+  --color-bg-surface-soft: #12161C;
+  --color-bg-surface-hover: #1A2028;
+
+  --color-text-primary: #F7F7F4;
+  --color-text-secondary: #B9B6AA;
+  --color-text-muted: #7E7A70;
+  --color-text-inverted: #080A0D;
+
+  --color-brand-primary: #F7CB3D;
+  --color-brand-primary-hover: #E4AF29;
+  --color-brand-primary-active: #BD8E20;
+  --color-brand-soft: rgba(247, 203, 61, 0.12);
+  --color-brand-border: rgba(247, 203, 61, 0.38);
+  --color-brand-glow: rgba(247, 203, 61, 0.32);
+
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-default: rgba(255, 255, 255, 0.12);
+  --color-border-strong: rgba(247, 203, 61, 0.42);
+
+  --button-primary-bg: #F7CB3D;
+  --button-primary-bg-hover: #E4AF29;
+  --button-primary-text: #080A0D;
+  --button-primary-shadow: 0 0 32px rgba(247, 203, 61, 0.28);
+
+  --button-secondary-bg: rgba(247, 203, 61, 0.04);
+  --button-secondary-border: rgba(247, 203, 61, 0.55);
+  --button-secondary-text: #F7CB3D;
+  --button-secondary-bg-hover: rgba(247, 203, 61, 0.12);
+
+  --card-bg: rgba(13, 16, 20, 0.72);
+  --card-bg-hover: rgba(18, 22, 28, 0.9);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --card-border-hover: rgba(247, 203, 61, 0.36);
+  --card-shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+
+  --glow-brand-sm: 0 0 16px rgba(247, 203, 61, 0.22);
+  --glow-brand-md: 0 0 40px rgba(247, 203, 61, 0.28);
+  --glow-brand-lg: 0 0 96px rgba(247, 203, 61, 0.32);
+
+  --gradient-page:
+    radial-gradient(circle at 72% 42%, rgba(247, 203, 61, 0.14), transparent 34%),
+    linear-gradient(180deg, #080A0D 0%, #050608 100%);
+  --gradient-surface: linear-gradient(180deg, rgba(18, 22, 28, 0.92), rgba(8, 10, 13, 0.92));
+  --gradient-brand: linear-gradient(135deg, #FCDC4C 0%, #F7CB3D 42%, #E4AF29 100%);
+
   --vp-c-default-1: var(--vp-c-gray-1);
   --vp-c-default-2: var(--vp-c-gray-2);
   --vp-c-default-3: var(--vp-c-gray-3);
   --vp-c-default-soft: var(--vp-c-gray-soft);
 
-  --vp-c-brand-1: #EBC32A;
-  --vp-c-brand-2: #FFEB53;
-  --vp-c-brand-3: #D4AC24;
-  --vp-c-brand-soft: rgba(235, 195, 42, 0.14);
+  --vp-c-bg: var(--color-bg-page);
+  --vp-c-bg-alt: var(--color-bg-surface);
+  --vp-c-bg-elv: var(--color-bg-surface-soft);
+  --vp-c-bg-soft: var(--color-bg-surface-soft);
+  --vp-c-border: var(--color-border-default);
+  --vp-c-divider: var(--color-border-subtle);
+  --vp-c-gutter: var(--color-border-subtle);
+  --vp-c-text-1: var(--color-text-primary);
+  --vp-c-text-2: var(--color-text-secondary);
+  --vp-c-text-3: var(--color-text-muted);
 
-  --vp-c-brand-dark: #B8941F;
-  --vp-c-brand-darker: #9A7D1A;
+  --vp-c-brand-1: var(--color-brand-primary);
+  --vp-c-brand-2: var(--color-brand-primary-hover);
+  --vp-c-brand-3: var(--color-brand-primary-active);
+  --vp-c-brand-soft: var(--color-brand-soft);
+
+  --vp-c-brand-dark: var(--color-brand-primary-active);
+  --vp-c-brand-darker: #8C6818;
 
   --vp-c-tip-1: var(--vp-c-brand-1);
   --vp-c-tip-2: var(--vp-c-brand-2);
@@ -81,14 +140,14 @@
 
 :root {
   --vp-button-brand-border: transparent;
-  --vp-button-brand-text: var(--vp-c-white);
-  --vp-button-brand-bg: var(--vp-c-brand-3);
+  --vp-button-brand-text: var(--button-primary-text);
+  --vp-button-brand-bg: var(--button-primary-bg);
   --vp-button-brand-hover-border: transparent;
-  --vp-button-brand-hover-text: var(--vp-c-white);
-  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+  --vp-button-brand-hover-text: var(--button-primary-text);
+  --vp-button-brand-hover-bg: var(--button-primary-bg-hover);
   --vp-button-brand-active-border: transparent;
-  --vp-button-brand-active-text: var(--vp-c-white);
-  --vp-button-brand-active-bg: var(--vp-c-brand-1);
+  --vp-button-brand-active-text: var(--button-primary-text);
+  --vp-button-brand-active-bg: var(--color-brand-primary-active);
 }
 
 /**
@@ -126,15 +185,15 @@
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: -webkit-linear-gradient(
     120deg,
-    #B8941F 10%,
-    #EBC32A 40%,
-    #FFEB53 90%
+    #BD8E20 10%,
+    #F7CB3D 42%,
+    #FCDC4C 90%
   );
 
   --vp-home-hero-image-background-image: linear-gradient(
     -45deg,
-    #EBC32A 50%,
-    #FFEB53 50%
+    #F7CB3D 50%,
+    #FCDC4C 50%
   );
   --vp-home-hero-image-filter: blur(44px);
 }
@@ -241,4 +300,53 @@
 
 .toc-hidden {
   display: none;
+}
+
+html {
+  min-width: 320px;
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+  color-scheme: dark;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  text-rendering: geometricPrecision;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(247, 203, 61, 0.28);
+  color: var(--color-text-primary);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 3px;
+}
+
+a {
+  color: var(--color-brand-primary);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
