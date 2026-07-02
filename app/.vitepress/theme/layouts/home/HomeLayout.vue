@@ -4,6 +4,7 @@ import EcosystemSection from "./components/EcosystemSection.vue";
 import ProblemPromiseSection from "./components/ProblemPromiseSection.vue";
 import CleanCodeLayersSection from "./components/CleanCodeLayersSection.vue";
 import CodeVersusSection from "./components/CodeVersusSection.vue";
+import ArchitectureBridgeSection from "./components/ArchitectureBridgeSection.vue";
 import ResourcesCommunitySection from "./components/ResourcesCommunitySection.vue";
 import SiteHeader from "./components/SiteHeader.vue";
 import SiteFooter from "./components/SiteFooter.vue";
@@ -26,6 +27,8 @@ import SiteFooter from "./components/SiteFooter.vue";
 			<EcosystemSection />
 
 			<CodeVersusSection />
+
+			<ArchitectureBridgeSection />
 
 			<CleanCodeLayersSection />
 
