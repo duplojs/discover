@@ -10,7 +10,7 @@ import {
 	Play,
 	Server,
 } from "@lucide/vue";
-import { onBeforeUnmount, ref } from "vue";
+import { computed, onBeforeUnmount, ref } from "vue";
 import TypingInstallCommand from "./TypingInstallCommand.vue";
 
 const packageItems = [
@@ -22,7 +22,6 @@ const packageItems = [
 		npmHref: "https://www.npmjs.com/package/@duplojs/utils",
 		command: "npm i @duplojs/utils",
 		icon: Package,
-		featured: true,
 	},
 	{
 		name: "@duplojs/server-utils",
@@ -32,7 +31,6 @@ const packageItems = [
 		npmHref: "https://www.npmjs.com/package/@duplojs/server-utils",
 		command: "npm i @duplojs/server-utils",
 		icon: Server,
-		featured: true,
 	},
 	{
 		name: "@duplojs/http",
@@ -42,7 +40,6 @@ const packageItems = [
 		npmHref: "https://www.npmjs.com/package/@duplojs/http",
 		command: "npm i @duplojs/http",
 		icon: Globe2,
-		featured: true,
 	},
 	{
 		name: "@duplojs/form",
@@ -52,7 +49,6 @@ const packageItems = [
 		npmHref: "https://www.npmjs.com/package/@duplojs/form",
 		command: "npm i @duplojs/form",
 		icon: FileText,
-		featured: false,
 	},
 	{
 		name: "@duplojs/json-web-token",
@@ -62,7 +58,6 @@ const packageItems = [
 		npmHref: "https://www.npmjs.com/package/@duplojs/json-web-token",
 		command: "npm i @duplojs/json-web-token",
 		icon: KeyRound,
-		featured: false,
 	},
 	{
 		name: "@duplojs/playwright",
@@ -72,7 +67,6 @@ const packageItems = [
 		npmHref: "https://www.npmjs.com/package/@duplojs/playwright",
 		command: "npm i @duplojs/playwright",
 		icon: Play,
-		featured: false,
 	},
 ];
 
@@ -93,8 +87,28 @@ const benefits = [
 	"Install separately",
 ];
 
+const packageGroups = Array.from(
+	{ length: Math.ceil(packageItems.length / 3) },
+	(__, packageGroupIndex) => packageItems.slice(packageGroupIndex * 3, (packageGroupIndex * 3) + 3),
+);
+
+const currentGroupIndex = ref(0);
+const currentPackageGroup = computed(() => packageGroups[currentGroupIndex.value] ?? []);
+
 const copiedPackage = ref<string | undefined>();
 let copiedTimeout: ReturnType<typeof setTimeout> | undefined = undefined;
+
+function goToPackageGroup(packageGroupIndex: number) {
+	currentGroupIndex.value = packageGroupIndex;
+}
+
+function goToNextPackageGroup() {
+	currentGroupIndex.value = (currentGroupIndex.value + 1) % packageGroups.length;
+}
+
+function goToPreviousPackageGroup() {
+	currentGroupIndex.value = (currentGroupIndex.value - 1 + packageGroups.length) % packageGroups.length;
+}
 
 async function copyCommand(packageName: string, command: string) {
 	if (typeof navigator === "undefined" || navigator.clipboard === undefined) {
@@ -178,86 +192,149 @@ onBeforeUnmount(() => {
 				class="ecosystem-section__packages"
 				aria-label="DuploJS packages"
 			>
-				<article
-					v-for="packageItem in packageItems"
-					:key="packageItem.name"
-					class="ecosystem-section__package-card"
-					:class="{ 'ecosystem-section__package-card--featured': packageItem.featured }"
+				<div class="ecosystem-section__packages-stage">
+					<Transition
+						name="ecosystem-section__package-group"
+						mode="out-in"
+					>
+						<div
+							:key="currentGroupIndex"
+							class="ecosystem-section__package-group"
+						>
+							<article
+								v-for="(packageItem, packageIndex) in currentPackageGroup"
+								:key="packageItem.name"
+								class="ecosystem-section__package-card"
+								:class="[
+									packageIndex === 0
+										? 'ecosystem-section__package-card--featured'
+										: 'ecosystem-section__package-card--secondary',
+									`ecosystem-section__package-card--slot-${packageIndex + 1}`,
+								]"
+							>
+								<div class="ecosystem-section__package-head">
+									<span
+										class="ecosystem-section__package-icon"
+										aria-hidden="true"
+									>
+										<component
+											:is="packageItem.icon"
+											:size="18"
+											:stroke-width="1.8"
+										/>
+									</span>
+
+									<span class="ecosystem-section__package-title">
+										<strong>{{ packageItem.name }}</strong>
+
+										<span>{{ packageItem.badge }}</span>
+									</span>
+
+									<span
+										class="ecosystem-section__package-chevron"
+										aria-hidden="true"
+									>
+										<ArrowRight
+											:size="18"
+											:stroke-width="2"
+										/>
+									</span>
+								</div>
+
+								<p class="ecosystem-section__package-description">
+									{{ packageItem.description }}
+								</p>
+
+								<div class="ecosystem-section__package-actions">
+									<a
+										class="ecosystem-section__package-action"
+										:href="packageItem.docsHref"
+										target="_blank"
+										rel="noreferrer"
+									>
+										<ExternalLink
+											:size="16"
+											:stroke-width="2"
+											aria-hidden="true"
+										/>
+
+										Docs
+									</a>
+
+									<a
+										class="ecosystem-section__package-action"
+										:href="packageItem.npmHref"
+										target="_blank"
+										rel="noreferrer"
+									>
+										npm
+									</a>
+
+									<button
+										class="ecosystem-section__package-action ecosystem-section__package-action--copy"
+										type="button"
+										:aria-label="`Copy ${packageItem.command}`"
+										@click="copyCommand(packageItem.name, packageItem.command)"
+									>
+										<Clipboard
+											:size="16"
+											:stroke-width="2"
+											aria-hidden="true"
+										/>
+
+										{{ copiedPackage === packageItem.name ? "Copied" : "npm i" }}
+									</button>
+								</div>
+							</article>
+						</div>
+					</Transition>
+				</div>
+
+				<div
+					class="ecosystem-section__carousel-controls"
+					aria-label="Package groups navigation"
 				>
-					<div class="ecosystem-section__package-head">
-						<span
-							class="ecosystem-section__package-icon"
-							aria-hidden="true"
-						>
-							<component
-								:is="packageItem.icon"
-								:size="18"
-								:stroke-width="1.8"
-							/>
-						</span>
+					<button
+						class="ecosystem-section__carousel-button ecosystem-section__carousel-button--previous"
+						type="button"
+						aria-label="Show previous package group"
+						@click="goToPreviousPackageGroup"
+					>
+						<ArrowRight
+							:size="20"
+							:stroke-width="2"
+						/>
+					</button>
 
-						<span class="ecosystem-section__package-title">
-							<strong>{{ packageItem.name }}</strong>
+					<button
+						class="ecosystem-section__carousel-button ecosystem-section__carousel-button--next"
+						type="button"
+						aria-label="Show next package group"
+						@click="goToNextPackageGroup"
+					>
+						<ArrowRight
+							:size="24"
+							:stroke-width="2"
+						/>
+					</button>
 
-							<span>{{ packageItem.badge }}</span>
-						</span>
+					<span class="ecosystem-section__carousel-count">
+						{{ currentGroupIndex + 1 }} / {{ packageGroups.length }}
+					</span>
 
-						<span
-							class="ecosystem-section__package-chevron"
-							aria-hidden="true"
-						>
-							<ArrowRight
-								:size="18"
-								:stroke-width="2"
-							/>
-						</span>
-					</div>
-
-					<p class="ecosystem-section__package-description">
-						{{ packageItem.description }}
-					</p>
-
-					<div class="ecosystem-section__package-actions">
-						<a
-							class="ecosystem-section__package-action"
-							:href="packageItem.docsHref"
-							target="_blank"
-							rel="noreferrer"
-						>
-							<ExternalLink
-								:size="16"
-								:stroke-width="2"
-								aria-hidden="true"
-							/>
-
-							Docs
-						</a>
-
-						<a
-							class="ecosystem-section__package-action"
-							:href="packageItem.npmHref"
-							target="_blank"
-							rel="noreferrer"
-						>
-							npm
-						</a>
-
+					<div class="ecosystem-section__carousel-dots">
 						<button
-							class="ecosystem-section__package-action ecosystem-section__package-action--copy"
+							v-for="(_, packageGroupIndex) in packageGroups"
+							:key="packageGroupIndex"
+							class="ecosystem-section__carousel-dot"
+							:class="{ 'ecosystem-section__carousel-dot--active': packageGroupIndex === currentGroupIndex }"
 							type="button"
-							:aria-label="`Copy ${packageItem.command}`"
-							@click="copyCommand(packageItem.name, packageItem.command)"
-						>
-							<Clipboard
-								:size="16"
-								:stroke-width="2"
-								aria-hidden="true"
-							/>
-
-							{{ copiedPackage === packageItem.name ? "Copied" : "npm i" }}
-						</button>
+							:aria-label="`Show package group ${packageGroupIndex + 1}`"
+							:aria-current="packageGroupIndex === currentGroupIndex ? 'page' : undefined"
+							@click="goToPackageGroup(packageGroupIndex)"
+						/>
 					</div>
-				</article>
+				</div>
 			</div>
 
 			<ul
@@ -462,9 +539,42 @@ onBeforeUnmount(() => {
 
 .ecosystem-section__packages {
 	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: stretch;
 	gap: 18px;
 	min-width: 0;
+	min-height: clamp(560px, 43vw, 660px);
+}
+
+.ecosystem-section__packages-stage {
+	min-width: 0;
+	min-height: 100%;
+}
+
+.ecosystem-section__package-group {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-template-rows: minmax(300px, 1.18fr) minmax(250px, 1fr);
+	gap: 18px;
+	min-width: 0;
+	min-height: 100%;
+}
+
+.ecosystem-section__package-group-enter-active,
+.ecosystem-section__package-group-leave-active {
+	transition:
+		opacity 220ms ease,
+		transform 220ms ease;
+}
+
+.ecosystem-section__package-group-enter-from {
+	opacity: 0;
+	transform: translateX(18px);
+}
+
+.ecosystem-section__package-group-leave-to {
+	opacity: 0;
+	transform: translateX(-12px);
 }
 
 .ecosystem-section__package-card {
@@ -472,7 +582,7 @@ onBeforeUnmount(() => {
 	display: flex;
 	flex-direction: column;
 	min-width: 0;
-	min-height: 244px;
+	min-height: 250px;
 	padding: 22px;
 	overflow: hidden;
 	border: 1px solid var(--color-border-subtle);
@@ -516,7 +626,9 @@ onBeforeUnmount(() => {
 }
 
 .ecosystem-section__package-card--featured {
-	min-height: 244px;
+	grid-column: 1 / -1;
+	min-height: 300px;
+	padding: 30px;
 	border-color: rgba(247, 203, 61, 0.38);
 	background:
 		linear-gradient(180deg, rgba(247, 203, 61, 0.1), rgba(13, 16, 20, 0.78)),
@@ -526,9 +638,12 @@ onBeforeUnmount(() => {
 		0 0 34px rgba(247, 203, 61, 0.1);
 }
 
-.ecosystem-section__package-card--featured:first-child {
+.ecosystem-section__package-card--secondary {
+	min-height: 250px;
+}
+
+.ecosystem-section__package-card--slot-2:last-child:not(.ecosystem-section__package-card--featured) {
 	grid-column: 1 / -1;
-	min-height: 214px;
 }
 
 .ecosystem-section__package-head {
@@ -676,6 +791,130 @@ onBeforeUnmount(() => {
 	opacity: 1;
 }
 
+.ecosystem-section__carousel-controls {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 13px;
+	min-width: 60px;
+	padding: 6px 0;
+}
+
+.ecosystem-section__carousel-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid rgba(247, 203, 61, 0.24);
+	border-radius: 999px;
+	background:
+		linear-gradient(180deg, rgba(247, 203, 61, 0.12), rgba(8, 10, 13, 0.68)),
+		rgba(8, 10, 13, 0.74);
+	color: var(--color-brand-primary);
+	cursor: pointer;
+	box-shadow:
+		0 18px 44px rgba(0, 0, 0, 0.26),
+		0 0 22px rgba(247, 203, 61, 0.08);
+	transition:
+		border-color 160ms ease,
+		box-shadow 160ms ease,
+		color 160ms ease,
+		opacity 160ms ease,
+		transform 160ms ease;
+}
+
+.ecosystem-section__carousel-button svg {
+	width: 20px;
+	height: 20px;
+	fill: none;
+	stroke: currentColor;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.ecosystem-section__carousel-button--previous {
+	width: 42px;
+	height: 42px;
+	color: var(--color-text-muted);
+	opacity: 0.68;
+}
+
+.ecosystem-section__carousel-button--previous svg {
+	transform: rotate(180deg);
+}
+
+.ecosystem-section__carousel-button--next {
+	width: 58px;
+	height: 58px;
+	border-color: rgba(247, 203, 61, 0.42);
+	box-shadow:
+		0 22px 52px rgba(0, 0, 0, 0.3),
+		0 0 28px rgba(247, 203, 61, 0.14);
+}
+
+.ecosystem-section__carousel-button:hover,
+.ecosystem-section__carousel-button:focus-visible {
+	border-color: rgba(247, 203, 61, 0.6);
+	color: var(--color-brand-primary);
+	box-shadow:
+		0 24px 58px rgba(0, 0, 0, 0.34),
+		0 0 34px rgba(247, 203, 61, 0.18);
+	transform: translateY(-2px);
+	opacity: 1;
+}
+
+.ecosystem-section__carousel-count {
+	color: var(--color-text-muted);
+	font-family:
+		ui-monospace,
+		SFMono-Regular,
+		"SF Mono",
+		Menlo,
+		Monaco,
+		Consolas,
+		"Liberation Mono",
+		monospace;
+	font-weight: 720;
+	font-size: 0.78rem;
+	line-height: 1;
+	white-space: nowrap;
+}
+
+.ecosystem-section__carousel-dots {
+	display: grid;
+	gap: 8px;
+	justify-items: center;
+}
+
+.ecosystem-section__carousel-dot {
+	width: 7px;
+	height: 7px;
+	padding: 0;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.16);
+	cursor: pointer;
+	transition:
+		border-color 160ms ease,
+		background-color 160ms ease,
+		box-shadow 160ms ease,
+		transform 160ms ease;
+}
+
+.ecosystem-section__carousel-dot--active {
+	height: 18px;
+	border-color: rgba(247, 203, 61, 0.74);
+	background: var(--color-brand-primary);
+	box-shadow: 0 0 16px rgba(247, 203, 61, 0.28);
+}
+
+.ecosystem-section__carousel-dot:hover,
+.ecosystem-section__carousel-dot:focus-visible {
+	border-color: rgba(247, 203, 61, 0.62);
+	background: rgba(247, 203, 61, 0.42);
+	transform: scale(1.12);
+}
+
 .ecosystem-section__benefits {
 	grid-column: 1 / -1;
 	display: grid;
@@ -730,7 +969,8 @@ onBeforeUnmount(() => {
 	}
 
 	.ecosystem-section__packages {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-columns: minmax(0, 1fr) auto;
+		min-height: 620px;
 	}
 }
 
@@ -764,6 +1004,34 @@ onBeforeUnmount(() => {
 	.ecosystem-section__packages,
 	.ecosystem-section__benefits {
 		grid-template-columns: 1fr;
+	}
+
+	.ecosystem-section__packages {
+		min-height: auto;
+	}
+
+	.ecosystem-section__package-group {
+		grid-template-columns: 1fr;
+		grid-template-rows: none;
+	}
+
+	.ecosystem-section__carousel-controls {
+		display: grid;
+		grid-template-columns: auto auto auto 1fr;
+		justify-content: start;
+		min-width: 0;
+		padding: 0;
+	}
+
+	.ecosystem-section__carousel-dots {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+	}
+
+	.ecosystem-section__carousel-dot--active {
+		width: 18px;
+		height: 7px;
 	}
 
 	.ecosystem-section__package-card,
@@ -804,12 +1072,20 @@ onBeforeUnmount(() => {
 	.ecosystem-section__package-card::before,
 	.ecosystem-section__package-actions,
 	.ecosystem-section__package-chevron,
-	.ecosystem-section__package-action {
+	.ecosystem-section__package-action,
+	.ecosystem-section__carousel-button,
+	.ecosystem-section__carousel-dot,
+	.ecosystem-section__package-group-enter-active,
+	.ecosystem-section__package-group-leave-active {
 		transition: none;
 	}
 
 	.ecosystem-section__package-card:hover,
-	.ecosystem-section__package-card:focus-within {
+	.ecosystem-section__package-card:focus-within,
+	.ecosystem-section__carousel-button:hover,
+	.ecosystem-section__carousel-button:focus-visible,
+	.ecosystem-section__carousel-dot:hover,
+	.ecosystem-section__carousel-dot:focus-visible {
 		transform: none;
 	}
 }
