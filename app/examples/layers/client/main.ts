@@ -7,17 +7,17 @@ const httpClient = createHttpClient<Routes>({
 
 const result = await httpClient
 	.post(
-		"/clients/{clientId}/borrow-book",
+		"/clients/{clientId}/give-back-book",
 		{
 			params: { clientId: "bookId" },
 			body: { bookId: "bookId" },
 		},
 	)
 	.whenInformation(
-		"client.borrowBook",
+		"client.giveBackBook",
 		() => {
 
 			/* ... */
 		},
 	)
-	.iWantInformation("client.borrowBook");
+	.iWantInformation("client.giveBackBook");

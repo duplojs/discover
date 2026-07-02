@@ -1,5 +1,5 @@
-import { type Book } from "@domains/entities";
 import { C } from "@duplojs/utils";
+import { type Book } from "@domains/entities";
 
 export interface BookPort {
 	save<T extends Book.Entity>(entity: T): Promise<T>;

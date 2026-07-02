@@ -1,5 +1,5 @@
-import { type Client } from "@domains/entities";
 import { C } from "@duplojs/utils";
+import { type Client } from "@domains/entities";
 
 export interface ClientPort {
 	save<T extends Client.Entity>(entity: T): Promise<T>;

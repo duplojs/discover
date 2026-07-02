@@ -1,9 +1,9 @@
-import { Book, Client } from "@domains/entities";
-import { ResponseContract, useRouteBuilder } from "@duplojs/http";
 import { E } from "@duplojs/utils";
-import { useCases } from "infrastructure/adapters";
-import { iWantBookExist } from "infrastructure/checkers/book";
-import { iWantClientExist } from "infrastructure/checkers/client";
+import { ResponseContract, useRouteBuilder } from "@duplojs/http";
+import { Book, Client } from "@domains/entities";
+import { useCases } from "@infrastructure/adapters";
+import { iWantBookExist } from "@infrastructure/checkers/book";
+import { iWantClientExist } from "@infrastructure/checkers/client";
 
 useRouteBuilder("POST", "/clients/{clientId}/give-back-book")
 	.extract({

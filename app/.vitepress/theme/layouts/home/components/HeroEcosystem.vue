@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowRight, FileText, Globe2, KeyRound, Package, Play, Server } from "@lucide/vue";
+import { FileText, Globe2, KeyRound, Package, Play, Server } from "@lucide/vue";
 
 const ecosystemPackages = [
 	{
@@ -656,7 +656,6 @@ const ecosystemPackages = [
 .hero-ecosystem__module--jwt {
 	top: 90%;
 	left: 28%;
-	width: 320px;
 	transform: translate(-50%, -50%);
 }
 

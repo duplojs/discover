@@ -15,6 +15,7 @@ import DomainsEntitiesBook from "@/examples/layers/domains/entities/book.md";
 import DomainsEntitiesClient from "@/examples/layers/domains/entities/client.md";
 import InfrastructureAdaptersPortsBook from "@/examples/layers/infrastructure/adapters/ports/book.md";
 import InfrastructureAdaptersPortsClient from "@/examples/layers/infrastructure/adapters/ports/client.md";
+import InfrastructureAdaptersIndex from "@/examples/layers/infrastructure/adapters/index.md";
 import InfrastructureCheckersBook from "@/examples/layers/infrastructure/checkers/book.md";
 import InfrastructureCheckersClient from "@/examples/layers/infrastructure/checkers/client.md";
 import InfrastructureMain from "@/examples/layers/infrastructure/main.md";
@@ -39,6 +40,7 @@ export {
 	DomainsEntitiesClient,
 	InfrastructureAdaptersPortsBook,
 	InfrastructureAdaptersPortsClient,
+	InfrastructureAdaptersIndex,
 	InfrastructureCheckersBook,
 	InfrastructureCheckersClient,
 	InfrastructureMain,

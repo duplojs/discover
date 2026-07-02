@@ -1,7 +1,7 @@
-import type { Book } from "@domains/entities";
-import { createPresetChecker, ResponseContract, useCheckerBuilder } from "@duplojs/http";
 import { E, pipe } from "@duplojs/utils";
-import { bookPort } from "infrastructure/adapters/ports";
+import { createPresetChecker, ResponseContract, useCheckerBuilder } from "@duplojs/http";
+import type { Book } from "@domains/entities";
+import { bookPort } from "@infrastructure/adapters/ports";
 
 export const checkBookExist = useCheckerBuilder()
 	.handler(

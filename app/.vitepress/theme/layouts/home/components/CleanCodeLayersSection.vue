@@ -1,12 +1,30 @@
 <script setup lang="ts">
 import { Box, ChevronRight, GitBranch, Server } from "@lucide/vue";
-import { computed, ref, type Component } from "vue";
+import { computed, markRaw, ref, type Component } from "vue";
+import {
+	ApplicationsPortsBook,
+	ApplicationsPortsClient,
+	ApplicationsUseCasesClientGiveBackBook,
+	ClientMain,
+	ClientSwagger,
+	ClientTypesD,
+	DomainsAggregatesClientGiveBackBook,
+	DomainsAggregatesClientHaveBook,
+	DomainsEntitiesBook,
+	DomainsEntitiesClient,
+	InfrastructureAdaptersIndex,
+	InfrastructureAdaptersPortsBook,
+	InfrastructureAdaptersPortsClient,
+	InfrastructureCheckersBook,
+	InfrastructureCheckersClient,
+	InfrastructureRoutesClientGiveBackBook,
+} from "@/examples/layers";
 
 type LayerId = "domain" | "application" | "infrastructure";
 
 interface LayerFile {
-	name: string;
-	placeholder: string;
+	label: string;
+	component: Component;
 }
 
 type LayerFiles = [LayerFile, ...LayerFile[]];
@@ -27,17 +45,22 @@ const layers: Record<LayerId, LayerContent> = {
 		icon: Box,
 		files: [
 			{
-				name: "user.entity.ts",
-				placeholder: "// Domain layer example\n// Replace this placeholder with real code",
+				label: "entities/book.ts",
+				component: markRaw(DomainsEntitiesBook),
 			},
 			{
-				name: "user.value-object.ts",
-				placeholder: "// Domain layer example\n// Replace this placeholder with real code",
+				label: "entities/client.ts",
+				component: markRaw(DomainsEntitiesClient),
 			},
 			{
-				name: "user.errors.ts",
-				placeholder: "// Domain layer example\n// Replace this placeholder with real code",
+				label: "aggregates/clientGiveBackBook.ts",
+				component: markRaw(DomainsAggregatesClientGiveBackBook),
 			},
+			{
+				label: "aggregates/clientHaveBook.ts",
+				component: markRaw(DomainsAggregatesClientHaveBook),
+			},
+
 		],
 	},
 	application: {
@@ -47,36 +70,60 @@ const layers: Record<LayerId, LayerContent> = {
 		icon: GitBranch,
 		files: [
 			{
-				name: "create-user.usecase.ts",
-				placeholder: "// Application layer example\n// Replace this placeholder with real code",
+				label: "useCases/clientGiveBackBook.md",
+				component: markRaw(ApplicationsUseCasesClientGiveBackBook),
 			},
 			{
-				name: "create-user.input.ts",
-				placeholder: "// Application layer example\n// Replace this placeholder with real code",
+				label: "ports/client.ts",
+				component: markRaw(ApplicationsPortsClient),
 			},
 			{
-				name: "create-user.result.ts",
-				placeholder: "// Application layer example\n// Replace this placeholder with real code",
+				label: "ports/book.ts",
+				component: markRaw(ApplicationsPortsBook),
 			},
 		],
 	},
 	infrastructure: {
 		label: "Infrastructure",
-		description: "Connect your application to databases, HTTP clients and external services.",
+		description: "Connect your application to routes, adapters, checkers and external services.",
 		diagramDescription: "Connect to external systems and services.",
 		icon: Server,
 		files: [
 			{
-				name: "user.repository.ts",
-				placeholder: "// Infrastructure layer example\n// Replace this placeholder with real code",
+				label: "routes/clientGiveBack.ts",
+				component: markRaw(InfrastructureRoutesClientGiveBackBook),
 			},
 			{
-				name: "database-user.repository.ts",
-				placeholder: "// Infrastructure layer example\n// Replace this placeholder with real code",
+				label: "client/main.ts",
+				component: markRaw(ClientMain),
 			},
 			{
-				name: "mail-service.ts",
-				placeholder: "// Infrastructure layer example\n// Replace this placeholder with real code",
+				label: "client/types.d.ts",
+				component: markRaw(ClientTypesD),
+			},
+			{
+				label: "swagger.json",
+				component: markRaw(ClientSwagger),
+			},
+			{
+				label: "checkers/book.ts",
+				component: markRaw(InfrastructureCheckersBook),
+			},
+			{
+				label: "checkers/client.ts",
+				component: markRaw(InfrastructureCheckersClient),
+			},
+			{
+				label: "adapters/index.ts",
+				component: markRaw(InfrastructureAdaptersIndex),
+			},
+			{
+				label: "adapters/ports/book.ts",
+				component: markRaw(InfrastructureAdaptersPortsBook),
+			},
+			{
+				label: "adapters/ports/client.ts",
+				component: markRaw(InfrastructureAdaptersPortsClient),
 			},
 		],
 	},
@@ -86,7 +133,6 @@ const activeLayerId = ref<LayerId>("domain");
 const activeFileIndex = ref(0);
 const activeLayer = computed(() => layers[activeLayerId.value]);
 const activeFile = computed(() => activeLayer.value.files[activeFileIndex.value] ?? activeLayer.value.files[0]);
-const activePlaceholderLines = computed(() => activeFile.value.placeholder.split("\n"));
 
 function selectLayer(layerId: LayerId) {
 	activeLayerId.value = layerId;
@@ -296,7 +342,7 @@ function selectFile(fileIndex: number) {
 						<span />
 					</span>
 
-					<strong>{{ activeFile.name }}</strong>
+					<strong>{{ activeFile.label }}</strong>
 
 					<span class="clean-code-layers__viewer-badge">
 						{{ activeLayer.label }}
@@ -310,7 +356,7 @@ function selectFile(fileIndex: number) {
 				>
 					<button
 						v-for="(file, fileIndex) in activeLayer.files"
-						:key="file.name"
+						:key="file.label"
 						class="clean-code-layers__tab"
 						:class="{ 'clean-code-layers__tab--active': activeFileIndex === fileIndex }"
 						type="button"
@@ -318,29 +364,17 @@ function selectFile(fileIndex: number) {
 						:aria-selected="activeFileIndex === fileIndex"
 						@click="selectFile(fileIndex)"
 					>
-						{{ file.name }}
+						{{ file.label }}
 					</button>
 				</div>
 
 				<div
-					:key="`${activeLayerId}-${activeFile.name}`"
+					:key="`${activeLayerId}-${activeFile.label}`"
 					class="clean-code-layers__code"
 				>
-					<code>
-						<span
-							v-for="(line, lineIndex) in activePlaceholderLines"
-							:key="`${activeFile.name}-${lineIndex}`"
-							class="clean-code-layers__code-line"
-						>
-							<span class="clean-code-layers__line-number">
-								{{ lineIndex + 1 }}
-							</span>
-
-							<span class="clean-code-layers__line-content">
-								{{ line }}
-							</span>
-						</span>
-					</code>
+					<div class="code-example-content">
+						<component :is="activeFile.component" />
+					</div>
 				</div>
 			</div>
 		</div>
@@ -392,6 +426,7 @@ function selectFile(fileIndex: number) {
 }
 
 .clean-code-layers__inner {
+	height: 950px;
 	position: relative;
 	z-index: 1;
 	display: flex;
@@ -858,7 +893,11 @@ function selectFile(fileIndex: number) {
 	overflow-x: auto;
 	padding: 12px 14px 0;
 	border-bottom: 1px solid var(--color-border-subtle);
-	scrollbar-width: thin;
+	scrollbar-width: none;
+}
+
+.clean-code-layers__tabs::-webkit-scrollbar {
+	display: none;
 }
 
 .clean-code-layers__tab {
@@ -896,7 +935,7 @@ function selectFile(fileIndex: number) {
 .clean-code-layers__code {
 	min-height: 0;
 	margin: 0;
-	padding: 28px 0 34px;
+	padding: 0;
 	overflow-x: auto;
 	overflow-y: auto;
 	background:
@@ -908,29 +947,23 @@ function selectFile(fileIndex: number) {
 	line-height: 1.7;
 }
 
-.clean-code-layers__code code {
-	display: block;
+.code-example-content {
+	padding: 24px;
 	min-width: max-content;
-	font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+	overflow: auto;
 	animation: clean-code-layers-fade 180ms ease;
 }
 
-.clean-code-layers__code-line {
-	display: grid;
-	grid-template-columns: 62px minmax(0, 1fr);
-	min-height: 27px;
-	padding-right: 26px;
+.code-example-content :deep(.vp-code-group),
+.code-example-content :deep(.language-ts),
+.code-example-content :deep(.language-js),
+.code-example-content :deep(div[class*="language-"]) {
+	margin: 0;
 }
 
-.clean-code-layers__line-number {
-	color: rgba(126, 122, 112, 0.72);
-	text-align: right;
-	user-select: none;
-}
-
-.clean-code-layers__line-content {
-	padding-left: 24px;
-	color: var(--color-text-secondary);
+.code-example-content :deep(pre) {
+	margin: 0;
+	background: transparent;
 }
 
 @keyframes clean-code-layers-fade {
@@ -960,13 +993,14 @@ function selectFile(fileIndex: number) {
 
 @media (prefers-reduced-motion: reduce) {
 	.clean-code-layers__layer-arrow,
-	.clean-code-layers__code code {
+	.code-example-content {
 		animation: none;
 	}
 }
 
 @media (max-width: 1280px) {
 	.clean-code-layers__inner {
+		height: auto;
 		flex-direction: column;
 		justify-items: stretch;
 	}
@@ -1095,15 +1129,6 @@ function selectFile(fileIndex: number) {
 
 	.clean-code-layers__code {
 		font-size: 0.9rem;
-	}
-
-	.clean-code-layers__code-line {
-		grid-template-columns: 48px minmax(0, 1fr);
-		padding-right: 18px;
-	}
-
-	.clean-code-layers__line-content {
-		padding-left: 18px;
 	}
 }
 

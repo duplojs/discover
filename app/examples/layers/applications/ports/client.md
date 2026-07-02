@@ -1,3 +1,3 @@
 ```ts
-<!--@include: @/examples/layers/applications/repositories/client.ts-->
+<!--@include: @/examples/layers/applications/ports/client.ts-->
 ```

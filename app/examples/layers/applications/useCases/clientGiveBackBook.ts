@@ -1,7 +1,6 @@
-import { BookPort, ClientPort } from "@applications/ports";
-import { clientGiveBackBook } from "@domains/aggregates";
 import { C, E, promiseObject } from "@duplojs/utils";
-import type { clientHaveBook } from "domains/aggregates/clientHaveBook";
+import { BookPort, ClientPort } from "@applications/ports";
+import { clientGiveBackBook, type clientHaveBook } from "@domains/aggregates";
 
 export const ClientGiveBackBookUseCase = C.createUseCase(
 	{
@@ -13,7 +12,7 @@ export const ClientGiveBackBookUseCase = C.createUseCase(
 		clientPort,
 	}) => (
 		input: C.GetEvidenceResult<
-		typeof clientHaveBook,
+			typeof clientHaveBook,
 			"client-with-book"
 		>,
 	) => E.rightPipe(

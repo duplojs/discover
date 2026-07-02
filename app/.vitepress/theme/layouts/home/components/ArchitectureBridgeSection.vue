@@ -7,12 +7,12 @@ const flowItems = [
 		icon: Code2,
 	},
 	{
-		label: "Validation",
-		icon: ShieldCheck,
-	},
-	{
 		label: "Structure",
 		icon: Boxes,
+	},
+	{
+		label: "Validation",
+		icon: ShieldCheck,
 	},
 ];
 
