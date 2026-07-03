@@ -5,12 +5,12 @@ const navItems = [
 		href: "#packages",
 	},
 	{
-		label: "Architecture",
-		href: "#clean-code-layers",
-	},
-	{
 		label: "Compare",
 		href: "#code-versus",
+	},
+	{
+		label: "Architecture",
+		href: "#clean-code-layers",
 	},
 	{
 		label: "Community",

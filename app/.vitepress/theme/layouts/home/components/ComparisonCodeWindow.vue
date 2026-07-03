@@ -220,6 +220,7 @@ function selectFile(fileIndex: number) {
 	padding: 10px 12px 0;
 	border-bottom: 1px solid var(--color-border-subtle);
 	scrollbar-width: thin;
+	flex-shrink: 0;
 }
 
 .comparison-code-window__tab {

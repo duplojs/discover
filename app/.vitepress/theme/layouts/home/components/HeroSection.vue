@@ -2,9 +2,9 @@
 import HeroEcosystem from "./HeroEcosystem.vue";
 
 const chips = [
-	"Contracts at boundaries",
-	"Pure data flow",
-	"Composable modules",
+	"Smart Typing",
+	"0 Dependency",
+	"Functional Programming",
 ];
 </script>
 

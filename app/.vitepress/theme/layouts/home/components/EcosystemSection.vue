@@ -17,7 +17,7 @@ const packageItems = [
 	{
 		name: "@duplojs/utils",
 		badge: "FOUNDATION",
-		description: "Core functional primitives for transformations, object handling and readable TypeScript flows.",
+		description: "The shared foundation behind the ecosystem, bringing typed composition, safe transformations, data parsing, explicit errors, immutable operations and more.",
 		docsHref: "https://utils.duplojs.dev",
 		npmHref: "https://www.npmjs.com/package/@duplojs/utils",
 		command: "npm i @duplojs/utils",
@@ -25,8 +25,8 @@ const packageItems = [
 	},
 	{
 		name: "@duplojs/server-utils",
-		badge: "BACKEND CORE",
-		description: "Server-side helpers for Node runtimes, adapters and backend boundaries.",
+		badge: "SERVER",
+		description: "Server primitives built for predictable backends, covering file handling, commands, environment configuration, typed results and more.",
 		docsHref: "https://server-utils.duplojs.dev",
 		npmHref: "https://www.npmjs.com/package/@duplojs/server-utils",
 		command: "npm i @duplojs/server-utils",
@@ -34,8 +34,8 @@ const packageItems = [
 	},
 	{
 		name: "@duplojs/http",
-		badge: "HTTP CORE",
-		description: "HTTP contracts and helpers for request, response and integration flows.",
+		badge: "CLIENT/SERVER",
+		description: "Declare HTTP contracts once and keep routing, validation, clients, documentation and transport logic aligned by design.",
 		docsHref: "https://http.duplojs.dev",
 		npmHref: "https://www.npmjs.com/package/@duplojs/http",
 		command: "npm i @duplojs/http",
@@ -43,8 +43,8 @@ const packageItems = [
 	},
 	{
 		name: "@duplojs/form",
-		badge: "FORM",
-		description: "Form validation and schema helpers for client and server inputs.",
+		badge: "CLIENT",
+		description: "Structure-first Vue forms with typed schemas, reusable inputs, composable layouts, validation flows and more.",
 		docsHref: "https://form.duplojs.dev",
 		npmHref: "https://www.npmjs.com/package/@duplojs/form",
 		command: "npm i @duplojs/form",
@@ -53,7 +53,7 @@ const packageItems = [
 	{
 		name: "@duplojs/json-web-token",
 		badge: "AUTH",
-		description: "JWT signing, verification and authentication helpers.",
+		description: "Typed token handling for signing, encryption, validation, reusable auth policies and more.",
 		docsHref: "https://json-web-token.duplojs.dev",
 		npmHref: "https://www.npmjs.com/package/@duplojs/json-web-token",
 		command: "npm i @duplojs/json-web-token",
@@ -61,8 +61,8 @@ const packageItems = [
 	},
 	{
 		name: "@duplojs/playwright",
-		badge: "TESTING",
-		description: "Testing helpers for reusable Playwright end-to-end flows.",
+		badge: "E2E TESTING",
+		description: "Reusable E2E testing primitives shaped around websites, pages, components, scenarios and more.",
 		docsHref: "https://playwright.duplojs.dev",
 		npmHref: "https://www.npmjs.com/package/@duplojs/playwright",
 		command: "npm i @duplojs/playwright",
@@ -72,19 +72,19 @@ const packageItems = [
 
 const argumentsList = [
 	{
-		title: "Install only the brick you need",
-		description: "Each package is independently documented and versioned.",
+		title: "Designed as one ecosystem",
+		description: "Each package extends the same foundation with the same type-driven logic.",
 	},
 	{
-		title: "Add the next boundary later",
-		description: "Utilities, server helpers and HTTP flows share the same design language.",
+		title: "Adopt it progressively",
+		description: "Pure functions fit into your stack, one package at a time.",
 	},
 ];
 
 const benefits = [
-	"Core packages first",
-	"Focused add-ons",
-	"Install separately",
+	"0 External Dependency",
+	"Only One Way",
+	"Towards Predictable Code",
 ];
 
 const packageGroups = Array.from(
@@ -152,13 +152,13 @@ onBeforeUnmount(() => {
 				</p>
 
 				<h2 class="ecosystem-section__title">
-					<span>Focused packages.</span>
+					<span>Many packages.</span>
 
-					<span>Same philosophy.</span>
+					<span>Only one way to do it.</span>
 				</h2>
 
 				<p class="ecosystem-section__description">
-					Start with the foundation, then add server, HTTP, form, auth or testing packages only when that part of the application needs a stronger boundary.
+					DuploJS brings together a rich ecosystem of focused packages, all shaped by the same functional foundation. From utilities to HTTP, server, form, auth and testing, every package follows the same type-driven logic and consistent development model.
 				</p>
 
 				<TypingInstallCommand class="ecosystem-section__terminal" />
