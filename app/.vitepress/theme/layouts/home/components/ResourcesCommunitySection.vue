@@ -1,12 +1,8 @@
 <script setup lang="ts">
+import MdiIcon from "../../../components/MdiIcon.vue";
+import { mdiOpenInNew, mdiPlay, resourceIconPaths, type ResourceIcon } from "../../../icons/mdi";
+
 type LinkVariant = "primary" | "secondary";
-type ResourceIcon =
-	| "blocks"
-	| "book"
-	| "discord"
-	| "file"
-	| "github"
-	| "graduation";
 
 interface CommunityLink {
 	label: string;
@@ -155,30 +151,7 @@ const resources: ResourceLink[] = [
 							class="resources-community__cta-icon"
 							aria-hidden="true"
 						>
-							<svg
-								v-if="link.icon === 'discord'"
-								viewBox="0 0 24 24"
-								focusable="false"
-							>
-								<path d="M8.5 8.2a11.5 11.5 0 0 1 7 0" />
-
-								<path d="M8.8 15.6c2.1 1 4.3 1 6.4 0" />
-
-								<path d="M9.2 13.1h.01" />
-
-								<path d="M14.8 13.1h.01" />
-
-								<path d="M7.2 5.4C9 4.6 10.6 4.2 12 4.2s3 .4 4.8 1.2l.6 1.5c1.1.6 2 1.4 2.7 2.4-.2 3.1-1 5.5-2.5 7.4-1.2.4-2.4.5-3.7.4l-.8-1.2a8.2 8.2 0 0 1-2.2 0l-.8 1.2c-1.3.1-2.5 0-3.7-.4-1.5-1.9-2.3-4.3-2.5-7.4.7-1 1.6-1.8 2.7-2.4l.6-1.5Z" />
-							</svg>
-
-							<svg
-								v-else
-								class="resources-community__icon--filled"
-								viewBox="0 0 24 24"
-								focusable="false"
-							>
-								<path d="M12 2C6.48 2 2 6.58 2 12.22c0 4.51 2.87 8.34 6.84 9.69.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.56 2.35 1.11 2.92.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.05 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05A9.37 9.37 0 0 1 12 6.94c.85 0 1.7.12 2.5.34 1.9-1.32 2.74-1.05 2.74-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.04.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.59.69.49A10.08 10.08 0 0 0 22 12.22C22 6.58 17.52 2 12 2Z" />
-							</svg>
+							<MdiIcon :path="resourceIconPaths[link.icon]" />
 						</span>
 
 						{{ link.label }}
@@ -212,12 +185,7 @@ const resources: ResourceLink[] = [
 						<span class="resources-community__youtube-badge">YouTube</span>
 
 						<span class="resources-community__play">
-							<svg
-								viewBox="0 0 24 24"
-								focusable="false"
-							>
-								<path d="M8 5v14l11-7z" />
-							</svg>
+							<MdiIcon :path="mdiPlay" />
 						</span>
 					</div>
 
@@ -231,15 +199,7 @@ const resources: ResourceLink[] = [
 						<span class="resources-community__video-action">
 							Watch on YouTube
 
-							<svg
-								viewBox="0 0 24 24"
-								aria-hidden="true"
-								focusable="false"
-							>
-								<path d="M7 17 17 7" />
-
-								<path d="M9 7h8v8" />
-							</svg>
+							<MdiIcon :path="mdiOpenInNew" />
 						</span>
 					</div>
 				</a>
@@ -261,84 +221,7 @@ const resources: ResourceLink[] = [
 							class="resources-community__resource-icon"
 							aria-hidden="true"
 						>
-							<svg
-								v-if="resource.icon === 'graduation'"
-								viewBox="0 0 24 24"
-								focusable="false"
-							>
-								<path d="M3 8 12 4l9 4-9 4-9-4Z" />
-
-								<path d="M7 10.5v4.2c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4.2" />
-
-								<path d="M21 8v5" />
-							</svg>
-
-							<svg
-								v-else-if="resource.icon === 'file'"
-								viewBox="0 0 24 24"
-								focusable="false"
-							>
-								<path d="M7 3h7l4 4v14H7z" />
-
-								<path d="M14 3v5h5" />
-
-								<path d="M10 13h5" />
-
-								<path d="M10 17h4" />
-							</svg>
-
-							<svg
-								v-else-if="resource.icon === 'book'"
-								viewBox="0 0 24 24"
-								focusable="false"
-							>
-								<path d="M5 4h9a3 3 0 0 1 3 3v13H8a3 3 0 0 0-3 3V4Z" />
-
-								<path d="M17 7h2v13h-2" />
-
-								<path d="M8 8h5" />
-
-								<path d="M8 12h5" />
-							</svg>
-
-							<svg
-								v-else-if="resource.icon === 'blocks'"
-								viewBox="0 0 24 24"
-								focusable="false"
-							>
-								<path d="M4 4h7v7H4z" />
-
-								<path d="M13 4h7v7h-7z" />
-
-								<path d="M4 13h7v7H4z" />
-
-								<path d="M13 13h7v7h-7z" />
-							</svg>
-
-							<svg
-								v-else-if="resource.icon === 'github'"
-								class="resources-community__icon--filled"
-								viewBox="0 0 24 24"
-								focusable="false"
-							>
-								<path d="M12 2C6.48 2 2 6.58 2 12.22c0 4.51 2.87 8.34 6.84 9.69.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.56 2.35 1.11 2.92.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.05 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05A9.37 9.37 0 0 1 12 6.94c.85 0 1.7.12 2.5.34 1.9-1.32 2.74-1.05 2.74-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.04.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.59.69.49A10.08 10.08 0 0 0 22 12.22C22 6.58 17.52 2 12 2Z" />
-							</svg>
-
-							<svg
-								v-else
-								viewBox="0 0 24 24"
-								focusable="false"
-							>
-								<path d="M8.5 8.2a11.5 11.5 0 0 1 7 0" />
-
-								<path d="M8.8 15.6c2.1 1 4.3 1 6.4 0" />
-
-								<path d="M9.2 13.1h.01" />
-
-								<path d="M14.8 13.1h.01" />
-
-								<path d="M7.2 5.4C9 4.6 10.6 4.2 12 4.2s3 .4 4.8 1.2l.6 1.5c1.1.6 2 1.4 2.7 2.4-.2 3.1-1 5.5-2.5 7.4-1.2.4-2.4.5-3.7.4l-.8-1.2a8.2 8.2 0 0 1-2.2 0l-.8 1.2c-1.3.1-2.5 0-3.7-.4-1.5-1.9-2.3-4.3-2.5-7.4.7-1 1.6-1.8 2.7-2.4l.6-1.5Z" />
-							</svg>
+							<MdiIcon :path="resourceIconPaths[resource.icon]" />
 						</span>
 
 						<span class="resources-community__resource-copy">
@@ -351,14 +234,7 @@ const resources: ResourceLink[] = [
 							class="resources-community__resource-arrow"
 							aria-hidden="true"
 						>
-							<svg
-								viewBox="0 0 24 24"
-								focusable="false"
-							>
-								<path d="M7 17 17 7" />
-
-								<path d="M9 7h8v8" />
-							</svg>
+							<MdiIcon :path="mdiOpenInNew" />
 						</span>
 					</a>
 				</div>
@@ -586,15 +462,6 @@ const resources: ResourceLink[] = [
 .resources-community__video-action svg {
 	width: 100%;
 	height: 100%;
-	fill: none;
-	stroke: currentColor;
-	stroke-linecap: round;
-	stroke-linejoin: round;
-	stroke-width: 2;
-}
-
-.resources-community__cta-icon .resources-community__icon--filled,
-.resources-community__resource-icon .resources-community__icon--filled {
 	fill: currentColor;
 	stroke: none;
 }

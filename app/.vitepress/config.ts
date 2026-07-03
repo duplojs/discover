@@ -5,6 +5,7 @@ import { groupIconMdPlugin, groupIconVitePlugin } from "vitepress-plugin-group-i
 import { Path, pipe } from "@duplojs/utils";
 import { withMermaid } from "vitepress-plugin-mermaid";
 import tailwindcss from "@tailwindcss/vite";
+import { mdiSocialIconSvgs } from "./theme/icons/mdi";
 
 const hostname = "https://duplojs.dev";
 const ogImage = new URL("/images/ogImage.png", hostname).toString();
@@ -70,20 +71,32 @@ export default pipe(
 			},
 			socialLinks: [
 				{
-					icon: "github",
+					icon: {
+						svg: mdiSocialIconSvgs.github,
+					},
 					link: "https://github.com/duplojs/discover",
+					ariaLabel: "GitHub",
 				},
 				{
-					icon: "npm",
+					icon: {
+						svg: mdiSocialIconSvgs.npm,
+					},
 					link: "https://www.npmjs.com/package/@duplojs/discover",
+					ariaLabel: "npm",
 				},
 				{
-					icon: "linkedin",
+					icon: {
+						svg: mdiSocialIconSvgs.linkedin,
+					},
 					link: "https://linkedin.com/company/duplojs",
+					ariaLabel: "LinkedIn",
 				},
 				{
-					icon: "discord",
+					icon: {
+						svg: mdiSocialIconSvgs.discord,
+					},
 					link: "https://discord.gg/5d6Ze5Wuqm",
+					ariaLabel: "Discord",
 				},
 			],
 			search: {

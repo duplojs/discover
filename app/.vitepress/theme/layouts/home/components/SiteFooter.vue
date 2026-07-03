@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import MdiIcon from "../../../components/MdiIcon.vue";
+import { mdiOpenInNew, socialIconPaths, type SocialIcon } from "../../../icons/mdi";
+
 interface FooterLink {
 	label: string;
 	href: string;
@@ -11,7 +14,7 @@ interface FooterColumn {
 }
 
 interface SocialLink extends FooterLink {
-	icon: "discord" | "github" | "youtube";
+	icon: SocialIcon;
 	ariaLabel: string;
 }
 
@@ -152,48 +155,12 @@ const footerColumns: FooterColumn[] = [
 						v-for="link in socialLinks"
 						:key="link.label"
 						class="site-footer__social"
-						:class="{ 'site-footer__social--filled': link.icon === 'github' }"
 						:href="link.href"
 						:target="link.external ? '_blank' : undefined"
 						:rel="link.external ? 'noreferrer' : undefined"
 						:aria-label="link.ariaLabel"
 					>
-						<svg
-							v-if="link.icon === 'github'"
-							viewBox="0 0 24 24"
-							aria-hidden="true"
-							focusable="false"
-						>
-							<path d="M12 2C6.48 2 2 6.58 2 12.22c0 4.51 2.87 8.34 6.84 9.69.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.56 2.35 1.11 2.92.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.05 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05A9.37 9.37 0 0 1 12 6.94c.85 0 1.7.12 2.5.34 1.9-1.32 2.74-1.05 2.74-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.04.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.59.69.49A10.08 10.08 0 0 0 22 12.22C22 6.58 17.52 2 12 2Z" />
-						</svg>
-
-						<svg
-							v-else-if="link.icon === 'discord'"
-							viewBox="0 0 24 24"
-							aria-hidden="true"
-							focusable="false"
-						>
-							<path d="M8.5 8.2a11.5 11.5 0 0 1 7 0" />
-
-							<path d="M8.8 15.6c2.1 1 4.3 1 6.4 0" />
-
-							<path d="M9.2 13.1h.01" />
-
-							<path d="M14.8 13.1h.01" />
-
-							<path d="M7.2 5.4C9 4.6 10.6 4.2 12 4.2s3 .4 4.8 1.2l.6 1.5c1.1.6 2 1.4 2.7 2.4-.2 3.1-1 5.5-2.5 7.4-1.2.4-2.4.5-3.7.4l-.8-1.2a8.2 8.2 0 0 1-2.2 0l-.8 1.2c-1.3.1-2.5 0-3.7-.4-1.5-1.9-2.3-4.3-2.5-7.4.7-1 1.6-1.8 2.7-2.4l.6-1.5Z" />
-						</svg>
-
-						<svg
-							v-else
-							viewBox="0 0 24 24"
-							aria-hidden="true"
-							focusable="false"
-						>
-							<path d="M10 9.75 15.5 12 10 14.25V9.75Z" />
-
-							<path d="M3.5 8.6c.2-1.2 1.1-2.1 2.3-2.3C7.5 6 10 6 12 6s4.5 0 6.2.3c1.2.2 2.1 1.1 2.3 2.3.2 1 .3 2.2.3 3.4s-.1 2.4-.3 3.4c-.2 1.2-1.1 2.1-2.3 2.3-1.7.3-4.2.3-6.2.3s-4.5 0-6.2-.3c-1.2-.2-2.1-1.1-2.3-2.3-.2-1-.3-2.2-.3-3.4s.1-2.4.3-3.4Z" />
-						</svg>
+						<MdiIcon :path="socialIconPaths[link.icon]" />
 					</a>
 				</div>
 			</div>
@@ -224,16 +191,10 @@ const footerColumns: FooterColumn[] = [
 							>
 								<span>{{ link.label }}</span>
 
-								<svg
+								<MdiIcon
 									v-if="link.external"
-									viewBox="0 0 24 24"
-									aria-hidden="true"
-									focusable="false"
-								>
-									<path d="M7 17 17 7" />
-
-									<path d="M9 7h8v8" />
-								</svg>
+									:path="mdiOpenInNew"
+								/>
 							</a>
 						</li>
 					</ul>
@@ -359,14 +320,6 @@ const footerColumns: FooterColumn[] = [
 .site-footer__social svg {
 	width: 19px;
 	height: 19px;
-	fill: none;
-	stroke: currentColor;
-	stroke-linecap: round;
-	stroke-linejoin: round;
-	stroke-width: 2;
-}
-
-.site-footer__social--filled svg {
 	fill: currentColor;
 	stroke: none;
 }
@@ -422,11 +375,8 @@ const footerColumns: FooterColumn[] = [
 	width: 13px;
 	height: 13px;
 	color: var(--color-text-muted);
-	fill: none;
-	stroke: currentColor;
-	stroke-linecap: round;
-	stroke-linejoin: round;
-	stroke-width: 2;
+	fill: currentColor;
+	stroke: none;
 	transition: color 160ms ease;
 }
 

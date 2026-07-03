@@ -67,6 +67,7 @@
     "node": ">=22.15.1"
   },
   "dependencies": {
-    "@lucide/vue": "^1.23.0"
+    "@lucide/vue": "^1.23.0",
+    "@mdi/js": "^7.4.47"
   }
 }
