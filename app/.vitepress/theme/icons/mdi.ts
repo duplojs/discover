@@ -1,12 +1,14 @@
 import {
+	mdiAlphaX,
 	mdiBookOpenPageVariantOutline,
 	mdiFileDocumentOutline,
 	mdiGithub,
 	mdiLinkedin,
 	mdiNpm,
 	mdiOpenInNew,
-	mdiPlay,
+	mdiReddit,
 	mdiSchool,
+	mdiTwitch,
 	mdiViewGridPlusOutline,
 	mdiYoutube,
 } from "@mdi/js";
@@ -18,7 +20,6 @@ export const mdiDiscord = "M22,24L16.75,19L17.38,21H4.5A2.5,2.5 0 0,1 2,18.5V3.5
 export {
 	mdiGithub,
 	mdiOpenInNew,
-	mdiPlay,
 };
 
 export const resourceIconPaths = {
@@ -28,6 +29,11 @@ export const resourceIconPaths = {
 	file: mdiFileDocumentOutline,
 	github: mdiGithub,
 	graduation: mdiSchool,
+	linkedin: mdiLinkedin,
+	reddit: mdiReddit,
+	twitch: mdiTwitch,
+	x: mdiAlphaX,
+	youtube: mdiYoutube,
 } as const;
 
 export type ResourceIcon = keyof typeof resourceIconPaths;

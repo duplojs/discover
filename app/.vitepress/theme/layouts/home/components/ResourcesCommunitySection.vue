@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import MdiIcon from "../../../components/MdiIcon.vue";
-import { mdiOpenInNew, mdiPlay, resourceIconPaths, type ResourceIcon } from "../../../icons/mdi";
+import { mdiOpenInNew, resourceIconPaths, type ResourceIcon } from "../../../icons/mdi";
 
 type LinkVariant = "primary" | "secondary";
 
-interface CommunityLink {
+interface CommunityAction {
 	label: string;
 	href: string;
 	variant: LinkVariant;
@@ -15,7 +15,7 @@ interface CommunityLink {
 
 interface ResourceLink {
 	id: string;
-	title: string;
+	label: string;
 	description: string;
 	href: string;
 	icon: ResourceIcon;
@@ -23,10 +23,37 @@ interface ResourceLink {
 	external: boolean;
 }
 
-const youtubeHref = "#youtube";
+interface FeaturedResource {
+	label: string;
+	title: string;
+	description: string;
+	href: string;
+	ariaLabel: string;
+}
 
-const communityLinks: CommunityLink[] = [
-	{
+interface CommunitySection {
+	eyebrow: string;
+	title: string;
+	description: string;
+	tags: string[];
+	primaryAction: CommunityAction;
+	secondaryAction: CommunityAction;
+	featured: FeaturedResource;
+	links: ResourceLink[];
+}
+
+const communitySection = {
+	eyebrow: "Community",
+	title: "Join the DuploJS community",
+	description: "Follow the project, join discussions, watch new content, and help shape the ecosystem around TypeScript-first backend development.",
+	tags: [
+		"Open source",
+		"Discord community",
+		"Project updates",
+		"Architecture discussions",
+		"TypeScript ecosystem",
+	],
+	primaryAction: {
 		label: "Join Discord",
 		href: "https://discord.gg/5d6Ze5Wuqm",
 		variant: "primary",
@@ -34,64 +61,65 @@ const communityLinks: CommunityLink[] = [
 		ariaLabel: "Join the DuploJS Discord community",
 		external: true,
 	},
-];
-
-const resources: ResourceLink[] = [
-	{
-		id: "type-driven-design-course",
-		title: "Type-Driven Design Course",
-		description: "Learn how types can carry design decisions.",
-		href: "https://github.com/mathcovax/type-driven-design-course/tree/main/course",
-		icon: "graduation",
-		ariaLabel: "Open the Type-Driven Design Course on GitHub",
-		external: true,
-	},
-	{
-		id: "duplojs-literature",
-		title: "DuploJS Literature",
-		description: "Read the architectural ideas behind the project.",
-		href: "https://github.com/ZeRiix/duplojs-literature/tree/main",
-		icon: "file",
-		ariaLabel: "Open DuploJS Literature on GitHub",
-		external: true,
-	},
-	{
-		id: "documentation",
-		title: "Documentation",
-		description: "Find package APIs and usage guides.",
-		href: "https://duplojs.dev",
-		icon: "book",
-		ariaLabel: "Open the DuploJS documentation",
-		external: true,
-	},
-	{
-		id: "examples",
-		title: "Examples",
-		description: "Inspect practical project structures.",
-		href: "/examples/layers/client/main",
-		icon: "blocks",
-		ariaLabel: "Open DuploJS examples",
-		external: false,
-	},
-	{
-		id: "github",
-		title: "GitHub",
-		description: "Explore the source, issues and roadmap.",
-		href: "https://github.com/duplojs/discover",
+	secondaryAction: {
+		label: "Follow on GitHub",
+		href: "https://github.com/duplojs",
+		variant: "secondary",
 		icon: "github",
-		ariaLabel: "Open the DuploJS GitHub repository",
+		ariaLabel: "Open the DuploJS GitHub organization",
 		external: true,
 	},
-	{
-		id: "discord",
-		title: "Discord",
-		description: "Ask questions and discuss implementation choices.",
-		href: "https://discord.gg/5d6Ze5Wuqm",
-		icon: "discord",
-		ariaLabel: "Join the DuploJS Discord community",
-		external: true,
+	featured: {
+		label: "YouTube",
+		title: "Follow DuploJS in video",
+		description: "Watch videos about TypeScript, backend architecture, DuploJS internals, and the ideas behind the ecosystem.",
+		href: "https://www.youtube.com/@duplojs",
+		ariaLabel: "Open DuploJS on YouTube",
 	},
-];
+	links: [
+		{
+			id: "linkedin",
+			label: "LinkedIn",
+			description: "Follow announcements, articles, and ecosystem updates.",
+			href: "https://www.linkedin.com/company/duplojs",
+			icon: "linkedin",
+			ariaLabel: "Open DuploJS on LinkedIn",
+			external: true,
+		},
+		{
+			id: "x",
+			label: "X",
+			description: "Follow quick updates, releases, and ongoing experiments.",
+			href: "https://x.com/duplojs",
+			icon: "x",
+			ariaLabel: "Open DuploJS on X",
+			external: true,
+		},
+		{
+			id: "reddit",
+			label: "Reddit",
+			description: "Start longer discussions, share feedback, and suggest ideas.",
+			href: "https://www.reddit.com/r/DuploJS/",
+			icon: "reddit",
+			ariaLabel: "Open the DuploJS subreddit",
+			external: true,
+		},
+		{
+			id: "twitch",
+			label: "Twitch",
+			description: "Follow live sessions around the development of the ecosystem.",
+			href: "https://www.twitch.tv/duplojs",
+			icon: "twitch",
+			ariaLabel: "Open DuploJS on Twitch",
+			external: true,
+		},
+	],
+} satisfies CommunitySection;
+
+const communityActions = [
+	communitySection.primaryAction,
+	communitySection.secondaryAction,
+] satisfies CommunityAction[];
 </script>
 
 <template>
@@ -108,29 +136,24 @@ const resources: ResourceLink[] = [
 				<p class="resources-community__eyebrow">
 					<span aria-hidden="true" />
 
-					RESOURCES &amp; COMMUNITY
+					{{ communitySection.eyebrow }}
 				</p>
 
 				<h2 class="resources-community__title">
-					Learn the ideas behind DuploJS
+					{{ communitySection.title }}
 				</h2>
 
-				<p class="resources-community__bridge">
-					DuploJS is not only a toolkit. It is a way to design TypeScript systems.
-				</p>
-
 				<p class="resources-community__intro">
-					After the packages and architecture, go deeper into the principles: contracts at boundaries, explicit flows and composable application design.
+					{{ communitySection.description }}
 				</p>
 
 				<div class="resources-community__principles">
-					<span>System design</span>
-
-					<span>Runtime boundaries</span>
-
-					<span>Typed contracts</span>
-
-					<span>Composable flows</span>
+					<span
+						v-for="tag in communitySection.tags"
+						:key="tag"
+					>
+						{{ tag }}
+					</span>
 				</div>
 
 				<div
@@ -138,7 +161,7 @@ const resources: ResourceLink[] = [
 					aria-label="Community links"
 				>
 					<a
-						v-for="link in communityLinks"
+						v-for="link in communityActions"
 						:key="link.label"
 						class="resources-community__cta"
 						:class="`resources-community__cta--${link.variant}`"
@@ -159,7 +182,7 @@ const resources: ResourceLink[] = [
 				</div>
 
 				<p class="resources-community__note">
-					Discuss patterns, implementation details and package evolution.
+					Open source channels for builders who want to follow, discuss and contribute.
 				</p>
 			</div>
 
@@ -167,37 +190,39 @@ const resources: ResourceLink[] = [
 				<a
 					id="youtube"
 					class="resources-community__video-card"
-					:href="youtubeHref"
-					aria-label="Watch advanced TypeScript content on YouTube"
+					:href="communitySection.featured.href"
+					target="_blank"
+					rel="noreferrer"
+					:aria-label="communitySection.featured.ariaLabel"
 				>
 					<div
 						class="resources-community__video-preview"
 						aria-hidden="true"
 					>
 						<div class="resources-community__video-code">
-							<span>type Intent&lt;T&gt; = Readonly&lt;T&gt;;</span>
+							<span>TypeScript-first backend architecture</span>
 
-							<span>const result = pipe(input, parse, match);</span>
+							<span>DuploJS internals and ecosystem ideas</span>
 
-							<span>return exhaustive(result);</span>
+							<span>Project videos, talks and design notes</span>
 						</div>
 
-						<span class="resources-community__youtube-badge">YouTube</span>
+						<span class="resources-community__youtube-badge">{{ communitySection.featured.label }}</span>
 
 						<span class="resources-community__play">
-							<MdiIcon :path="mdiPlay" />
+							<MdiIcon :path="resourceIconPaths.youtube" />
 						</span>
 					</div>
 
 					<div class="resources-community__video-copy">
 						<div>
-							<h3>Advanced TypeScript content</h3>
+							<h3>{{ communitySection.featured.title }}</h3>
 
-							<p>Videos about contracts, architecture and practical TypeScript design.</p>
+							<p>{{ communitySection.featured.description }}</p>
 						</div>
 
 						<span class="resources-community__video-action">
-							Watch on YouTube
+							Watch on {{ communitySection.featured.label }}
 
 							<MdiIcon :path="mdiOpenInNew" />
 						</span>
@@ -206,10 +231,10 @@ const resources: ResourceLink[] = [
 
 				<div
 					class="resources-community__grid"
-					aria-label="DuploJS resources"
+					aria-label="DuploJS community channels"
 				>
 					<a
-						v-for="resource in resources"
+						v-for="resource in communitySection.links"
 						:key="resource.id"
 						class="resources-community__resource-card"
 						:href="resource.href"
@@ -225,7 +250,7 @@ const resources: ResourceLink[] = [
 						</span>
 
 						<span class="resources-community__resource-copy">
-							<strong>{{ resource.title }}</strong>
+							<strong>{{ resource.label }}</strong>
 
 							<small>{{ resource.description }}</small>
 						</span>
@@ -357,15 +382,6 @@ const resources: ResourceLink[] = [
 	color: var(--color-text-secondary);
 	font-size: clamp(1.04rem, 0.98rem + 0.26vw, 1.18rem);
 	line-height: 1.62;
-}
-
-.resources-community__bridge {
-	max-width: 620px;
-	margin: 28px 0 0;
-	color: var(--color-text-primary);
-	font-weight: 720;
-	font-size: clamp(1.12rem, 1rem + 0.32vw, 1.32rem);
-	line-height: 1.5;
 }
 
 .resources-community__principles {
@@ -626,7 +642,6 @@ const resources: ResourceLink[] = [
 .resources-community__play svg {
 	width: 32px;
 	height: 32px;
-	margin-left: 4px;
 	fill: currentColor;
 }
 

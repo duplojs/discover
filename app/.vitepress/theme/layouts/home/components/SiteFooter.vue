@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import MdiIcon from "../../../components/MdiIcon.vue";
-import { mdiOpenInNew, socialIconPaths, type SocialIcon } from "../../../icons/mdi";
+import { mdiOpenInNew } from "../../../icons/mdi";
 
 interface FooterLink {
 	label: string;
@@ -13,105 +13,30 @@ interface FooterColumn {
 	links: FooterLink[];
 }
 
-interface SocialLink extends FooterLink {
-	icon: SocialIcon;
-	ariaLabel: string;
-}
-
 const currentYear = new Date().getFullYear();
-
-const githubHref = "https://github.com/duplojs/discover";
-const discordHref = "https://discord.gg/5d6Ze5Wuqm";
-const youtubeHref = "#youtube";
-const npmHref = "https://www.npmjs.com/org/duplojs";
-
-const socialLinks: SocialLink[] = [
-	{
-		label: "GitHub",
-		href: githubHref,
-		icon: "github",
-		ariaLabel: "Open DuploJS on GitHub",
-		external: true,
-	},
-	{
-		label: "Discord",
-		href: discordHref,
-		icon: "discord",
-		ariaLabel: "Join the DuploJS Discord community",
-		external: true,
-	},
-	{
-		label: "YouTube",
-		href: youtubeHref,
-		icon: "youtube",
-		ariaLabel: "Open DuploJS YouTube resources",
-	},
-];
 
 const footerColumns: FooterColumn[] = [
 	{
-		title: "Start",
+		title: "Maintainers",
 		links: [
 			{
-				label: "Documentation",
-				href: "https://duplojs.dev",
+				label: "Mathieu Campani",
+				href: "https://www.linkedin.com/in/mathieu-campani/",
 				external: true,
 			},
 			{
-				label: "Packages",
-				href: "#packages",
-			},
-			{
-				label: "npm organization",
-				href: npmHref,
+				label: "William",
+				href: "https://www.linkedin.com/in/wflorentin/",
 				external: true,
 			},
 		],
 	},
 	{
-		title: "Learn",
+		title: "Legal",
 		links: [
 			{
-				label: "Examples",
-				href: "/examples/layers/client/main",
-			},
-			{
-				label: "Type-Driven Design Course",
-				href: "https://github.com/mathcovax/type-driven-design-course/tree/main/course",
-				external: true,
-			},
-			{
-				label: "DuploJS Literature",
-				href: "https://github.com/ZeRiix/duplojs-literature/tree/main",
-				external: true,
-			},
-			{
-				label: "YouTube",
-				href: youtubeHref,
-			},
-		],
-	},
-	{
-		title: "Community",
-		links: [
-			{
-				label: "Discord",
-				href: discordHref,
-				external: true,
-			},
-			{
-				label: "GitHub",
-				href: githubHref,
-				external: true,
-			},
-			{
-				label: "Changelog",
-				href: `${githubHref}/releases`,
-				external: true,
-			},
-			{
-				label: "Contributing",
-				href: `${githubHref}/issues`,
+				label: "DuploJS French organization",
+				href: "https://annuaire-entreprises.data.gouv.fr/entreprise/duplojs-102440518",
 				external: true,
 			},
 		],
@@ -144,25 +69,8 @@ const footerColumns: FooterColumn[] = [
 				</p>
 
 				<p class="site-footer__subtext">
-					Documentation, examples and community links are gathered here.
+					Maintained by its founders and supported by a French legal organization.
 				</p>
-
-				<div
-					class="site-footer__socials"
-					aria-label="Social links"
-				>
-					<a
-						v-for="link in socialLinks"
-						:key="link.label"
-						class="site-footer__social"
-						:href="link.href"
-						:target="link.external ? '_blank' : undefined"
-						:rel="link.external ? 'noreferrer' : undefined"
-						:aria-label="link.ariaLabel"
-					>
-						<MdiIcon :path="socialIconPaths[link.icon]" />
-					</a>
-				</div>
 			</div>
 
 			<nav
@@ -236,7 +144,8 @@ const footerColumns: FooterColumn[] = [
 
 .site-footer__inner {
 	display: grid;
-	grid-template-columns: minmax(300px, 1.35fr) repeat(3, minmax(0, 1fr));
+	align-items: start;
+	grid-template-columns: minmax(300px, 1.35fr) repeat(2, minmax(180px, 0.5fr));
 	gap: clamp(32px, 4.8vw, 72px);
 	width: min(100%, 1480px);
 	margin: 0 auto;
@@ -282,46 +191,6 @@ const footerColumns: FooterColumn[] = [
 	color: var(--color-text-muted);
 	font-size: 0.95rem;
 	line-height: 1.6;
-}
-
-.site-footer__socials {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 10px;
-	margin-top: 26px;
-}
-
-.site-footer__social {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	width: 42px;
-	height: 42px;
-	border: 1px solid var(--color-border-subtle);
-	border-radius: 8px;
-	background: rgba(18, 22, 28, 0.58);
-	color: var(--color-text-secondary);
-	text-decoration: none;
-	transition:
-		background-color 160ms ease,
-		border-color 160ms ease,
-		color 160ms ease,
-		transform 160ms ease;
-}
-
-.site-footer__social:hover,
-.site-footer__social:focus-visible {
-	border-color: rgba(247, 203, 61, 0.36);
-	background: rgba(247, 203, 61, 0.08);
-	color: var(--color-brand-primary);
-	transform: translateY(-2px);
-}
-
-.site-footer__social svg {
-	width: 19px;
-	height: 19px;
-	fill: currentColor;
-	stroke: none;
 }
 
 .site-footer__columns {
@@ -392,7 +261,6 @@ const footerColumns: FooterColumn[] = [
 }
 
 .site-footer__brand:focus-visible,
-.site-footer__social:focus-visible,
 .site-footer__link:focus-visible {
 	outline: 2px solid rgba(247, 203, 61, 0.7);
 	outline-offset: 4px;
@@ -417,7 +285,6 @@ const footerColumns: FooterColumn[] = [
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.site-footer__social,
 	.site-footer__link,
 	.site-footer__link svg {
 		transition: none;
@@ -426,19 +293,18 @@ const footerColumns: FooterColumn[] = [
 
 @media (max-width: 1180px) {
 	.site-footer__inner {
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-	}
-
-	.site-footer__brand-column {
-		grid-column: 1 / -1;
-		max-width: 640px;
+		grid-template-columns: minmax(280px, 1.2fr) repeat(2, minmax(160px, 0.55fr));
 	}
 }
 
 @media (max-width: 820px) {
 	.site-footer__inner {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-columns: 1fr;
 		padding-top: 58px;
+	}
+
+	.site-footer__brand-column {
+		max-width: 640px;
 	}
 
 	.site-footer__bottom {
