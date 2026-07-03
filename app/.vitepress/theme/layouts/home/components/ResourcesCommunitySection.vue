@@ -91,7 +91,7 @@ const communitySection = {
 			label: "X",
 			description: "Follow quick updates, releases, and ongoing experiments.",
 			href: "https://x.com/duplojs",
-			icon: "x",
+			icon: "_x",
 			ariaLabel: "Open DuploJS on X",
 			external: true,
 		},

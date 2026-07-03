@@ -32,7 +32,7 @@ export const resourceIconPaths = {
 	linkedin: mdiLinkedin,
 	reddit: mdiReddit,
 	twitch: mdiTwitch,
-	x: mdiAlphaX,
+	_x: mdiAlphaX,
 	youtube: mdiYoutube,
 } as const;
 

@@ -31,7 +31,7 @@ const chips = [
 				<div class="hero-section__actions">
 					<a
 						class="hero-section__action hero-section__action--primary"
-						href="#get-started"
+						href="/en/getStarted"
 					>
 						Get started
 					</a>

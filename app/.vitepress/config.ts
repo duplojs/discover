@@ -63,8 +63,10 @@ export default pipe(
 				},
 			],
 		],
+		srcExclude: ["app/examples/**"],
 		themeConfig: {
 			logo: "/images/logo.png",
+			logoLink: "/",
 			wip: {
 				title: "WIP",
 				button: "Request this page",
@@ -74,15 +76,8 @@ export default pipe(
 					icon: {
 						svg: mdiSocialIconSvgs.github,
 					},
-					link: "https://github.com/duplojs/discover",
+					link: "https://github.com/duplojs",
 					ariaLabel: "GitHub",
-				},
-				{
-					icon: {
-						svg: mdiSocialIconSvgs.npm,
-					},
-					link: "https://www.npmjs.com/package/@duplojs/discover",
-					ariaLabel: "npm",
 				},
 				{
 					icon: {
