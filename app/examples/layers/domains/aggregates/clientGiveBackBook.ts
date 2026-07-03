@@ -1,5 +1,5 @@
-import { Book, Client } from "@domains/entities";
 import { type C, O, pipe, E } from "@duplojs/utils";
+import { Book, Client } from "@domains/entities";
 import type { clientHaveBook } from "./clientHaveBook";
 
 export function clientGiveBackBook(

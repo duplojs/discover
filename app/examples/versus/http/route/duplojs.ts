@@ -17,6 +17,7 @@ useRouteBuilder("POST", "/users/{userId}/posts")
 	.handler(
 		ResponseContract.noContent("post.created"),
 		async({ userId, body }, { response }) => {
+			// You can access the body only after verification.
 			await createPost(userId, body);
 
 			return response("post.created");

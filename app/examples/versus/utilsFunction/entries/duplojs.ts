@@ -12,5 +12,6 @@ const input: Input = {
 
 const entries = O.entries(input);
 
+// 💦
 void entries;
 //   ^?

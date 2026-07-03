@@ -26,7 +26,7 @@
     "@duplojs/eslint": "0.5.0",
     "@duplojs/form": "0.2.0",
     "@duplojs/http": "0.13.2",
-    "@duplojs/json-web-token": "0.2.0",
+    "@duplojs/json-web-token": "0.3.0",
     "@duplojs/playwright": "0.2.0",
     "@duplojs/server-utils": "0.4.2",
     "@duplojs/utils": "1.10.3",
@@ -65,5 +65,9 @@
   ],
   "engines": {
     "node": ">=22.15.1"
+  },
+  "dependencies": {
+    "@lucide/vue": "^1.23.0",
+    "@mdi/js": "^7.4.47"
   }
 }

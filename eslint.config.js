@@ -91,6 +91,7 @@ export default [
 			"no-nested-ternary": "off",
 			"@stylistic/js/line-comment-position": "off",
 			"@typescript-eslint/consistent-type-definitions": "off",
+			"arrow-body-style": "off",
 		},
 		files: ["app/examples/**/*.ts"],
 	},

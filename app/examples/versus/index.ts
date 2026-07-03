@@ -11,6 +11,7 @@ import EitherFileO from "@/examples/versus/either/file/other.md";
 import EitherJwtD from "@/examples/versus/either/jwt/duplojs.md";
 import EitherJwtO from "@/examples/versus/either/jwt/other.md";
 import FormD from "@/examples/versus/form/duplojs.md";
+import FormCFD from "@/examples/versus/form/duplojsConfigForm.md";
 import FormO from "@/examples/versus/form/other.md";
 import HttpClientD from "@/examples/versus/http/client/duplojs.md";
 import HttpClientO from "@/examples/versus/http/client/other.md";
@@ -41,6 +42,7 @@ export {
 	EitherJwtD,
 	EitherJwtO,
 	FormD,
+	FormCFD,
 	FormO,
 	HttpClientD,
 	HttpClientO,

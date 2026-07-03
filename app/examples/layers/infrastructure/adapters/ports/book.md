@@ -1,3 +1,3 @@
 ```ts
-<!--@include: @/examples/layers/infrastructure/adapters/repositories/book.ts-->
+<!--@include: @/examples/layers/infrastructure/adapters/ports/book.ts-->
 ```

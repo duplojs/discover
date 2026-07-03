@@ -10,5 +10,6 @@ const input: Input = {
 
 const entries = Object.entries(input);
 
+// It's not wrong, but it's crap.
 void entries;
 //   ^?

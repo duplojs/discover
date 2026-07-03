@@ -5,9 +5,17 @@ import { groupIconMdPlugin, groupIconVitePlugin } from "vitepress-plugin-group-i
 import { Path, pipe } from "@duplojs/utils";
 import { withMermaid } from "vitepress-plugin-mermaid";
 import tailwindcss from "@tailwindcss/vite";
+import { mdiSocialIconSvgs } from "./theme/icons/mdi";
 
 const hostname = "https://duplojs.dev";
 const ogImage = new URL("/images/ogImage.png", hostname).toString();
+
+interface ThemeConfig extends DefaultTheme.Config {
+	wip?: {
+		title: string;
+		button: string;
+	};
+}
 
 export default pipe(
 	{
@@ -63,20 +71,32 @@ export default pipe(
 			},
 			socialLinks: [
 				{
-					icon: "github",
+					icon: {
+						svg: mdiSocialIconSvgs.github,
+					},
 					link: "https://github.com/duplojs/discover",
+					ariaLabel: "GitHub",
 				},
 				{
-					icon: "npm",
+					icon: {
+						svg: mdiSocialIconSvgs.npm,
+					},
 					link: "https://www.npmjs.com/package/@duplojs/discover",
+					ariaLabel: "npm",
 				},
 				{
-					icon: "linkedin",
+					icon: {
+						svg: mdiSocialIconSvgs.linkedin,
+					},
 					link: "https://linkedin.com/company/duplojs",
+					ariaLabel: "LinkedIn",
 				},
 				{
-					icon: "discord",
+					icon: {
+						svg: mdiSocialIconSvgs.discord,
+					},
 					link: "https://discord.gg/5d6Ze5Wuqm",
+					ariaLabel: "Discord",
 				},
 			],
 			search: {
@@ -84,6 +104,10 @@ export default pipe(
 			},
 		},
 		markdown: {
+			theme: {
+				light: "github-dark",
+				dark: "github-dark",
+			},
 			config: (md) => {
 				md.use(groupIconMdPlugin);
 			},
@@ -172,7 +196,7 @@ export default pipe(
 				},
 			},
 		},
-	} satisfies UserConfig<DefaultTheme.Config>,
+	} satisfies UserConfig<ThemeConfig>,
 	defineConfig,
 	withMermaid,
 );

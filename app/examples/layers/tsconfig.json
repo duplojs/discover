@@ -9,6 +9,7 @@
       "@domains/repositories": ["./domains/repositories/index.ts"],
       "@applications/ports": ["applications/ports/index.ts"],
       "@applications/useCase": ["./applications/useCases/index.ts"],
+      "@infrastructure/*": ["infrastructure/*"],
     }
   },
   "include": ["../../.vitepress/env.d.ts", "**/*.ts"],
