@@ -19,9 +19,7 @@ const chips = [
 				</p>
 
 				<h1 class="hero-section__title">
-					<span>Build robust and</span>
-
-					<span>predictable software</span>
+					Build robust and predictable software
 				</h1>
 
 				<p class="hero-section__description">

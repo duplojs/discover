@@ -25,7 +25,7 @@ const footerColumns: FooterColumn[] = [
 				external: true,
 			},
 			{
-				label: "William",
+				label: "William Florentin",
 				href: "https://www.linkedin.com/in/wflorentin/",
 				external: true,
 			},

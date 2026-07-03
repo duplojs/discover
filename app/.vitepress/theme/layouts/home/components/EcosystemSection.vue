@@ -152,9 +152,7 @@ onBeforeUnmount(() => {
 				</p>
 
 				<h2 class="ecosystem-section__title">
-					<span>Many packages.</span>
-
-					<span>Only one way to do it.</span>
+					Many packages. Only one way to do it.
 				</h2>
 
 				<p class="ecosystem-section__description">

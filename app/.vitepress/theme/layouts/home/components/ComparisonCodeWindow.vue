@@ -353,6 +353,7 @@ function selectFile(fileIndex: number) {
 	.comparison-code-window__code {
 		min-height: 250px;
 		font-size: 0.84rem;
+		zoom: 0.8;
 	}
 
 	.comparison-code-window__markdown :deep(pre) {

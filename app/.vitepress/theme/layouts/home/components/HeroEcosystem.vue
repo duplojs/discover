@@ -665,51 +665,6 @@ const ecosystemPackages = [
 	transform: translate(-50%, -50%);
 }
 
-@media (max-width: 1500px) {
-	.hero-ecosystem {
-		width: min(660px, 100%);
-		height: 500px;
-	}
-
-	.hero-ecosystem__core {
-		width: 184px;
-		min-height: 124px;
-		padding: 17px 14px;
-	}
-
-	.hero-ecosystem__core-icon {
-		width: 34px;
-		height: 34px;
-	}
-
-	.hero-ecosystem__module {
-		width: 238px;
-		min-height: 74px;
-		padding: 13px 14px;
-	}
-
-	.hero-ecosystem__module-text strong {
-		font-size: 0.75rem;
-	}
-
-	.hero-ecosystem__module-text span {
-		font-size: 0.76rem;
-	}
-
-	.hero-ecosystem__module--server,
-	.hero-ecosystem__module--jwt {
-		width: 260px;
-	}
-
-	.hero-ecosystem__module--http {
-		left: 89%;
-	}
-
-	.hero-ecosystem__module--playwright {
-		left: 11%;
-	}
-}
-
 @media (max-width: 1120px) {
 	.hero-ecosystem {
 		width: min(820px, 100%);

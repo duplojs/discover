@@ -818,11 +818,11 @@ function selectFile(fileIndex: number) {
 }
 
 .clean-code-layers__viewer-top {
-	display: grid;
-	grid-template-columns: auto minmax(0, 1fr) auto;
+	display: flex;
 	align-items: center;
 	gap: 18px;
-	min-height: 64px;
+	overflow: hidden;
+	min-height: 46px;
 	padding: 0 22px;
 	border-bottom: 1px solid var(--color-border-subtle);
 	background: rgba(5, 6, 8, 0.48);
@@ -866,6 +866,7 @@ function selectFile(fileIndex: number) {
 .clean-code-layers__viewer-badge {
 	display: inline-flex;
 	align-items: center;
+	margin-left: auto;
 	gap: 8px;
 	min-height: 30px;
 	padding: 0 12px;
@@ -1006,7 +1007,7 @@ function selectFile(fileIndex: number) {
 	}
 
 	.clean-code-layers__viewer {
-		height: 600px;
+		max-height: 800px;
 		margin-top: 0;
 	}
 
@@ -1106,19 +1107,6 @@ function selectFile(fileIndex: number) {
 	.clean-code-layers__viewer {
 		border-radius: 14px;
 		max-width: none;
-		height: 520px;
-	}
-
-	.clean-code-layers__viewer-top {
-		grid-template-columns: auto minmax(0, 1fr);
-		gap: 14px;
-		padding: 0 16px;
-	}
-
-	.clean-code-layers__viewer-badge {
-		grid-column: 1 / -1;
-		width: max-content;
-		margin-bottom: 14px;
 	}
 
 	.clean-code-layers__tab {
@@ -1129,6 +1117,10 @@ function selectFile(fileIndex: number) {
 
 	.clean-code-layers__code {
 		font-size: 0.9rem;
+	}
+
+	.code-example-content {
+		zoom: 0.8;
 	}
 }
 

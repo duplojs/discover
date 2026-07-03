@@ -517,25 +517,27 @@ const layers = [
 	line-height: 1.28;
 }
 
+@media (max-width: 1520px) {
+	.architecture-bridge__inner {
+		display: block;
+		min-height: 0;
+	}
+
+	.architecture-bridge__transform,
+	.architecture-bridge__layers {
+		display: none;
+	}
+}
+
 @media (max-width: 1080px) {
 	.architecture-bridge {
 		padding-top: 62px;
 		padding-bottom: 62px;
 	}
 
-	.architecture-bridge__inner {
-		display: block;
-		min-height: 0;
-	}
-
 	.architecture-bridge__copy {
 		max-width: 640px;
 		margin: 0 auto;
-	}
-
-	.architecture-bridge__transform,
-	.architecture-bridge__layers {
-		display: none;
 	}
 }
 
